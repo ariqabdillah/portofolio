@@ -1140,7 +1140,7 @@
             </button>
             <figcaption class="text-[11px] text-slate-400 mt-1.5">${data.coverCaption}</figcaption>
           </figure>
-          <div class="flex gap-3 overflow-x-auto pb-2">
+          <div class="flex items-start gap-3 overflow-x-auto pb-2">
             ${data.gallery.map(g => `<button type="button" class="shrink-0 w-32 sm:w-36 text-left" data-src="${g.src}" data-cap="${g.cap}" onclick="openGallery(this.dataset.src, this.dataset.cap)">
               <img src="${g.src}" alt="${g.cap}" loading="lazy" class="w-full rounded-lg border border-console-border">
               <span class="text-[11px] text-slate-300 block mt-1.5 leading-snug">${g.cap}</span>
