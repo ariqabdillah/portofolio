@@ -325,9 +325,9 @@
               <span class="text-xs font-mono text-slate-400">Portfolio Case Study</span>
               <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400"></i>
             </div>
-            <div class="text-2xl sm:text-3xl font-black text-white font-mono">92.6%</div>
-            <p class="text-xs text-slate-300 font-medium mt-1">Recall at 0.3 Threshold</p>
-            <p class="text-[10px] text-slate-400">Credit Default Risk Model</p>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono">3.6x</div>
+            <p class="text-xs text-slate-300 font-medium mt-1">Higher Default Rate</p>
+            <p class="text-[10px] text-slate-400">High-Risk vs Other Customers</p>
           </div>
 
           <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
@@ -337,7 +337,7 @@
             </div>
             <div class="text-2xl sm:text-3xl font-black text-white font-mono">Selected</div>
             <p class="text-xs text-slate-300 font-medium mt-1">Internship Presenter</p>
-            <p class="text-[10px] text-slate-400">To OCA Data Team Leader</p>
+            <p class="text-[10px] text-slate-400">To Telkom Head of Analytics</p>
           </div>
 
         </div>
@@ -425,11 +425,11 @@
 
           <!-- Project Selectors Pills -->
           <div class="flex flex-wrap gap-1.5 p-1 rounded-lg bg-console-card border border-console-border text-xs">
-            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn active-project-btn px-3 py-1.5 rounded-md text-slate-300 font-semibold border border-transparent transition-all">
-              1. OCA BI
+            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn active-project-btn px-3 py-1.5 rounded-md text-slate-300 font-semibold border border-transparent transition-all">
+              1. OCA Segmentation
             </button>
-            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              2. OCA Segmentation
+            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              2. OCA Dashboard
             </button>
             <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
               3. RevoBank
@@ -506,9 +506,9 @@
 
             <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside leading-relaxed">
               <li><strong>ETL & Data Cleaning:</strong> Cleaned, normalized, and unified 122,749 transaction records across 4 communication channels (WhatsApp, SMS, Email, Call) for 20 corporate enterprise accounts using SQL in Google BigQuery.</li>
-              <li><strong>Unified BI Dashboarding:</strong> Built an interactive Tableau Public dashboard monitoring revenue KPIs, monthly messaging trends, operational peak hours, and delivery failure anomalies.</li>
+              <li><strong>Unified BI Dashboarding:</strong> Built an interactive Tableau Public dashboard to monitor revenue, monthly trends, peak hours, delivery, engagement, and client risk.</li>
               <li><strong>Pareto Customer Segmentation:</strong> Performed enterprise client segmentation in Python, revealing that 3 power accounts (15%) generated 59.8% of total revenue in the dataset (IDR 16.5 million of IDR 27.6 million).</li>
-              <li><strong>Selected Presenter:</strong> One of the participants selected to present the 90-day client strategy (Protect, Strengthen, Grow, Expand) to OCA Indonesia's data analyst team leader.</li>
+              <li><strong>Selected Presenter:</strong> One of the participants selected to present the 90-day client strategy (Protect, Strengthen, Grow, Expand) to the Head of Analytics at Telkom Indonesia via Zoom.</li>
             </ul>
           </div>
 
@@ -844,98 +844,100 @@
     const projectCatalog = {
       creditech: {
         title: "Credit Card Default Risk Analysis",
-        subtitle: "Portfolio case study • Early risk signals from payment behavior",
+        subtitle: "RevoU portfolio project • Public UCI dataset (Taiwan, 2005)",
         badge: "Case Study • Credit Risk Analysis",
-        summary: "Analyzed a dataset of 30,000 credit card accounts with an aggregate default rate of 22.1%. Tested monthly payment delinquency as an early indicator of financial distress and tuned model thresholds to capture credit default risks earlier.",
+        summary: "Analyzed 30,000 credit card clients with a 22.1% default rate, built 4 payment behavior segments, and used Logistic Regression to support the findings. The model is for interpretation, not deployment.",
         metrics: [
-          { label: "Portfolio Size", val: "30,000 Accounts" },
+          { label: "Dataset Size", val: "30,000 Clients" },
           { label: "Default Rate", val: "22.1%" },
           { label: "High-Risk vs Others", val: "60% vs 17%" },
-          { label: "Recall at 0.3 Threshold", val: "92.6%" }
+          { label: "ROC-AUC", val: "0.695" }
         ],
         insights: [
           "<strong>First-Month Delinquency Spike (PAY_0):</strong> Default rate surges from 13.8% (on-time payers) to 33.9% with just 1 month delay, and escalates to 69.1% at 2 months delay.",
           "<strong>Low Credit Limit Paradox:</strong> The Severely Late segment had the lowest credit limits and the highest default rate (63%), suggesting that limit restrictions alone may not reduce credit risk.",
-          "<strong>Recall-Oriented Threshold Tuning:</strong> Lowering classification threshold to 0.3 captured 92.6% of potential defaults, justified by the asymmetric cost of default versus downstream review cost."
+          "<strong>Threshold Trade-Off:</strong> At 0.5, the model caught 52% of defaults with 50% precision. At 0.3, recall rose to 92.6%, but precision fell to 23.1% and about 89% of test clients were flagged."
         ],
         actions: [
           "Use the latest monthly payment status (PAY_0) as an automated monthly risk screening trigger.",
-          "Apply sensitive threshold (0.3) for early-stage screening prior to formal debt collection escalation.",
-          "Implement staged customer interventions (automated reminders days 1–5, dynamic limit adjustments)."
+          "Choose the screening threshold based on review capacity, because lower thresholds flag many more clients.",
+          "Apply risk-based interventions such as reminders, limit reviews, and proactive follow-up."
         ],
         links: {
           deck: "https://drive.google.com/file/d/1cyK1Q-I0HNOOhUALan1s9CO3et8lJgAC/view?usp=sharing",
-          tableau: "https://public.tableau.com/app/profile/ariq.abdillah/viz/CreditCardDefaultRiskOverview/Dashboard1",
-          colab: "https://colab.research.google.com/drive/17NomEylNVC-HAy9f2hK4RvsAhV6Vw5vw?usp=sharing"
+          tableau: "https://public.tableau.com/views/CreditCardDefaultRiskOverview/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
+          colab: "https://colab.research.google.com/drive/17NomEylNVC-HAy9f2hK4RvsAhV6Vw5vw",
+          dataset: "https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients"
         }
       },
       ocaperformance: {
         title: "OCA Messaging Performance Dashboard",
-        subtitle: "RevoU x Telkom Indonesia virtual internship project",
+        subtitle: "RevoU x Telkom Indonesia virtual internship project • Data adjusted for educational purposes",
         badge: "Business Intelligence • SQL BigQuery & Tableau",
-        summary: "Built a Tableau dashboard from 122,749 cross-channel communication records (WhatsApp, SMS, Email, Call) across 20 corporate clients.",
+        summary: "Combined 122,749 records from WhatsApp, SMS, Email, and Call with SQL in BigQuery, then built one Tableau dashboard to monitor revenue, delivery, engagement, and client risk for 20 corporate clients.",
         metrics: [
-          { label: "Total Transactions", val: "122,749 Records" },
+          { label: "Total Transactions", val: "122,749" },
           { label: "Total Revenue", val: "IDR 27.6 million" },
           { label: "Delivery Success", val: "79.5%" },
           { label: "Customer Engagement", val: "38.38%" }
         ],
         insights: [
-          "<strong>Downward Trend in Messaging Volume:</strong> Total monthly volume contracted from 49.5K (January) to 35.5K (March).",
-          "<strong>WhatsApp as Revenue Backbone:</strong> Generated the highest share of revenue (IDR 11.9 million) and the strongest user engagement rate (51.1%).",
-          "<strong>Severe 60% Drop in Email Traffic:</strong> Slashed from 20K to 8K messages, signaling potential deliverability issues or client campaign fatigue.",
-          "<strong>SMS Reliability Paradox:</strong> Delivered exceptional transmission reliability (99.7% success rate), but real audience engagement remained near 0.0%."
+          "<strong>Email Drove the Decline:</strong> Monthly volume fell from 49.5K to 35.5K. Email dropped from 20K to 8K, which explains about 86% of the total decline.",
+          "<strong>Delivery Does Not Equal Engagement:</strong> Overall success was 79.5%, but engagement was 38.38%. SMS reached 99.7% delivery success with 0.0% recorded engagement.",
+          "<strong>Revenue Sits on Two Channels:</strong> WhatsApp (IDR 11.9 million) and SMS (IDR 11.8 million) generate about 86% of revenue, while WhatsApp leads engagement at 51.1%.",
+          "<strong>Early Client Risk:</strong> The risk table flagged 5 clients with activity down 23.5% to 36.1%, including one of the top 3 revenue clients."
         ],
         actions: [
-          "Prioritize WhatsApp SLA uptime and upsell high-value bundled packages (WhatsApp + Email).",
-          "Deploy automated daily traffic anomaly alerts to proactively prevent corporate client churn.",
-          "Shift campaign performance evaluation to verified engagement metrics (read/click) rather than raw delivery status."
+          "Keep WhatsApp as the main engagement channel while diversifying channel usage to reduce dependency.",
+          "Improve Email campaigns through audience segmentation, content optimization, and delivery checks.",
+          "Monitor churn risk using activity and engagement decline, not delivery success alone."
         ],
         links: {
           deck: "https://drive.google.com/file/d/1b7DI5G4avmBN1Id63dYwmBjM1i0JluKj/view?usp=sharing",
-          tableau: "https://public.tableau.com/app/profile/ariq.abdillah/viz/OCAMessagingPerformanceDashboard_17789157910270/OCAMessagingPerformanceDashboard?publish=yes"
+          tableau: "https://public.tableau.com/views/OCAMessagingPerformanceDashboard_17789157910270/OCAMessagingPerformanceDashboard?:language=en-US&:display_count=n&:origin=viz_share_link"
         }
       },
       ocasegmentation: {
         title: "User Behavior & Client Segmentation Analysis",
-        subtitle: "RevoU x Telkom Indonesia virtual internship project",
+        subtitle: "RevoU x Telkom Indonesia virtual internship project • Data adjusted for educational purposes",
         badge: "Client Segmentation • Selected Presenter",
-        summary: "Segmented 20 corporate clients with transparent rule-based personas for sales and customer success teams. Selected to present the findings to OCA Indonesia's data analyst team leader.",
+        summary: "Grouped 20 corporate clients into 3 rule-based segments using 122,749 transactions from a 3-month period, then built a 90-day retention and growth plan. Selected to present the findings to the Head of Analytics at Telkom Indonesia.",
         metrics: [
           { label: "Power Users", val: "3 Clients (15%)" },
           { label: "Revenue Share", val: "59.8% (IDR 16.5 million)" },
-          { label: "Top Verticals", val: "Travel, Finance, Real Estate" },
-          { label: "Peak Operating Hours", val: "08:00 - 17:00 WIB" }
+          { label: "Top Channel", val: "WhatsApp (40.7%)" },
+          { label: "Peak Hours", val: "08:00 - 17:00" }
         ],
         insights: [
-          "<strong>Extreme Pareto Concentration:</strong> Top 3 Power Users contribute nearly 60% of total revenue in the dataset (IDR 16.5 million).",
+          "<strong>Revenue Concentration Risk:</strong> The top 3 clients generate 59.8% of revenue (IDR 16.5 million) and 60% of transactions, so losing one could significantly affect performance.",
           "<strong>3 B2B Client Personas:</strong> Power Users (>20K tx, avg. revenue IDR 5.5 million), Active Users (6K–20K tx), and Regular Users (<6K tx).",
-          "<strong>Sector Product-Market Fit:</strong> Travel (IDR 5.90 million), Finance (IDR 5.87 million), and Real Estate (IDR 5.83 million) represent the core revenue pillars.",
-          "<strong>Strict B2B Operating Patterns:</strong> Messaging volume peaks sharply during standard business hours (08:00–17:00) and drops post-18:00."
+          "<strong>Top Industries:</strong> Travel (IDR 5.90 million), Finance (IDR 5.87 million), and Real Estate (IDR 5.83 million) represent the core revenue pillars.",
+          "<strong>Strict B2B Operating Patterns:</strong> Messaging volume peaks sharply during standard business hours (08:00–17:00) and drops post-18:00.",
+          "<strong>Why Rule-Based Segmentation:</strong> With only 20 clients and clear gaps in transaction volume, simple rules were easier to explain and apply than a complex model."
         ],
         actions: [
-          "<strong>Protect (Days 0–30):</strong> Establish VIP account retention programs (Dedicated Account Manager, Service Recovery SLA, QBR).",
-          "<strong>Strengthen & Grow (Days 31–60):</strong> Roll out tiered volume discount incentives to graduate Active Users into Power Users.",
-          "<strong>Expand (Days 61–90):</strong> Launch targeted client acquisition campaigns focused specifically on Travel, Finance, and Real Estate."
+          "<strong>Protect & Strengthen (Days 0–30):</strong> Set up account managers, quarterly reviews, SLAs, and service recovery for Power Users, and design WhatsApp + Email bundles.",
+          "<strong>Grow (Days 31–60):</strong> Launch tiered transaction incentives and success stories for Active Users, plus onboarding and training for Regular Users.",
+          "<strong>Expand (Days 61–90):</strong> Target Travel, Finance, and Real Estate clients with industry-specific campaigns, and monitor results.",
         ],
         links: {
           deck: "https://drive.google.com/file/d/1bj9umCi5XtQB0KiNcbp0wrUbu8CrbmGE/view?usp=sharing",
-          colab: "https://colab.research.google.com/drive/1H-q33IsDbBMR0wqUdxXMxblaeOX0O0Bu?usp=sharing"
+          colab: "https://colab.research.google.com/drive/1H-q33IsDbBMR0wqUdxXMxblaeOX0O0Bu"
         }
       },
       revobank: {
         title: "RevoBank Credit Card Customer Segmentation",
         subtitle: "Portfolio case study • K-Means customer segmentation",
         badge: "Case Study • K-Means Clustering",
-        summary: "End-to-end data science lifecycle: banking data cleaning, feature engineering on DTI & age, MDR revenue margin (1.5%) vs fraud loss analysis (IDR 101.3 billion), and 4 distinct customer personas formed via K-Means clustering.",
+        summary: "Cleaned and merged card and user data, analyzed 6 months of transactions, compared MDR income with fraud losses, and grouped customers into 4 K-Means segments to support transaction growth.",
         metrics: [
           { label: "Behavior Window", val: "Last 6 Months" },
-          { label: "Net MDR Profit", val: "IDR 584.3 Billion" },
-          { label: "Fraud Losses", val: "IDR 101.3 Billion" },
-          { label: "K-Means Clusters", val: "k = 4 Personas" }
+          { label: "Net Profit (6M)", val: "IDR 5.83 Billion" },
+          { label: "Fraud Losses (6M)", val: "IDR 1.01 Billion" },
+          { label: "Silhouette (k = 4)", val: "0.467" }
         ],
         insights: [
-          "<strong>Asymmetric Fraud Impact:</strong> Although fraud represents only 0.22% of total transaction volume, it wipes out 14.8% of gross MDR fee earnings.",
+          "<strong>Fraud Impact:</strong> Fraud is only about 0.22% of transaction value, but it equals about 14.8% of MDR income because the full fraud amount is treated as a loss.",
           "<strong>Feature Separation & Risk Guardrails:</strong> Clustering was based only on spend volume, transaction count, and credit limit; debt-to-income (DTI) was established as an external post-clustering risk filter.",
           "<strong>Persona 1 (High-Value Spenders):</strong> Highest 6-month spend (avg. IDR 791.4 million) and most frequent transactions (1,025x).",
           "<strong>Persona 2 (High-Capacity Growers):</strong> Highest credit limit headroom (avg. IDR 260.9 million) with substantial untapped transaction potential."
@@ -1034,6 +1036,15 @@
           </a>
         `;
       }
+      if (data.links.dataset) {
+        linksHtml += `
+          <a href="${data.links.dataset}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+            <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Dataset</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+          </a>
+        `;
+      }
       if (data.links.pitchVideo) {
         linksHtml += `
           <button onclick="document.getElementById('pitchModal').classList.remove('hidden')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
@@ -1100,7 +1111,7 @@
     }
 
     // Default project on load
-    selectProject('ocaperformance');
+    selectProject('ocasegmentation');
 
     // Clipboard Copy Helper
     function copyEmailToClipboard() {
