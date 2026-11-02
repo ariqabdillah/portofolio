@@ -971,9 +971,9 @@
       },
       payroll: {
         title: "Weekly Payroll System for Daily Workers",
-        subtitle: "Personal project • Google Sheets, Apps Script, mobile web app • Pilot with 1 field admin",
+        subtitle: "Personal project • Google Sheets, Apps Script, mobile web app • Pilot with a project admin and foreman",
         badge: "Process Improvement • Live Pilot",
-        summary: "Built a mobile web app to handle attendance, overtime, cash advances, and weekly pay in one place. It replaces a manual Excel recap that had formula errors, counted half days as full pay, and had to be filled in on a laptop.",
+        summary: "Built a mobile web app to handle attendance, overtime, cash advances, and weekly pay in one place. It replaces a manual Excel recap that had formula errors, counted half days as full pay, and was hard to use from a phone.",
         cover: "payroll-cover.jpg",
         coverCaption: "Simulated data. One half day equals 6 paid hours.",
         gallery: [
@@ -986,7 +986,7 @@
         insightsTitle: "Key Features & Safeguards",
         actionsTitle: "Result & Next Steps",
         metrics: [
-          { label: "Current Users", val: "1 Field Admin" },
+          { label: "Current Users", val: "Admin & Foreman" },
           { label: "Pilot Started", val: "Oct 2026" },
           { label: "Access", val: "Mobile Web App" },
           { label: "Tech Stack", val: "Apps Script + Sheets" }
@@ -998,8 +998,8 @@
           "<strong>Role-Based PIN Access:</strong> Separates field users from the owner, who manages workers and settings."
         ],
         actions: [
-          "Moved data entry to a phone so a field admin can record work on site.",
-          "Improved the system from Google Sheets to Google Form to web app based on real use and user feedback.",
+          "Moved data entry to a phone so the project admin and foreman can record work on site.",
+          "Improved the system from Google Sheets to Google Form to web app through my own testing and admin feedback.",
           "Calculated results matched an earlier manual payroll report, and each change must pass 17 automated pay-rule checks. Next: measure time saved and error reduction."
         ],
         links: {}
@@ -1034,7 +1034,7 @@
         ],
         actions: [
           "Moved petty cash records to a phone so a project admin can record transactions on site.",
-          "Pilot started in November 2026, and user feedback is still being collected.",
+          "Pilot started in November 2026. Revisions so far came from my own testing, and the admin has not reported any issues.",
           "Core calculations passed 37 automated checks. Next: complete the first monthly report cycle and measure reporting time."
         ],
         links: {}
@@ -1190,10 +1190,12 @@
 
     // Language Switcher (English / Bahasa Indonesia)
     const I18N_ID = {
+"Admin & Foreman": "Admin & Mandor",
+"Personal project • Google Sheets, Apps Script, mobile web app • Pilot with a project admin and foreman": "Proyek pribadi • Google Sheets, Apps Script, web app HP • Uji coba oleh admin proyek dan mandor",
 "3. Payroll System": "3. Sistem Gaji",
 "4. Petty Cash System": "4. Sistem Petty Cash",
 "Weekly Payroll System for Daily Workers": "Sistem Gaji Mingguan Pekerja Harian",
-"Built a mobile web app to handle attendance, overtime, cash advances, and weekly pay in one place. It replaces a manual Excel recap that had formula errors, counted half days as full pay, and had to be filled in on a laptop.": "Membangun web app HP untuk mengelola absen, lembur, kasbon, dan gaji mingguan dalam satu tempat. Sistem ini menggantikan rekap Excel manual yang rumusnya banyak salah, menghitung setengah hari sebagai gaji penuh, dan harus diisi lewat laptop.",
+"Built a mobile web app to handle attendance, overtime, cash advances, and weekly pay in one place. It replaces a manual Excel recap that had formula errors, counted half days as full pay, and was hard to use from a phone.": "Membangun web app HP untuk mengelola absen, lembur, kasbon, dan gaji mingguan dalam satu tempat. Sistem ini menggantikan rekap Excel manual yang rumusnya banyak salah, menghitung setengah hari sebagai gaji penuh, dan sulit dipakai dari HP.",
 "Simulated data. One half day equals 6 paid hours.": "Data simulasi. Setengah hari dihitung 6 jam kerja.",
 "Weekly report": "Laporan mingguan",
 "Pay summary": "Ringkasan gaji",
@@ -1210,7 +1212,7 @@
 "Reports & Sharing:": "Laporan & Pengiriman:",
 "Creates PDF reports, sends selected pay details to WhatsApp, and emails daily attendance images and reminders.": "Membuat laporan PDF, mengirim rincian gaji pilihan ke WhatsApp, serta mengirim gambar absen harian dan pengingat lewat email.",
 "Separates field users from the owner, who manages workers and settings.": "Memisahkan pengguna lapangan dan pemilik, yang mengelola pekerja dan pengaturan.",
-"Moved data entry to a phone so a field admin can record work on site.": "Pengisian data dipindahkan ke HP agar admin lapangan bisa mencatat langsung di lokasi.",
+"Moved data entry to a phone so the project admin and foreman can record work on site.": "Pengisian data dipindahkan ke HP agar admin proyek dan mandor bisa mencatat langsung di lokasi.",
 "Calculated results matched an earlier manual payroll report, and each change must pass 17 automated pay-rule checks. Next: measure time saved and error reduction.": "Hasil hitungan cocok dengan laporan gaji manual sebelumnya, dan setiap perubahan harus lolos 17 uji aturan gaji otomatis. Berikutnya: mengukur waktu yang dihemat dan penurunan kesalahan.",
 "Project Petty Cash System": "Sistem Petty Cash Proyek",
 "Financial Control • Live Pilot": "Pengendalian Keuangan • Uji Coba Berjalan",
@@ -1232,7 +1234,7 @@
 "Data Protection:": "Perlindungan Data:",
 "Uses a separate PIN for each project, daily backups to Google Drive, and a data restore option.": "Memakai PIN terpisah untuk setiap proyek, cadangan harian ke Google Drive, dan fitur pemulihan data.",
 "Moved petty cash records to a phone so a project admin can record transactions on site.": "Pencatatan petty cash dipindahkan ke HP agar admin proyek bisa mencatat transaksi di lokasi.",
-"Pilot started in November 2026, and user feedback is still being collected.": "Uji coba dimulai November 2026, dan masukan pengguna masih dikumpulkan.",
+"Pilot started in November 2026. Revisions so far came from my own testing, and the admin has not reported any issues.": "Uji coba dimulai November 2026. Revisi sejauh ini berasal dari pengujian saya sendiri, dan admin belum melaporkan kendala.",
 "Core calculations passed 37 automated checks. Core calculations passed 37 automated checks. Next: complete the first monthly report cycle and measure reporting time.": "Hitungan inti lolos 37 uji otomatis. Berikutnya: menyelesaikan siklus laporan bulanan pertama dan mengukur waktu pelaporan.",
 "3. Payroll & Petty Cash": "3. Sistem Gaji & Petty Cash",
 "Weekly Payroll & Petty Cash System": "Sistem Gaji Mingguan & Petty Cash",
@@ -1258,7 +1260,7 @@
 "Role-Based PIN Access:": "Akses PIN Sesuai Peran:",
 "Separates field users from the owner, who manages workers, projects, and settings.": "Memisahkan pengguna lapangan dan pemilik, yang mengelola pekerja, proyek, dan pengaturan.",
 "Moved data entry to a mobile web app so a field admin without a laptop can use the system on site.": "Pengisian data dipindahkan ke web app HP agar admin lapangan tanpa laptop bisa memakai sistem ini di lokasi.",
-"Improved the system from Google Sheets to Google Form to web app based on real use and user feedback.": "Sistem dikembangkan dari Google Sheets ke Google Form, lalu web app, berdasarkan pemakaian nyata dan masukan pengguna.",
+"Improved the system from Google Sheets to Google Form to web app through my own testing and admin feedback.": "Sistem dikembangkan dari Google Sheets ke Google Form, lalu web app, melalui pengujian saya sendiri dan masukan admin.",
 "Next: measure time saved and error reduction, then test with more teams before offering it more widely.": "Berikutnya: mengukur waktu yang dihemat dan penurunan kesalahan, lalu menguji ke lebih banyak tim sebelum ditawarkan lebih luas.",
 "Data Analyst | Finance Background": "Data Analyst | Latar Belakang Keuangan",
 "Open to Work (Medan, Relocation, & Remote)": "Terbuka untuk Bekerja (Medan, Relokasi, & Remote)",
