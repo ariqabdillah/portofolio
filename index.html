@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ariq Abdillah | Financial & Business Data Analyst Portfolio</title>
+  <meta name="description" content="Professional Portfolio & Analytics Console of Ariq Abdillah - Financial & Business Data Analyst. B.S. in Financial Management, RevoU Certificate of Excellence, On-site Operational & Payroll Leadership.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            console: {
+              bg: '#0c1017',        /* Deep Institutional Slate */
+              sidebar: '#101622',   /* Solid Executive Sidebar */
+              card: '#141b29',      /* High-end matte surface */
+              cardHover: '#1a2334', /* Subtle hover */
+              border: '#1f293d',    /* Clean subtle divider */
+              borderLight: '#2a364f',
+              accent: '#2563eb',    /* Corporate Sapphire */
+              accentHover: '#1d4ed8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Professional Institutional Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0c1017;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 4px;
+    }
+
+    /* Tab Switch Animation */
+    .tab-content {
+      display: none;
+      animation: tabEnter 0.2s ease-out forwards;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes tabEnter {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Standardized Navigation Active State */
+    .active-nav-btn {
+      background: #182235 !important;
+      border-left: 3px solid #2563eb !important;
+      color: #ffffff !important;
+      font-weight: 700;
+    }
+    .active-nav-btn i {
+      color: #3b82f6 !important;
+    }
+    .active-nav-btn .nav-chevron {
+      color: #3b82f6 !important;
+      transform: translateX(2px);
+    }
+
+    /* Project Tab Selector */
+    .active-project-btn {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      border-color: #2563eb !important;
+    }
+  </style>
+</head>
+
+<body class="bg-console-bg text-slate-200 font-sans antialiased h-full overflow-hidden flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- ==================== TOP CONSOLE BAR ==================== -->
+  <header class="h-14 bg-console-sidebar border-b border-console-border px-4 sm:px-6 flex items-center justify-between shrink-0 z-30">
+    <div class="flex items-center gap-3">
+      <!-- Title & Role -->
+      <div>
+        <span class="font-extrabold text-sm sm:text-base tracking-tight text-white block">Ariq Abdillah</span>
+        <span class="text-[11px] text-blue-400 font-mono block -mt-0.5">Financial & Business Data Analyst</span>
+      </div>
+
+      <!-- Divider -->
+      <div class="hidden sm:block h-5 w-[1px] bg-slate-800"></div>
+
+      <!-- Status Pill -->
+      <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-semibold">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Open to Work (Medan, Relocation, & Remote)</span>
+      </div>
+    </div>
+
+    <!-- Right Top Utilities -->
+    <div class="flex items-center gap-2.5">
+      <!-- Direct Contact WhatsApp Action -->
+      <a href="https://wa.me/6283866672738?text=Hello%20Ariq,%20I%20am%20reviewing%20your%20analytics%20portfolio." target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs shadow-sm transition-colors">
+        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+        <span>Chat on WhatsApp</span>
+      </a>
+
+      <!-- Download Resume Direct -->
+      <a href="assets/CV_Ariq_Abdillah.pdf" download="CV_Ariq_Abdillah.pdf" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-sm transition-colors">
+        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+        <span>Download Resume (PDF)</span>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileNavToggle" class="md:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white" title="Toggle Navigation">
+        <i data-lucide="menu" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- ==================== MAIN DASHBOARD LAYOUT ==================== -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- ==================== LEFT SIDEBAR ==================== -->
+    <aside id="sidebarPanel" class="w-72 lg:w-80 bg-console-sidebar border-r border-console-border flex flex-col justify-between shrink-0 transition-transform duration-300 z-20 absolute md:static inset-y-0 left-0 -translate-x-full md:translate-x-0">
+      
+      <!-- Top Section: Profile Card & Navigation -->
+      <div class="p-5 space-y-5 overflow-y-auto custom-scrollbar flex-1">
+        
+        <!-- Profile Identity Card -->
+        <div class="p-4 rounded-xl bg-console-card border border-console-border space-y-3.5">
+          <div class="flex items-center gap-3.5">
+            <!-- Clickable Profile Photo with Zoom Icon -->
+            <div onclick="openPhotoModal()" class="w-14 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700/80 shrink-0 shadow-sm cursor-pointer hover:border-blue-500 hover:scale-105 transition-all group relative" title="Click to view enlarged photo">
+              <img src="assets/profile.jpg" alt="Ariq Abdillah" class="w-full h-full object-cover object-top">
+              <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-white"></i>
+              </div>
+            </div>
+
+            <div class="min-w-0">
+              <h2 class="font-extrabold text-base text-white truncate">Ariq Abdillah</h2>
+              <p class="text-xs font-semibold text-blue-400 truncate">Data Analyst & Finance</p>
+              <div class="flex items-center gap-1 text-[11px] text-slate-400 mt-0.5 truncate">
+                <i data-lucide="map-pin" class="w-3 h-3 text-rose-400 shrink-0"></i>
+                <span>Medan, Indonesia</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick badges: Formal Education & Professional Certification -->
+          <div class="grid grid-cols-2 gap-2 pt-1 text-xs">
+            <div class="p-2 rounded-lg bg-console-bg border border-console-border text-center">
+              <span class="text-slate-400 block text-[9px] uppercase font-mono font-medium tracking-wider">Education</span>
+              <span class="font-bold text-white text-[11px] block mt-0.5 leading-snug">B.S. in Finance</span>
+            </div>
+            <div class="p-2 rounded-lg bg-console-bg border border-console-border text-center">
+              <span class="text-slate-400 block text-[9px] uppercase font-mono font-medium tracking-wider">Certification</span>
+              <span class="font-bold text-blue-400 text-[11px] block mt-0.5 leading-snug">RevoU FSDA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Menu Tabs -->
+        <div class="space-y-1">
+          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 px-2 block mb-1">Navigation</span>
+          
+          <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn active-nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-semibold flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-slate-400"></i>
+              <span>Executive Summary</span>
+            </div>
+            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
+          </button>
+
+          <button onclick="switchTab('projects')" id="nav-projects" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <i data-lucide="folder-kanban" class="w-4 h-4 text-slate-400"></i>
+              <span>Case Studies & Projects</span>
+            </div>
+            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
+          </button>
+
+          <button onclick="switchTab('experience')" id="nav-experience" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
+              <span>Experience & Leadership</span>
+            </div>
+            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
+          </button>
+
+          <button onclick="switchTab('credentials')" id="nav-credentials" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <i data-lucide="award" class="w-4 h-4 text-slate-400"></i>
+              <span>Official Credentials</span>
+            </div>
+            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
+          </button>
+
+          <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
+            <div class="flex items-center gap-3">
+              <i data-lucide="send" class="w-4 h-4 text-slate-400"></i>
+              <span>Contact & Direct Message</span>
+            </div>
+            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sidebar Footer: Social & Quick Info -->
+      <div class="p-3.5 border-t border-console-border bg-console-card/60 space-y-2">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 px-1 block">Profiles & Channels</span>
+        
+        <div class="grid grid-cols-3 gap-1.5">
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/ariq-abdillah" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-console-bg border border-console-border hover:border-blue-500 hover:bg-blue-600/10 flex flex-col items-center justify-center gap-1 transition-all group" title="Open LinkedIn Profile">
+            <svg class="w-4 h-4 fill-current text-[#0a66c2] group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5m1.39 9.74v-8.37H5.07v8.37h2.78z"/>
+            </svg>
+            <span class="text-[10px] font-semibold text-slate-300 group-hover:text-white">LinkedIn</span>
+          </a>
+
+          <!-- Tableau Public -->
+          <a href="https://public.tableau.com/app/profile/ariq.abdillah" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-console-bg border border-console-border hover:border-blue-400 hover:bg-blue-600/10 flex flex-col items-center justify-center gap-1 transition-all group" title="Open Tableau Public Profile">
+            <svg class="w-4 h-4 fill-current text-[#e97627] group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+              <path d="M11.4 1.5h1.2v3.3h-1.2V1.5zm0 17.7h1.2v3.3h-1.2v-3.3zM4.8 11.4h3.3v1.2H4.8v-1.2zm14.4 0h-3.3v1.2h3.3v-1.2zM7.3 5.5l2.3 2.3-.9.9-2.3-2.3.9-.9zm9.4 9.4l2.3 2.3-.9.9-2.3-2.3.9-.9zM5.5 16.7l2.3-2.3.9.9-2.3 2.3-.9-.9zm9.4-9.4l2.3-2.3.9.9-2.3 2.3-.9-.9zM11.4 7.5h1.2v9h-1.2v-9zm-4.5 4.5v-1.2h9v1.2h-9z"/>
+            </svg>
+            <span class="text-[10px] font-semibold text-slate-300 group-hover:text-white">Tableau</span>
+          </a>
+
+          <!-- Email Copy -->
+          <button onclick="copyEmailToClipboard()" class="p-2 rounded-lg bg-console-bg border border-console-border hover:border-emerald-500 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-1 transition-all group" title="Copy Email Address">
+            <svg class="w-4 h-4 fill-none stroke-current stroke-2 text-[#10b981] group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <span class="text-[10px] font-semibold text-slate-300 group-hover:text-white">Email</span>
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+
+    <!-- ==================== RIGHT DYNAMIC CONTENT PANEL ==================== -->
+    <main class="flex-1 h-full overflow-y-auto bg-console-bg p-4 sm:p-6 lg:p-7 custom-scrollbar">
+
+      <!-- ==================== TAB 1: EXECUTIVE SUMMARY ==================== -->
+      <section id="tab-overview" class="tab-content active space-y-5 max-w-6xl mx-auto">
+        
+        <!-- Header Banner -->
+        <div class="p-6 rounded-2xl bg-console-card border border-console-border space-y-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 font-mono text-[11px] font-semibold border border-console-border">
+              Professional Profile
+            </span>
+            <span class="px-2.5 py-1 rounded bg-blue-900/30 text-blue-300 font-mono text-[11px] font-semibold border border-blue-800/40">
+              Medan • Open to Relocation • Remote
+            </span>
+          </div>
+          
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Financial Discipline, Operational Leadership, & Modern Data Analytics
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-4xl">
+            Graduate in <strong class="text-white">Financial Management (GPA 3.39/4.00, Universitas Harapan Medan)</strong> combining the rigorous accounting discipline of petty cash management, daily field worker payroll reconciliation, and operational leadership with technical <strong class="text-white">Full-Stack Data Analytics expertise from RevoU (Certificate of Excellence)</strong>. Experienced in querying 122K+ cross-channel messaging transactions in Google BigQuery, tuning banking credit risk models to achieve 92.6% recall, and selected as pitching speaker for corporate B2B strategy before executive mentors.
+          </p>
+        </div>
+
+        <!-- 4 Key Impact Metric Scorecards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+          
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-slate-400">Transaction Analysis</span>
+              <i data-lucide="database" class="w-4 h-4 text-slate-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono">122.7K</div>
+            <p class="text-xs text-slate-300 font-medium mt-1">Cross-Channel Records</p>
+            <p class="text-[10px] text-slate-400">SQL BigQuery & Tableau BI</p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-slate-400">Banking Portfolio</span>
+              <i data-lucide="landmark" class="w-4 h-4 text-slate-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono">IDR 4.57T</div>
+            <p class="text-xs text-slate-300 font-medium mt-1">Credit Cards Modeled</p>
+            <p class="text-[10px] text-slate-400">K-Means ML 4 Personas</p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-slate-400">Risk Screening</span>
+              <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono">92.6%</div>
+            <p class="text-xs text-slate-300 font-medium mt-1">Default Screening Recall</p>
+            <p class="text-[10px] text-slate-400">Threshold Optimization</p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-slate-400">Key Recognition</span>
+              <i data-lucide="award" class="w-4 h-4 text-slate-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono">Top Pitch</div>
+            <p class="text-xs text-slate-300 font-medium mt-1">Selected Pitch Deck</p>
+            <p class="text-[10px] text-slate-400">Telkom Indonesia x RevoU</p>
+          </div>
+
+        </div>
+
+        <!-- 3 Core Competency Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+          
+          <!-- Column 1: Financial Acumen -->
+          <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-3">
+            <div class="flex items-center gap-2.5 text-blue-400 font-bold text-sm">
+              <i data-lucide="wallet" class="w-4 h-4"></i>
+              <span>Financial Control & Cost Management</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Mastering accounting principles, zero-discrepancy petty cash control, daily site worker payroll systems, subcontractor bill of quantities verification, debt-to-income (DTI) risk ratios, and MDR revenue economics.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Petty Cash</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Payroll System</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Invoice Verification</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">DTI & MDR</span>
+            </div>
+          </div>
+
+          <!-- Column 2: Data Analytics & ML -->
+          <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-3">
+            <div class="flex items-center gap-2.5 text-blue-400 font-bold text-sm">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+              <span>Data Analytics & Machine Learning</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Skilled in complex multi-table SQL queries in Google BigQuery, programmatic Python data wrangling (Pandas/NumPy), unsupervised K-Means clustering (Elbow & Silhouette analysis), and interactive KPI dashboards in Tableau Public.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">SQL BigQuery</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Python Pandas</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Tableau Public</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">K-Means ML</span>
+            </div>
+          </div>
+
+          <!-- Column 3: Leadership & Reporting -->
+          <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-3">
+            <div class="flex items-center gap-2.5 text-blue-400 font-bold text-sm">
+              <i data-lucide="users" class="w-4 h-4"></i>
+              <span>Leadership & Reporting Systems</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Engineered automated Excel models for material reconciliation and daily excavation reporting connected to Google Drive cloud databases. Proven interim leadership directing on-site operations during lead absences.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Excel Automation</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Google Drive DB</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Site Coordinator</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Executive Pitch</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Jump to Case Studies CTA -->
+        <div class="p-5 rounded-xl bg-console-card border border-console-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="space-y-0.5 text-center sm:text-left">
+            <h3 class="text-sm font-bold text-white">Want to review technical methodologies and detailed business findings?</h3>
+            <p class="text-xs text-slate-400">Explore the project catalog to view interactive Tableau dashboards, Colab notebooks, slide decks, and strategic frameworks.</p>
+          </div>
+          <button onclick="switchTab('projects')" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs inline-flex items-center gap-2 transition-colors shrink-0">
+            <span>Explore Project Catalog</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+      </section>
+
+
+      <!-- ==================== TAB 2: CASE STUDIES & PROJECT CATALOG ==================== -->
+      <section id="tab-projects" class="tab-content space-y-4 max-w-6xl mx-auto">
+        
+        <!-- Header & Category Switcher -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-console-border">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-white leading-tight">Case Studies & Project Catalog</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Select a project below to review analytical metrics, slide decks, and strategic business takeaways.</p>
+          </div>
+
+          <!-- Project Selectors Pills -->
+          <div class="flex flex-wrap gap-1.5 p-1 rounded-lg bg-console-card border border-console-border text-xs">
+            <button onclick="selectProject('creditech')" id="pbtn-creditech" class="project-selector-btn active-project-btn px-3 py-1.5 rounded-md text-slate-300 font-semibold border border-transparent transition-all">
+              1. CrediTech
+            </button>
+            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              2. OCA BI
+            </button>
+            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              3. Pitch Deck
+            </button>
+            <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              4. RevoBank ML
+            </button>
+            <button onclick="selectProject('fieldadmin')" id="pbtn-fieldadmin" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              5. Field Ops
+            </button>
+          </div>
+        </div>
+
+        <!-- DYNAMIC PROJECT DISPLAY CONTAINER (Full-Sized & Generously Proportioned) -->
+        <div id="projectDetailDisplay">
+          <!-- Injected dynamically via JS function selectProject() -->
+        </div>
+
+      </section>
+
+
+      <!-- ==================== TAB 3: WORK EXPERIENCE & LEADERSHIP ==================== -->
+      <section id="tab-experience" class="tab-content space-y-6 max-w-5xl mx-auto">
+        
+        <div>
+          <h2 class="text-2xl font-black text-white">Work Experience & Leadership</h2>
+          <p class="text-xs text-slate-400">A career track record spanning civil infrastructure site leadership, corporate virtual internships, and formal finance education.</p>
+        </div>
+
+        <div class="space-y-4">
+          
+          <!-- Experience Card 1: Site Coordinator -->
+          <div class="p-6 rounded-xl bg-console-card border border-console-border space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-console-border pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-900/30 text-blue-300 font-bold uppercase border border-blue-800/40">
+                  Site Operations & Cash Flow Management
+                </span>
+                <h3 class="text-lg font-bold text-white mt-1">Project Admin & Site Coordinator</h3>
+                <p class="text-xs text-blue-400 font-medium">On-Site Execution Team, Partner to PT Prima Indo Sentosa • Medan</p>
+              </div>
+              <span class="text-xs font-mono text-slate-400 bg-console-bg px-3 py-1 rounded-md border border-console-border w-fit">
+                Jul 2026 – Oct 2026
+              </span>
+            </div>
+
+            <p class="text-xs font-semibold text-slate-300 uppercase tracking-wide">
+              BRT Jl. Sisingamangaraja Underground Utility Relocation Infrastructure Project
+            </p>
+
+            <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside leading-relaxed">
+              <li><strong>Zero-Discrepancy Petty Cash Control:</strong> Tracked and reconciled all daily site expenditures in real-time, maintaining a 100% balanced ledger with zero discrepancies and preparing weekly cash requisition forecasts based on verified historical disbursements.</li>
+              <li><strong>Subcontractor Billing Verification:</strong> Audited actual trenching volume against contract unit rates, deducting worker advance loans and material waste penalties prior to final payment disbursements.</li>
+              <li><strong>Daily Laborer Payroll:</strong> Calculated and disbursed weekly compensation for site laborers, factoring in overtime hours and loan deductions, providing transparent itemized pay slips to each worker.</li>
+              <li><strong>On-Site Interim Leadership (Jul–Sep 2026):</strong> Entrusted with full field command when the project lead was off-site; assigned daily task rotations, authorized emergency material purchases, and made decisive safety calls during severe weather events.</li>
+              <li><strong>Excel & Cloud Database Automation:</strong> Architected automated Excel reporting models with structured calculation logic for excavation volumes and expenses, linked to a centralized digital archive on Google Drive.</li>
+            </ul>
+          </div>
+
+          <!-- Experience Card 2: Virtual Internship -->
+          <div class="p-6 rounded-xl bg-console-card border border-console-border space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-console-border pb-3">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-900/30 text-blue-300 font-bold uppercase border border-blue-800/40">
+                  Data Analytics & Business Intelligence
+                </span>
+                <h3 class="text-lg font-bold text-white mt-1">Data Analyst (Virtual Internship)</h3>
+                <p class="text-xs text-blue-400 font-medium">RevoU x Telkom Indonesia • Remote</p>
+              </div>
+              <span class="text-xs font-mono text-slate-400 bg-console-bg px-3 py-1 rounded-md border border-console-border w-fit">
+                May 2026 – Jun 2026
+              </span>
+            </div>
+
+            <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside leading-relaxed">
+              <li><strong>ETL & Data Cleaning:</strong> Cleaned, normalized, and unified 122,749 transaction records across 4 communication channels (WhatsApp, SMS, Email, Call) for 20 corporate enterprise accounts using SQL in Google BigQuery.</li>
+              <li><strong>Unified BI Dashboarding:</strong> Built an interactive Tableau Public dashboard monitoring revenue KPIs, monthly messaging trends, operational peak hours, and delivery failure anomalies.</li>
+              <li><strong>Pareto Customer Segmentation:</strong> Performed enterprise client segmentation in Python, revealing that 3 power accounts (15%) accounted for 59.8% of total company revenue (IDR 16.5M).</li>
+              <li><strong>Selected Pitch Presenter:</strong> Selected to pitch the 90-day B2B strategic framework (*Protect, Strengthen, Grow, Expand*) directly to industry evaluators and senior mentors.</li>
+            </ul>
+          </div>
+
+          <!-- Experience Card 3: Formal & Non-Formal Education -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-2">
+              <span class="text-[10px] font-mono font-bold text-blue-400 uppercase">Professional Certification</span>
+              <h4 class="text-base font-bold text-white">Full-Stack Data Analytics</h4>
+              <p class="text-xs text-slate-400">RevoU • 28 Weeks Certified Program</p>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Completed 4 comprehensive analytics modules (Exploration, Financial Analysis, Dashboarding, & Clustering) with <strong>Certificate of Excellence</strong> honor.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-2">
+              <span class="text-[10px] font-mono font-bold text-blue-400 uppercase">Formal Higher Education</span>
+              <h4 class="text-base font-bold text-white">Bachelor of Science in Financial Management</h4>
+              <p class="text-xs text-slate-400">Universitas Harapan Medan • GPA: 3.39 / 4.00</p>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                <strong>Undergraduate Thesis:</strong> Factors Influencing Stock Returns of Banking Corporations on the Indonesia Stock Exchange (IDX). Extensive coursework in Cost Accounting, Financial Statement Analysis, & Corporate Finance.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==================== TAB 4: OFFICIAL CREDENTIALS ==================== -->
+      <section id="tab-credentials" class="tab-content space-y-6 max-w-5xl mx-auto">
+        
+        <div>
+          <h2 class="text-2xl font-black text-white">Official Certifications & Credentials</h2>
+          <p class="text-xs text-slate-400">All credentials have been digitally verified and can be inspected directly on RevoU's global certification registry.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          
+          <!-- Certificate Card 1: Excellence -->
+          <div class="p-6 rounded-xl bg-console-card border border-console-border space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded text-[11px] font-mono font-bold bg-blue-900/30 text-blue-300 border border-blue-800/40 flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                  Certificate of Excellence
+                </span>
+                <span class="text-[11px] font-mono text-slate-400">June 26, 2026</span>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-bold text-white">Full Stack Data Analytics</h3>
+                <p class="text-xs text-slate-400 mt-0.5">A 28-week certified online course and project program offered by RevoU</p>
+              </div>
+
+              <div class="p-3.5 rounded-lg bg-console-bg border border-console-border text-xs font-mono space-y-1.5 text-slate-300">
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Issuer:</span>
+                  <span class="font-semibold text-white">PT Revolusi Cita Edukasi</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Signatory:</span>
+                  <span>Matteo Sutto (CEO)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Certificate No:</span>
+                  <span class="text-blue-400 font-bold">NDA24-2026-06-031</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+              <a href="https://certificates.revou.tech/?id=NDA24-2026-06-031&name=Ariq%20Abdillah" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                <span>Verify on RevoU</span>
+              </a>
+              <a href="assets/Sertifikat_Excellence_RevoU.pdf" target="_blank" class="py-2 px-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
+                <span>View PDF</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Certificate Card 2: Achievements -->
+          <div class="p-6 rounded-xl bg-console-card border border-console-border space-y-4 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded text-[11px] font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                  Certificate of Achievements
+                </span>
+                <span class="text-[11px] font-mono text-slate-400">March 6, 2026</span>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-bold text-white">Full Stack Data Analytics</h3>
+                <p class="text-xs text-slate-400 mt-0.5">A 14-week certified online course offered by RevoU</p>
+              </div>
+
+              <div class="p-3.5 rounded-lg bg-console-bg border border-console-border text-xs font-mono space-y-1.5 text-slate-300">
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Issuer:</span>
+                  <span class="font-semibold text-white">PT Revolusi Cita Edukasi</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Signatory:</span>
+                  <span>Matteo Sutto (CEO)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-500">Certificate No:</span>
+                  <span class="text-slate-300 font-bold">FSDA-2026-03-38664224539</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+              <a href="https://certificates.revou.tech/?id=FSDA-2026-03-38664224539&name=Ariq%20Abdillah" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                <span>Verify on RevoU</span>
+              </a>
+              <a href="assets/Sertifikat_Achievement_RevoU.pdf" target="_blank" class="py-2 px-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span>View PDF</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==================== TAB 5: CONTACT & DIRECT CONNECT ==================== -->
+      <section id="tab-contact" class="tab-content space-y-6 max-w-5xl mx-auto">
+        
+        <div>
+          <h2 class="text-2xl font-black text-white">Get in Touch & Start a Conversation</h2>
+          <p class="text-xs text-slate-400">Direct communication channels with Ariq Abdillah for job opportunities, full-time roles, and collaborations.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          
+          <!-- Contact Options -->
+          <div class="space-y-3">
+            
+            <!-- WhatsApp Direct -->
+            <a href="https://wa.me/6283866672738?text=Hello%20Ariq,%20I%20am%20interested%20in%20your%20analytics%20profile." target="_blank" class="p-4 rounded-xl bg-console-card border border-console-border hover:border-slate-700 flex items-center justify-between group transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                  <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 block">Direct WhatsApp</span>
+                  <span class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">+62 838-6667-2738</span>
+                </div>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
+            </a>
+
+            <!-- Email Direct -->
+            <div class="p-4 rounded-xl bg-console-card border border-console-border hover:border-slate-700 flex items-center justify-between group transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 block">Personal Email</span>
+                  <span class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">ariqabdillah2424@gmail.com</span>
+                </div>
+              </div>
+              <button onclick="copyEmailToClipboard()" class="p-2 rounded-lg bg-console-bg border border-console-border hover:bg-slate-800 text-slate-300" title="Copy Email">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <!-- LinkedIn Profile -->
+            <a href="https://linkedin.com/in/ariq-abdillah" target="_blank" class="p-4 rounded-xl bg-console-card border border-console-border hover:border-slate-700 flex items-center justify-between group transition-colors">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-[#0a66c2] flex items-center justify-center">
+                  <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 block">LinkedIn Network</span>
+                  <span class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">Ariq Abdillah</span>
+                </div>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors"></i>
+            </a>
+
+            <!-- Location Card -->
+            <div class="p-4 rounded-xl bg-console-card border border-console-border flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-slate-400 block">Base & Availability</span>
+                <span class="text-sm font-bold text-white">Medan, North Sumatra, Indonesia</span>
+                <p class="text-[11px] text-slate-400">Available for relocation to other cities, on-site roles, or remote setups worldwide.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quick Message Box -->
+          <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i data-lucide="send" class="w-4 h-4 text-blue-400"></i>
+              <span>Send Direct WhatsApp Message</span>
+            </h3>
+
+            <form onsubmit="sendConsoleMessage(event)" class="space-y-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Your Name & Organization</label>
+                <input type="text" id="cSender" required placeholder="e.g. Michael (Tech Corp)" class="w-full px-3 py-2 rounded-lg bg-console-bg border border-console-border text-white text-xs focus:outline-none focus:border-blue-500">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Role / Opportunity</label>
+                <input type="text" id="cTopic" required placeholder="e.g. Data Analyst Role / Business Inquiries" class="w-full px-3 py-2 rounded-lg bg-console-bg border border-console-border text-white text-xs focus:outline-none focus:border-blue-500">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Message</label>
+                <textarea id="cMsg" rows="3" required placeholder="Write your message here..." class="w-full px-3 py-2 rounded-lg bg-console-bg border border-console-border text-white text-xs focus:outline-none focus:border-blue-500"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm">
+                <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+                <span>Send Message to WhatsApp</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ==================== PHOTO LIGHTBOX MODAL ==================== -->
+  <div id="photoLightboxModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="closePhotoModal()">
+    <div class="relative max-w-sm sm:max-w-md w-full bg-console-card border border-console-border rounded-2xl p-5 shadow-2xl flex flex-col items-center space-y-4" onclick="event.stopPropagation()">
+      <div class="w-full flex items-center justify-between">
+        <span class="text-xs font-mono font-semibold text-slate-400">Official Profile Photo</span>
+        <button onclick="closePhotoModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors" title="Close">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="w-full aspect-[4/5] rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+        <img src="assets/profile.jpg" alt="Ariq Abdillah" class="w-full h-full object-cover object-top">
+      </div>
+      <div class="text-center pb-1">
+        <h4 class="text-base font-bold text-white">Ariq Abdillah</h4>
+        <p class="text-xs text-blue-400 font-mono">Financial & Business Data Analyst</p>
+        <p class="text-[11px] text-slate-400 mt-1">B.S. in Financial Management • RevoU FSDA</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== PITCH VIDEO NOTICE MODAL ==================== -->
+  <div id="pitchModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="document.getElementById('pitchModal').classList.add('hidden')">
+    <div class="w-full max-w-md bg-console-card border border-console-border rounded-xl p-6 shadow-2xl space-y-4 text-center" onclick="event.stopPropagation()">
+      <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto">
+        <i data-lucide="video" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-lg font-bold text-white">Pitch Deck Presentation Recording</h3>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Ariq Abdillah was selected as a featured presenter to pitch this strategic corporate segmentation framework to industry stakeholders. The recorded video presentation is currently being prepared and will be updated here shortly.
+      </p>
+      <button onclick="document.getElementById('pitchModal').classList.add('hidden')" class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs font-semibold shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastText">Email copied to clipboard!</span>
+  </div>
+
+
+  <!-- ==================== JAVASCRIPT CONSOLE CONTROLLER ==================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Photo Lightbox Modal
+    function openPhotoModal() {
+      document.getElementById('photoLightboxModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+    function closePhotoModal() {
+      document.getElementById('photoLightboxModal').classList.add('hidden');
+    }
+
+    // Mobile Navigation Drawer Toggle
+    const mobileToggle = document.getElementById('mobileNavToggle');
+    const sidebar = document.getElementById('sidebarPanel');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+      });
+    }
+
+    // Switch Main Tabs
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active-nav-btn'));
+
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      const targetBtn = document.getElementById(`nav-${tabId}`);
+
+      if (targetTab) targetTab.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active-nav-btn');
+
+      // Close mobile drawer on selection
+      if (window.innerWidth < 768 && sidebar) {
+        sidebar.classList.add('-translate-x-full');
+      }
+
+      lucide.createIcons();
+    }
+
+    // Comprehensive Projects Data Store (100% International English)
+    const projectCatalog = {
+      creditech: {
+        title: "Credit Card Default Risk Analysis",
+        subtitle: "Fintech CrediTech • Understanding Early Risk Signals from Payment Behavior",
+        badge: "Fintech & Banking • Supervised/Diagnostic ML",
+        summary: "Diagnosed a historical portfolio of 30,000 credit card accounts with an aggregate default rate of 22.1%. Tested monthly payment delinquency as an early indicator of financial distress and tuned model thresholds to capture credit default risks earlier.",
+        metrics: [
+          { label: "Portfolio Size", val: "30,000 Accounts" },
+          { label: "Default Rate", val: "22.1%" },
+          { label: "High-Risk Disparity", val: "3.6x (60% vs 17%)" },
+          { label: "Optimized Recall", val: "92.6% (Thres 0.3)" }
+        ],
+        insights: [
+          "<strong>First-Month Delinquency Spike (PAY_0):</strong> Default rate surges from 13.8% (on-time payers) to 33.9% with just 1 month delay, and escalates to 69.1% at 2 months delay.",
+          "<strong>Low Credit Limit Paradox:</strong> Accounts with the lowest credit limits (avg. 78K in Severely Late segment) experienced the highest default rate (63%), proving limit restrictions alone cannot mitigate credit risk.",
+          "<strong>Recall-Oriented Threshold Tuning:</strong> Lowering classification threshold to 0.3 captured 92.6% of potential defaults, justified by the asymmetric cost of default versus downstream review cost."
+        ],
+        actions: [
+          "Use the latest monthly payment status (PAY_0) as an automated daily risk screening trigger.",
+          "Apply sensitive threshold (0.3) for early-stage screening prior to formal debt collection escalation.",
+          "Implement staged customer interventions (automated reminders days 1–5, dynamic limit adjustments)."
+        ],
+        links: {
+          deck: "https://drive.google.com/file/d/1cyK1Q-I0HNOOhUALan1s9CO3et8lJgAC/view?usp=sharing",
+          tableau: "https://public.tableau.com/app/profile/ariq.abdillah/viz/CreditCardDefaultRiskOverview/Dashboard1",
+          colab: "https://colab.research.google.com/drive/17NomEylNVC-HAy9f2hK4RvsAhV6Vw5vw?usp=sharing"
+        }
+      },
+      ocaperformance: {
+        title: "OCA Messaging Performance Dashboard",
+        subtitle: "RevoU x Telkom Indonesia Virtual Internship • Unified Channel Monitoring & Risk Analysis",
+        badge: "Business Intelligence • SQL BigQuery & Tableau",
+        summary: "Architected a centralized business intelligence dashboard from 122,749 cross-channel communication records (WhatsApp, SMS, Email, Call) across 20 corporate enterprise clients.",
+        metrics: [
+          { label: "Total Transactions", val: "122,749 Records" },
+          { label: "Total Revenue", val: "IDR 27.6M" },
+          { label: "Delivery Success", val: "79.5%" },
+          { label: "Customer Engagement", val: "38.38%" }
+        ],
+        insights: [
+          "<strong>Downward Trend in Messaging Volume:</strong> Total monthly volume contracted from 49.5K (January) to 35.5K (March).",
+          "<strong>WhatsApp as Revenue Backbone:</strong> Generated the highest share of revenue (IDR 11.9M) and the strongest user engagement rate (51.1%).",
+          "<strong>Severe 60% Drop in Email Traffic:</strong> Slashed from 20K to 8K messages, signaling potential deliverability issues or client campaign fatigue.",
+          "<strong>SMS Reliability Paradox:</strong> Delivered exceptional transmission reliability (99.7% success rate), but real audience engagement remained near 0.0%."
+        ],
+        actions: [
+          "Prioritize WhatsApp SLA uptime and upsell high-value bundled packages (WhatsApp + Email).",
+          "Deploy automated daily traffic anomaly alerts to proactively prevent corporate client churn.",
+          "Shift campaign performance evaluation to verified engagement metrics (read/click) rather than raw delivery status."
+        ],
+        links: {
+          deck: "https://drive.google.com/file/d/1b7DI5G4avmBN1Id63dYwmBjM1i0JluKj/view?usp=sharing",
+          tableau: "https://public.tableau.com/app/profile/ariq.abdillah/viz/OCAMessagingPerformanceDashboard_17789157910270/OCAMessagingPerformanceDashboard?publish=yes"
+        }
+      },
+      ocasegmentation: {
+        title: "User Behavior & Segmentation Analysis (Featured Deck)",
+        subtitle: "RevoU x Telkom Indonesia • Selected Presenter for Strategic Pitch",
+        badge: "Featured Pitch Deck • Selected Speaker",
+        summary: "Selected as representative speaker to pitch enterprise client segmentation strategies to industry mentors. Formulated transparent, rule-based persona models directly actionable for corporate sales and customer success teams.",
+        metrics: [
+          { label: "Power Users", val: "3 Clients (15%)" },
+          { label: "Revenue Share", val: "59.8% (IDR 16.5M)" },
+          { label: "Top Verticals", val: "Travel, Finance, Real Estate" },
+          { label: "Peak Operating Hours", val: "08:00 - 17:00 WIB" }
+        ],
+        insights: [
+          "<strong>Extreme Pareto Concentration:</strong> Top 3 Power Users contribute nearly 60% of total company revenue (IDR 16.5M).",
+          "<strong>3 B2B Client Personas:</strong> Power Users (>20K tx, avg. revenue IDR 5.5M), Active Users (6K–20K tx), and Regular Users (<6K tx).",
+          "<strong>Sector Product-Market Fit:</strong> Travel (IDR 5.90M), Finance (IDR 5.87M), and Real Estate (IDR 5.83M) represent the core revenue pillars.",
+          "<strong>Strict B2B Operating Patterns:</strong> Messaging volume peaks sharply during standard business hours (08:00–17:00) and drops post-18:00."
+        ],
+        actions: [
+          "<strong>Protect (Days 0–30):</strong> Establish VIP account retention programs (Dedicated Account Manager, Service Recovery SLA, QBR).",
+          "<strong>Strengthen & Grow (Days 31–60):</strong> Roll out tiered volume discount incentives to graduate Active Users into Power Users.",
+          "<strong>Expand (Days 61–90):</strong> Launch targeted client acquisition campaigns focused specifically on Travel, Finance, and Real Estate."
+        ],
+        links: {
+          deck: "https://drive.google.com/file/d/1bj9umCi5XtQB0KiNcbp0wrUbu8CrbmGE/view?usp=sharing",
+          colab: "https://colab.research.google.com/drive/1H-q33IsDbBMR0wqUdxXMxblaeOX0O0Bu?usp=sharing",
+          pitchVideo: true
+        }
+      },
+      revobank: {
+        title: "RevoBank Credit Card Customer Segmentation",
+        subtitle: "Unsupervised Machine Learning • K-Means 4 Customer Personas (Rp 4.57T)",
+        badge: "Unsupervised ML • K-Means Clustering",
+        summary: "End-to-end data science lifecycle: banking data cleaning, feature engineering on DTI & age, MDR revenue margin (1.5%) vs fraud loss analysis (IDR 101.3B), and 4 distinct customer personas formed via K-Means clustering.",
+        metrics: [
+          { label: "Portfolio Value", val: "IDR 4.57 Trillion" },
+          { label: "Net MDR Profit", val: "IDR 584.3 Billion" },
+          { label: "Fraud Losses", val: "IDR 101.3 Billion (0.22%)" },
+          { label: "K-Means Clusters", val: "k = 4 Personas" }
+        ],
+        insights: [
+          "<strong>Asymmetric Fraud Impact:</strong> Although fraud represents only 0.22% of total transaction volume, it wipes out 14.8% of gross MDR fee earnings.",
+          "<strong>Feature Separation & Risk Guardrails:</strong> Clustering was trained solely on spend volume, transaction count, and credit limit; debt-to-income (DTI) was established as an external post-clustering risk filter.",
+          "<strong>Persona 1 (High-Value Spenders):</strong> Highest annual spend (avg. IDR 791.4M) and most frequent transactions (1,025x).",
+          "<strong>Persona 2 (High-Capacity Growers):</strong> Highest credit limit headroom (avg. IDR 260.9M) with substantial untapped transaction potential."
+        ],
+        actions: [
+          "Retain Persona 1 with premium reward tiers and VIP airport lounge access.",
+          "Unlock Persona 2 spend volume through 0% installment promotions on travel and high-ticket luxury goods.",
+          "Drive transaction frequency for Persona 3 via daily dining & grocery cashback offers.",
+          "Deploy low-cost automated re-engagement workflows to reactivate dormant accounts in Persona 4."
+        ],
+        links: {
+          deck: "https://drive.google.com/file/d/1v-zaUIK1AF9LObVQOZduknf_XzaEM-Py/view?usp=sharing",
+          colab: "https://colab.research.google.com/drive/1WjAIdJVMxwmCPUG5Hq7zUYFZn3nFF69o?usp=sharing"
+        }
+      },
+      fieldadmin: {
+        title: "Project Admin & Site Operations BRT Medan",
+        subtitle: "PT Prima Indo Sentosa Partner • BRT Sisingamangaraja Underground Utility Relocation",
+        badge: "Field Operations & Financial Control",
+        summary: "Applied financial management rigor to civil infrastructure operations: strict petty cash reconciliation, physical volume verification against subcontractor billings, and weekly daily-worker payroll distribution.",
+        metrics: [
+          { label: "Operational Role", val: "Site Coordinator" },
+          { label: "Cash Management", val: "Petty Cash & Payroll" },
+          { label: "Team Leadership", val: "Interim Lead (Jul–Sep)" },
+          { label: "Reporting Stack", val: "Excel + Cloud Drive" }
+        ],
+        insights: [
+          "<strong>Zero-Discrepancy Petty Cash Control:</strong> Tracked all daily site expenditures in real-time, maintaining a 100% balanced ledger and accurate weekly funding forecasts.",
+          "<strong>Subcontractor Billing Verification:</strong> Audited actual trenching volume against unit prices, deducting advance loans and material wastage before final payment release.",
+          "<strong>Transparent Weekly Payroll:</strong> Reconciled overtime hours and advance deductions, generating detailed wage slips for all daily laborers.",
+          "<strong>Automated Cloud Reporting:</strong> Built automated Excel templates linking daily excavation metrics to verified Google Drive digital document archives."
+        ],
+        actions: [
+          "Maintain uncompromising financial integrity and transparent site cost accounting.",
+          "Coordinate daily team assignments and external partner logistics during site leadership absences.",
+          "Enforce rapid operational risk mitigation protocols during adverse weather conditions."
+        ],
+        links: {}
+      }
+    };
+
+    function selectProject(projectId) {
+      document.querySelectorAll('.project-selector-btn').forEach(btn => btn.classList.remove('active-project-btn'));
+      const activeBtn = document.getElementById(`pbtn-${projectId}`);
+      if (activeBtn) activeBtn.classList.add('active-project-btn');
+
+      const data = projectCatalog[projectId];
+      if (!data) return;
+
+      const container = document.getElementById('projectDetailDisplay');
+
+      let metricsHtml = data.metrics.map(m => `
+        <div class="py-3 px-3.5 rounded-xl bg-console-bg border border-console-border text-center">
+          <span class="text-[11px] text-slate-400 block font-mono uppercase tracking-wider">${m.label}</span>
+          <span class="text-base sm:text-lg lg:text-xl font-black text-white font-mono mt-1 block truncate">${m.val}</span>
+        </div>
+      `).join('');
+
+      let insightsHtml = data.insights.map(item => `
+        <li class="text-xs sm:text-[13px] text-slate-300 leading-relaxed">${item}</li>
+      `).join('');
+
+      let actionsHtml = data.actions.map(item => `
+        <li class="text-xs sm:text-[13px] text-slate-300 leading-relaxed">${item}</li>
+      `).join('');
+
+      let linksHtml = '';
+      if (data.links.deck) {
+        linksHtml += `
+          <a href="${data.links.deck}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs inline-flex items-center gap-1.5 transition-colors shadow-sm">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
+            </svg>
+            <span>Slide Deck</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-80"></i>
+          </a>
+        `;
+      }
+      if (data.links.tableau) {
+        linksHtml += `
+          <a href="${data.links.tableau}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+            <svg class="w-3.5 h-3.5 fill-current text-[#e97627]" viewBox="0 0 24 24">
+              <path d="M11.4 1.5h1.2v3.3h-1.2V1.5zm0 17.7h1.2v3.3h-1.2v-3.3zM4.8 11.4h3.3v1.2H4.8v-1.2zm14.4 0h-3.3v1.2h3.3v-1.2zM7.3 5.5l2.3 2.3-.9.9-2.3-2.3.9-.9zm9.4 9.4l2.3 2.3-.9.9-2.3-2.3.9-.9zM5.5 16.7l2.3-2.3.9.9-2.3 2.3-.9-.9zm9.4-9.4l2.3-2.3.9.9-2.3 2.3-.9-.9zM11.4 7.5h1.2v9h-1.2v-9zm-4.5 4.5v-1.2h9v1.2h-9z"/>
+            </svg>
+            <span>Tableau BI</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+          </a>
+        `;
+      }
+      if (data.links.colab) {
+        linksHtml += `
+          <a href="${data.links.colab}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+            <i data-lucide="code" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Google Colab</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+          </a>
+        `;
+      }
+      if (data.links.pitchVideo) {
+        linksHtml += `
+          <button onclick="document.getElementById('pitchModal').classList.remove('hidden')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+            <i data-lucide="video" class="w-3.5 h-3.5 text-purple-400"></i>
+            <span>Pitch Video</span>
+          </button>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="p-5 sm:p-6 lg:p-7 rounded-2xl bg-console-card border border-console-border space-y-4 sm:space-y-5">
+          
+          <!-- Top Row: Badge, Title & Action Links -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-console-border pb-4">
+            <div>
+              <span class="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-blue-900/30 text-blue-300 uppercase tracking-wide border border-blue-800/40">
+                ${data.badge}
+              </span>
+              <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-white mt-1.5 leading-snug">${data.title}</h3>
+              <p class="text-xs sm:text-sm text-blue-400 font-medium mt-0.5">${data.subtitle}</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 shrink-0">${linksHtml}</div>
+          </div>
+
+          <!-- Concise Summary -->
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${data.summary}</p>
+
+          <!-- Metrics Row: 4 cards side by side in a single row -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5">
+            ${metricsHtml}
+          </div>
+
+          <!-- 2-Column Side-by-Side: Core Insights (Left) & Strategic Recommendations (Right) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
+            
+            <!-- Left Box: Core Analytical Insights -->
+            <div class="p-4 sm:p-5 rounded-xl bg-console-bg border border-console-border space-y-2.5">
+              <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                <span>Core Analytical Insights</span>
+              </h4>
+              <ul class="space-y-2 list-disc list-inside text-slate-300">
+                ${insightsHtml}
+              </ul>
+            </div>
+
+            <!-- Right Box: Business & Strategic Recommendations -->
+            <div class="p-4 sm:p-5 rounded-xl bg-console-bg border border-console-border space-y-2.5">
+              <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Strategic & Business Recommendations</span>
+              </h4>
+              <ul class="space-y-2 list-disc list-inside text-slate-300">
+                ${actionsHtml}
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      lucide.createIcons();
+    }
+
+    // Default project on load
+    selectProject('creditech');
+
+    // Clipboard Copy Helper
+    function copyEmailToClipboard() {
+      navigator.clipboard.writeText('ariqabdillah2424@gmail.com').then(() => {
+        showToast('Email ariqabdillah2424@gmail.com copied to clipboard!');
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+      toastText.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // Console WhatsApp message handler
+    function sendConsoleMessage(e) {
+      e.preventDefault();
+      const sender = document.getElementById('cSender').value;
+      const topic = document.getElementById('cTopic').value;
+      const msg = document.getElementById('cMsg').value;
+
+      const fullText = `Hello Ariq Abdillah,%0A%0AFrom: ${encodeURIComponent(sender)}%0ASubject: ${encodeURIComponent(topic)}%0A%0AMessage:%0A${encodeURIComponent(msg)}`;
+      window.open(`https://wa.me/6283866672738?text=${fullText}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
