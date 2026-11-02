@@ -398,6 +398,7 @@
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Excel Automation</span>
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Google Drive</span>
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Site Coordinator</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Google Apps Script</span>
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Presentation</span>
             </div>
           </div>
@@ -437,14 +438,17 @@
             <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
               2. OCA Dashboard
             </button>
+            <button onclick="selectProject('payroll')" id="pbtn-payroll" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              3. Payroll System
+            </button>
+            <button onclick="selectProject('pettycash')" id="pbtn-pettycash" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
+              4. Petty Cash System
+            </button>
             <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              3. RevoBank
+              5. RevoBank
             </button>
             <button onclick="selectProject('creditech')" id="pbtn-creditech" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              4. CrediTech
-            </button>
-            <button onclick="selectProject('fieldadmin')" id="pbtn-fieldadmin" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              5. Field Ops
+              6. CrediTech
             </button>
           </div>
         </div>
@@ -805,6 +809,12 @@
 
 
   <!-- ==================== JAVASCRIPT CONSOLE CONTROLLER ==================== -->
+  <!-- Project Image Viewer -->
+  <div id="galleryModal" class="hidden fixed inset-0 z-50 bg-black/90 p-4 flex flex-col items-center justify-center" onclick="closeGallery()">
+    <img id="galleryImage" src="" alt="" class="max-w-full max-h-[85vh] object-contain rounded-lg">
+    <p id="galleryCaption" class="text-xs text-slate-200 mt-3 text-center"></p>
+  </div>
+
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
@@ -959,27 +969,73 @@
           colab: "https://colab.research.google.com/drive/1WjAIdJVMxwmCPUG5Hq7zUYFZn3nFF69o"
         }
       },
-      fieldadmin: {
-        title: "Project Admin & Site Operations BRT Medan",
-        subtitle: "PT Prima Indo Sentosa Partner • BRT Sisingamangaraja Underground Utility Relocation",
-        badge: "Work Experience",
-        summary: "Applied finance knowledge to project operations: petty cash tracking, foreman billing checks, and weekly payroll for daily workers.",
+      payroll: {
+        title: "Weekly Payroll System for Daily Workers",
+        subtitle: "Personal project • Google Sheets, Apps Script, mobile web app • Pilot with 1 field admin",
+        badge: "Process Improvement • Live Pilot",
+        summary: "Built a mobile web app to handle attendance, overtime, cash advances, and weekly pay in one place. It replaces a manual Excel recap that had formula errors, counted half days as full pay, and had to be filled in on a laptop.",
+        cover: "payroll-cover.jpg",
+        coverCaption: "Simulated data. One half day equals 6 paid hours.",
+        gallery: [
+          { src: "payroll-1.jpg", cap: "Weekly report" },
+          { src: "payroll-2.jpg", cap: "Pay summary" },
+          { src: "payroll-3.jpg", cap: "Daily attendance" },
+          { src: "payroll-4.jpg", cap: "Worker pay details" },
+          { src: "payroll-5.jpg", cap: "Daily breakdown per worker" }
+        ],
+        insightsTitle: "Key Features & Safeguards",
+        actionsTitle: "Result & Next Steps",
         metrics: [
-          { label: "Operational Role", val: "Site Coordinator" },
-          { label: "Cash Management", val: "Petty Cash & Payroll" },
-          { label: "Team Coordination", val: "On-Site (Jul–Sep)" },
-          { label: "Reporting Stack", val: "Excel + Cloud Drive" }
+          { label: "Current Users", val: "1 Field Admin" },
+          { label: "Pilot Started", val: "Oct 2026" },
+          { label: "Access", val: "Mobile Web App" },
+          { label: "Tech Stack", val: "Apps Script + Sheets" }
         ],
         insights: [
-          "<strong>Petty Cash Control:</strong> Recorded site expenses and prepared weekly fund requests.",
-          "<strong>Foreman Billing Checks:</strong> Checked bills against work volume and unit rates before payment.",
-          "<strong>Weekly Payroll:</strong> Calculated overtime, cash advances, and deductions, and sent each worker a pay breakdown.",
-          "<strong>Excel Reporting:</strong> Built formula-based templates linked to scanned documents on Google Drive."
+          "<strong>Automatic Pay Calculation:</strong> Calculates wages, overtime, cash advance deductions, and weekly pay from daily records.",
+          "<strong>Payment Safeguards:</strong> Flags unusual dates, carries unpaid balances into the next week, records late entries as corrections, and locks a week after payment.",
+          "<strong>Reports & Sharing:</strong> Creates PDF reports, sends selected pay details to WhatsApp, and emails daily attendance images and reminders.",
+          "<strong>Role-Based PIN Access:</strong> Separates field users from the owner, who manages workers and settings."
         ],
         actions: [
-          "Keep cost records clear and traceable.",
-          "Coordinate daily team assignments and external partner logistics during site leadership absences.",
-          "Decide quickly whether work continues during bad weather."
+          "Moved data entry to a phone so a field admin can record work on site.",
+          "Improved the system from Google Sheets to Google Form to web app based on real use and user feedback.",
+          "Calculated results matched an earlier manual payroll report, and each change must pass 17 automated pay-rule checks. Next: measure time saved and error reduction."
+        ],
+        links: {}
+      },
+      pettycash: {
+        title: "Project Petty Cash System",
+        subtitle: "Personal project • Google Sheets, Apps Script, mobile web app • Pilot with 1 field admin",
+        badge: "Financial Control • Live Pilot",
+        summary: "Built a mobile web app for project admins to record cash in and out from a phone, track running balances, and prepare monthly reports. It replaces manual Excel records and runs on Google services without a separate server.",
+        cover: "pettycash-cover.jpg",
+        coverCaption: "Simulated data",
+        gallery: [
+          { src: "pettycash-1.jpg", cap: "PIN login" },
+          { src: "pettycash-2.jpg", cap: "Record a transaction" },
+          { src: "pettycash-3.jpg", cap: "Daily history" },
+          { src: "pettycash-4.jpg", cap: "Monthly report" },
+          { src: "pettycash-5.jpg", cap: "Edit or delete" }
+        ],
+        insightsTitle: "Key Features & Safeguards",
+        actionsTitle: "Result & Next Steps",
+        metrics: [
+          { label: "Current Users", val: "1 Field Admin" },
+          { label: "Pilot Started", val: "Nov 2026" },
+          { label: "Reports", val: "Monthly PDF + Excel" },
+          { label: "Tech Stack", val: "Apps Script + Sheets" }
+        ],
+        insights: [
+          "<strong>Running Balance:</strong> Updates the balance after each transaction and carries it into the next month.",
+          "<strong>Audit Trail:</strong> Keeps a record of edited and deleted transactions.",
+          "<strong>Monthly Control:</strong> Sends PDF and Excel reports by email and locks a month after it is sent.",
+          "<strong>Data Protection:</strong> Uses a separate PIN for each project, daily backups to Google Drive, and a data restore option."
+        ],
+        actions: [
+          "Moved petty cash records to a phone so a project admin can record transactions on site.",
+          "Pilot started in November 2026, and user feedback is still being collected.",
+          "Core calculations passed 37 automated checks. Next: complete the first monthly report cycle and measure reporting time."
         ],
         links: {}
       }
@@ -1078,6 +1134,19 @@
           <!-- Concise Summary -->
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${data.summary}</p>
 
+          ${data.cover ? `<figure>
+            <button type="button" class="block w-full" data-src="${data.cover}" data-cap="${data.coverCaption}" onclick="openGallery(this.dataset.src, this.dataset.cap)">
+              <img src="${data.cover}" alt="${data.title}" class="w-full rounded-xl border border-console-border">
+            </button>
+            <figcaption class="text-[11px] text-slate-400 mt-1.5">${data.coverCaption}</figcaption>
+          </figure>
+          <div class="flex gap-3 overflow-x-auto pb-2">
+            ${data.gallery.map(g => `<button type="button" class="shrink-0 w-32 sm:w-36 text-left" data-src="${g.src}" data-cap="${g.cap}" onclick="openGallery(this.dataset.src, this.dataset.cap)">
+              <img src="${g.src}" alt="${g.cap}" loading="lazy" class="w-full rounded-lg border border-console-border">
+              <span class="text-[11px] text-slate-300 block mt-1.5 leading-snug">${g.cap}</span>
+            </button>`).join('')}
+          </div>` : ''}
+
           <!-- Metrics Row: 4 cards side by side in a single row -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5">
             ${metricsHtml}
@@ -1090,7 +1159,7 @@
             <div class="p-4 sm:p-5 rounded-xl bg-console-bg border border-console-border space-y-2.5">
               <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                 <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400 shrink-0"></i>
-                <span>Core Analytical Insights</span>
+                <span>${data.insightsTitle || 'Core Analytical Insights'}</span>
               </h4>
               <ul class="space-y-2 list-disc list-inside text-slate-300">
                 ${insightsHtml}
@@ -1101,7 +1170,7 @@
             <div class="p-4 sm:p-5 rounded-xl bg-console-bg border border-console-border space-y-2.5">
               <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                 <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
-                <span>Strategic & Business Recommendations</span>
+                <span>${data.actionsTitle || 'Strategic & Business Recommendations'}</span>
               </h4>
               <ul class="space-y-2 list-disc list-inside text-slate-300">
                 ${actionsHtml}
@@ -1121,6 +1190,76 @@
 
     // Language Switcher (English / Bahasa Indonesia)
     const I18N_ID = {
+"3. Payroll System": "3. Sistem Gaji",
+"4. Petty Cash System": "4. Sistem Petty Cash",
+"Weekly Payroll System for Daily Workers": "Sistem Gaji Mingguan Pekerja Harian",
+"Built a mobile web app to handle attendance, overtime, cash advances, and weekly pay in one place. It replaces a manual Excel recap that had formula errors, counted half days as full pay, and had to be filled in on a laptop.": "Membangun web app HP untuk mengelola absen, lembur, kasbon, dan gaji mingguan dalam satu tempat. Sistem ini menggantikan rekap Excel manual yang rumusnya banyak salah, menghitung setengah hari sebagai gaji penuh, dan harus diisi lewat laptop.",
+"Simulated data. One half day equals 6 paid hours.": "Data simulasi. Setengah hari dihitung 6 jam kerja.",
+"Weekly report": "Laporan mingguan",
+"Pay summary": "Ringkasan gaji",
+"Daily attendance": "Absen harian",
+"Worker pay details": "Rincian gaji pekerja",
+"Daily breakdown per worker": "Rincian harian per pekerja",
+"Pilot Started": "Mulai Uji Coba",
+"Oct 2026": "Okt 2026",
+"Access": "Akses",
+"Mobile Web App": "Web App HP",
+"Automatic Pay Calculation:": "Hitung Gaji Otomatis:",
+"Calculates wages, overtime, cash advance deductions, and weekly pay from daily records.": "Menghitung upah, lembur, potongan kasbon, dan gaji mingguan dari catatan harian.",
+"Flags unusual dates, carries unpaid balances into the next week, records late entries as corrections, and locks a week after payment.": "Menandai tanggal yang tidak wajar, membawa kekurangan ke minggu berikutnya, mencatat isian terlambat sebagai koreksi, dan mengunci minggu setelah dibayar.",
+"Reports & Sharing:": "Laporan & Pengiriman:",
+"Creates PDF reports, sends selected pay details to WhatsApp, and emails daily attendance images and reminders.": "Membuat laporan PDF, mengirim rincian gaji pilihan ke WhatsApp, serta mengirim gambar absen harian dan pengingat lewat email.",
+"Separates field users from the owner, who manages workers and settings.": "Memisahkan pengguna lapangan dan pemilik, yang mengelola pekerja dan pengaturan.",
+"Moved data entry to a phone so a field admin can record work on site.": "Pengisian data dipindahkan ke HP agar admin lapangan bisa mencatat langsung di lokasi.",
+"Calculated results matched an earlier manual payroll report, and each change must pass 17 automated pay-rule checks. Next: measure time saved and error reduction.": "Hasil hitungan cocok dengan laporan gaji manual sebelumnya, dan setiap perubahan harus lolos 17 uji aturan gaji otomatis. Berikutnya: mengukur waktu yang dihemat dan penurunan kesalahan.",
+"Project Petty Cash System": "Sistem Petty Cash Proyek",
+"Financial Control • Live Pilot": "Pengendalian Keuangan • Uji Coba Berjalan",
+"Built a mobile web app for project admins to record cash in and out from a phone, track running balances, and prepare monthly reports. It replaces manual Excel records and runs on Google services without a separate server. It replaces manual Excel records and runs on Google services without a separate server.": "Membangun web app HP agar admin proyek bisa mencatat uang masuk dan keluar dari HP, memantau saldo berjalan, dan menyiapkan laporan bulanan. Sistem ini menggantikan catatan Excel manual dan berjalan di layanan Google tanpa server terpisah.",
+"Simulated data": "Data simulasi",
+"PIN login": "Masuk dengan PIN",
+"Record a transaction": "Catat transaksi",
+"Daily history": "Riwayat per hari",
+"Monthly report": "Laporan bulanan",
+"Edit or delete": "Ubah atau hapus",
+"Reports": "Laporan",
+"Monthly PDF + Excel": "PDF + Excel Bulanan",
+"Running Balance:": "Saldo Berjalan:",
+"Updates the balance after each transaction and carries it into the next month.": "Memperbarui saldo setelah setiap transaksi dan membawanya ke bulan berikutnya.",
+"Audit Trail:": "Jejak Perubahan:",
+"Keeps a record of edited and deleted transactions.": "Menyimpan catatan transaksi yang diubah dan dihapus.",
+"Monthly Control:": "Kontrol Bulanan:",
+"Sends PDF and Excel reports by email and locks a month after it is sent.": "Mengirim laporan PDF dan Excel lewat email, lalu mengunci bulan setelah terkirim.",
+"Data Protection:": "Perlindungan Data:",
+"Uses a separate PIN for each project, daily backups to Google Drive, and a data restore option.": "Memakai PIN terpisah untuk setiap proyek, cadangan harian ke Google Drive, dan fitur pemulihan data.",
+"Moved petty cash records to a phone so a project admin can record transactions on site.": "Pencatatan petty cash dipindahkan ke HP agar admin proyek bisa mencatat transaksi di lokasi.",
+"Pilot started in November 2026, and user feedback is still being collected.": "Uji coba dimulai November 2026, dan masukan pengguna masih dikumpulkan.",
+"Core calculations passed 37 automated checks. Core calculations passed 37 automated checks. Next: complete the first monthly report cycle and measure reporting time.": "Hitungan inti lolos 37 uji otomatis. Berikutnya: menyelesaikan siklus laporan bulanan pertama dan mengukur waktu pelaporan.",
+"3. Payroll & Petty Cash": "3. Sistem Gaji & Petty Cash",
+"Weekly Payroll & Petty Cash System": "Sistem Gaji Mingguan & Petty Cash",
+"Personal project • Google Sheets, Apps Script, mobile web app • Pilot with 1 field admin": "Proyek pribadi • Google Sheets, Apps Script, web app HP • Uji coba oleh 1 admin lapangan",
+"Process Improvement • Live Pilot": "Perbaikan Proses • Uji Coba Berjalan",
+"Built two mobile web systems from real field admin problems. The payroll system handles attendance, overtime, cash advances, and weekly pay. The petty cash system records cash in and out and prepares monthly reports.": "Membangun dua sistem web untuk HP dari masalah nyata admin lapangan. Sistem gaji mengelola absen, lembur, kasbon, dan gaji mingguan. Sistem petty cash mencatat uang masuk dan keluar serta menyiapkan laporan bulanan.",
+"Sample attendance view with simulated data": "Contoh tampilan absen dengan data simulasi",
+"Key Features & Safeguards": "Fitur & Pengaman Utama",
+"Result & Next Steps": "Hasil & Langkah Berikutnya",
+"Current Users": "Pengguna Saat Ini",
+"1 Field Admin": "1 Admin Lapangan",
+"Payroll Pilot": "Uji Coba Gaji",
+"Since Oct 2026": "Sejak Okt 2026",
+"Petty Cash Pilot": "Uji Coba Petty Cash",
+"Since Nov 2026": "Sejak Nov 2026",
+"Tech Stack": "Teknologi",
+"Mobile Access:": "Akses dari HP:",
+"Attendance, overtime, cash advances, and petty cash can be recorded from a phone at the project site.": "Absen, lembur, kasbon, dan petty cash bisa dicatat dari HP di lokasi proyek.",
+"Payment Safeguards:": "Pengaman Pembayaran:",
+"The payroll system flags unusual dates, carries unpaid balances into the next week, records late entries as corrections, and locks a week after payment.": "Sistem gaji menandai tanggal yang tidak wajar, membawa kekurangan ke minggu berikutnya, mencatat isian terlambat sebagai koreksi, dan mengunci minggu setelah dibayar.",
+"Automated Reporting:": "Laporan Otomatis:",
+"Creates weekly pay details and PDF reports, monthly petty cash reports, and daily petty cash backups.": "Membuat rincian gaji mingguan dan laporan PDF, laporan petty cash bulanan, serta cadangan petty cash harian.",
+"Role-Based PIN Access:": "Akses PIN Sesuai Peran:",
+"Separates field users from the owner, who manages workers, projects, and settings.": "Memisahkan pengguna lapangan dan pemilik, yang mengelola pekerja, proyek, dan pengaturan.",
+"Moved data entry to a mobile web app so a field admin without a laptop can use the system on site.": "Pengisian data dipindahkan ke web app HP agar admin lapangan tanpa laptop bisa memakai sistem ini di lokasi.",
+"Improved the system from Google Sheets to Google Form to web app based on real use and user feedback.": "Sistem dikembangkan dari Google Sheets ke Google Form, lalu web app, berdasarkan pemakaian nyata dan masukan pengguna.",
+"Next: measure time saved and error reduction, then test with more teams before offering it more widely.": "Berikutnya: mengukur waktu yang dihemat dan penurunan kesalahan, lalu menguji ke lebih banyak tim sebelum ditawarkan lebih luas.",
 "Data Analyst | Finance Background": "Data Analyst | Latar Belakang Keuangan",
 "Open to Work (Medan, Relocation, & Remote)": "Terbuka untuk Bekerja (Medan, Relokasi, & Remote)",
 "Chat on WhatsApp": "Chat via WhatsApp",
@@ -1409,6 +1548,16 @@
       const fromUrl = new URLSearchParams(window.location.search).get('lang');
       setLang(fromUrl || saved || 'en');
     })();
+
+    // Project image viewer
+    function openGallery(src, cap) {
+      document.getElementById('galleryImage').src = src;
+      document.getElementById('galleryImage').alt = t(cap);
+      document.getElementById('galleryCaption').textContent = t(cap);
+      document.getElementById('galleryModal').classList.remove('hidden');
+    }
+    function closeGallery() { document.getElementById('galleryModal').classList.add('hidden'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGallery(); });
 
     // Clipboard Copy Helper
     function copyEmailToClipboard() {
