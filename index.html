@@ -164,6 +164,9 @@
   <!-- ==================== MAIN DASHBOARD LAYOUT ==================== -->
   <div class="flex-1 flex overflow-hidden relative">
 
+    <!-- Tap-outside backdrop for the mobile menu -->
+    <div id="sidebarBackdrop" class="hidden md:hidden absolute inset-0 z-10 bg-black/50" aria-hidden="true"></div>
+
     <!-- ==================== LEFT SIDEBAR ==================== -->
     <aside id="sidebarPanel" class="w-72 lg:w-80 bg-console-sidebar border-r border-console-border flex flex-col justify-between shrink-0 transition-transform duration-300 z-20 absolute md:static inset-y-0 left-0 -translate-x-full md:translate-x-0">
       
@@ -848,6 +851,16 @@
         sidebar.classList.toggle('-translate-x-full');
       });
     }
+    // Close the mobile menu when tapping outside it; keep the backdrop in sync with the menu state
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const closeSidebar = () => sidebar.classList.add('-translate-x-full');
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', closeSidebar);
+      new MutationObserver(() => {
+        sidebarBackdrop.classList.toggle('hidden', sidebar.classList.contains('-translate-x-full'));
+      }).observe(sidebar, { attributes: true, attributeFilter: ['class'] });
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && window.innerWidth < 768) closeSidebar(); });
 
     // Switch Main Tabs
     function switchTab(tabId) {
