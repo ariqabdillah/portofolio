@@ -33,12 +33,12 @@
           },
           colors: {
             console: {
-              bg: '#0c1017',        /* Deep Institutional Slate */
-              sidebar: '#101622',   /* Solid Executive Sidebar */
-              card: '#141b29',      /* High-end matte surface */
-              cardHover: '#1a2334', /* Subtle hover */
-              border: '#1f293d',    /* Clean subtle divider */
-              borderLight: '#2a364f',
+              bg: '#050505',        /* Near-black canvas */
+              sidebar: '#0a0a0a',   /* Black sidebar & top bar */
+              card: '#111111',      /* Matte charcoal card */
+              cardHover: '#191919', /* Subtle hover */
+              border: '#232323',    /* Thin graphite divider */
+              borderLight: '#303030',
               accent: '#2563eb',    /* Corporate Sapphire */
               accentHover: '#1d4ed8'
             }
@@ -58,10 +58,10 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #0c1017;
+      background: #050505;
     }
     ::-webkit-scrollbar-thumb {
-      background: #1f293d;
+      background: #2a2a2a;
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
@@ -71,7 +71,7 @@
       width: 5px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #1f293d;
+      background: #2a2a2a;
       border-radius: 4px;
     }
 
@@ -98,7 +98,7 @@
 
     /* Standardized Navigation Active State */
     .active-nav-btn {
-      background: #182235 !important;
+      background: #0f1a2e !important;
       border-left: 3px solid #2563eb !important;
       color: #ffffff !important;
       font-weight: 700;
@@ -106,17 +106,20 @@
     .active-nav-btn i {
       color: #3b82f6 !important;
     }
-    .active-nav-btn .nav-chevron {
-      color: #3b82f6 !important;
-      transform: translateX(2px);
-    }
+    .active-nav-btn .nav-chevron { color: #3b82f6 !important; }
+    .nav-group-open .nav-chevron { transform: rotate(90deg); }
+    .nav-sub-btn.active-sub { color: #ffffff; font-weight: 600; background: rgba(37, 99, 235, 0.12); }
+    .nav-sub-btn.active-sub .nav-sub-dot { background: #3b82f6; }
 
     /* Project Tab Selector */
     .active-project-btn {
-      background: #2563eb !important;
       color: #ffffff !important;
-      border-color: #2563eb !important;
+      font-weight: 700;
+      border-bottom-color: #3b82f6 !important;
     }
+    .active-project-btn .pbtn-num { color: #60a5fa; }
+    .no-scrollbar { scrollbar-width: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
   </style>
 </head>
 
@@ -132,7 +135,7 @@
       </div>
 
       <!-- Divider -->
-      <div class="hidden sm:block h-5 w-[1px] bg-slate-800"></div>
+      <div class="hidden sm:block h-5 w-[1px] bg-neutral-800"></div>
 
       <!-- Status Pill -->
       <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-semibold">
@@ -144,7 +147,7 @@
     <!-- Right Top Utilities -->
     <div class="flex items-center gap-2.5">
       <!-- Language Toggle -->
-      <div class="inline-flex items-center rounded-lg border border-slate-700 bg-slate-800 p-0.5 text-[11px] font-bold" role="group" aria-label="Language / Bahasa">
+      <div class="inline-flex items-center rounded-lg border border-neutral-700 bg-neutral-800 p-0.5 text-[11px] font-bold" role="group" aria-label="Language / Bahasa">
         <button type="button" id="langBtnEn" onclick="setLang('en')" class="px-2 py-1 rounded-md transition-colors" aria-pressed="true">EN</button>
         <button type="button" id="langBtnId" onclick="setLang('id')" class="px-2 py-1 rounded-md transition-colors" aria-pressed="false">ID</button>
       </div>
@@ -162,7 +165,7 @@
       </a>
 
       <!-- Mobile Menu Toggle Button -->
-      <button id="mobileNavToggle" class="md:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white" title="Toggle Navigation">
+      <button id="mobileNavToggle" class="md:hidden p-2 rounded-lg bg-neutral-800 text-slate-300 hover:text-white" title="Toggle Navigation">
         <i data-lucide="menu" class="w-4 h-4"></i>
       </button>
     </div>
@@ -185,9 +188,9 @@
         <div class="p-4 rounded-xl bg-console-card border border-console-border space-y-3.5">
           <div class="flex items-center gap-3.5">
             <!-- Clickable Profile Photo with Zoom Icon -->
-            <div onclick="openPhotoModal()" class="w-14 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700/80 shrink-0 shadow-sm cursor-pointer hover:border-blue-500 hover:scale-105 transition-all group relative" title="Click to view enlarged photo">
+            <div onclick="openPhotoModal()" class="w-14 h-16 rounded-xl overflow-hidden bg-neutral-950 border border-neutral-700/80 shrink-0 shadow-sm cursor-pointer hover:border-blue-500 hover:scale-105 transition-all group relative" title="Click to view enlarged photo">
               <img src="profile.jpg" alt="Ariq Abdillah" class="w-full h-full object-cover object-top">
-              <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+              <div class="absolute inset-0 bg-neutral-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
                 <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-white"></i>
               </div>
             </div>
@@ -224,31 +227,41 @@
               <i data-lucide="layout-dashboard" class="w-4 h-4 text-slate-400"></i>
               <span>Executive Summary</span>
             </div>
-            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
           </button>
 
-          <button onclick="switchTab('projects')" id="nav-projects" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
+          <button onclick="toggleNavGroup('projects')" aria-expanded="false" aria-controls="sub-projects" id="nav-projects" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
             <div class="flex items-center gap-3">
               <i data-lucide="folder-kanban" class="w-4 h-4 text-slate-400"></i>
               <span>Case Studies & Projects</span>
             </div>
             <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
           </button>
+          <div id="sub-projects" class="nav-sub hidden ml-[1.35rem] pl-2 border-l border-console-border space-y-0.5 py-1">
+            <button type="button" onclick="openProject('ocasegmentation')" data-sub="ocasegmentation" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>OCA Segmentation</span></button>
+            <button type="button" onclick="openProject('ocaperformance')" data-sub="ocaperformance" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>OCA Dashboard</span></button>
+            <button type="button" onclick="openProject('payroll')" data-sub="payroll" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>Payroll System</span></button>
+            <button type="button" onclick="openProject('pettycash')" data-sub="pettycash" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>Petty Cash System</span></button>
+            <button type="button" onclick="openProject('revobank')" data-sub="revobank" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>RevoBank</span></button>
+            <button type="button" onclick="openProject('creditech')" data-sub="creditech" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>CrediTech</span></button>
+          </div>
 
-          <button onclick="switchTab('experience')" id="nav-experience" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
+          <button onclick="toggleNavGroup('experience')" aria-expanded="false" aria-controls="sub-experience" id="nav-experience" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
             <div class="flex items-center gap-3">
               <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
               <span>Experience & Education</span>
             </div>
             <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
           </button>
+          <div id="sub-experience" class="nav-sub hidden ml-[1.35rem] pl-2 border-l border-console-border space-y-0.5 py-1">
+            <button type="button" onclick="openExpPart('work')" data-sub="work" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>Experience</span></button>
+            <button type="button" onclick="openExpPart('edu')" data-sub="edu" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>Education</span></button>
+          </div>
 
           <button onclick="switchTab('credentials')" id="nav-credentials" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
             <div class="flex items-center gap-3">
               <i data-lucide="award" class="w-4 h-4 text-slate-400"></i>
               <span>Official Credentials</span>
             </div>
-            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
           </button>
 
           <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn w-full px-3.5 py-2.5 rounded-lg border-l-2 border-transparent text-slate-300 hover:text-white hover:bg-console-cardHover text-xs font-medium flex items-center justify-between transition-all group">
@@ -256,7 +269,6 @@
               <i data-lucide="send" class="w-4 h-4 text-slate-400"></i>
               <span>Contact & Direct Message</span>
             </div>
-            <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
           </button>
         </div>
 
@@ -326,7 +338,7 @@
         <!-- Header Banner -->
         <div class="p-6 rounded-2xl bg-console-card border border-console-border space-y-3">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 font-mono text-[11px] font-semibold border border-console-border">
+            <span class="px-2.5 py-1 rounded bg-neutral-800 text-slate-300 font-mono text-[11px] font-semibold border border-console-border">
               Professional Profile
             </span>
             <span class="px-2.5 py-1 rounded bg-blue-900/30 text-blue-300 font-mono text-[11px] font-semibold border border-blue-800/40">
@@ -346,7 +358,7 @@
         <!-- 4 Key Impact Metric Scorecards -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
           
-          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 transition-colors">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-mono text-slate-400">OCA Internship</span>
               <i data-lucide="database" class="w-4 h-4 text-slate-400"></i>
@@ -356,7 +368,7 @@
             <p class="text-[10px] text-slate-400">SQL BigQuery, 4 Channels</p>
           </div>
 
-          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 transition-colors">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-mono text-slate-400">Client Insight</span>
               <i data-lucide="landmark" class="w-4 h-4 text-slate-400"></i>
@@ -366,7 +378,7 @@
             <p class="text-[10px] text-slate-400">Python Segmentation, OCA</p>
           </div>
 
-          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 transition-colors">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-mono text-slate-400">Portfolio Case Study</span>
               <i data-lucide="shield-alert" class="w-4 h-4 text-slate-400"></i>
@@ -376,7 +388,7 @@
             <p class="text-[10px] text-slate-400">High-Risk vs Other Customers</p>
           </div>
 
-          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-slate-700 transition-colors">
+          <div class="p-4 sm:p-5 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 transition-colors">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-mono text-slate-400">Presentation</span>
               <i data-lucide="award" class="w-4 h-4 text-slate-400"></i>
@@ -463,33 +475,21 @@
       <!-- ==================== TAB 2: CASE STUDIES & PROJECT CATALOG ==================== -->
       <section id="tab-projects" class="tab-content space-y-4 max-w-6xl mx-auto">
         
-        <!-- Header & Category Switcher -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-console-border">
+        <!-- Header & Project Tabs -->
+        <div class="space-y-3">
           <div>
             <h2 class="text-xl sm:text-2xl font-black text-white leading-tight">Case Studies & Project Catalog</h2>
             <p class="text-xs text-slate-400 mt-0.5">Select a project below to review analytical metrics, slide decks, and strategic business takeaways.</p>
           </div>
 
-          <!-- Project Selectors Pills -->
-          <div class="flex flex-wrap gap-1.5 p-1 rounded-lg bg-console-card border border-console-border text-xs">
-            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn active-project-btn px-3 py-1.5 rounded-md text-slate-300 font-semibold border border-transparent transition-all">
-              1. OCA Segmentation
-            </button>
-            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              2. OCA Dashboard
-            </button>
-            <button onclick="selectProject('payroll')" id="pbtn-payroll" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              3. Payroll System
-            </button>
-            <button onclick="selectProject('pettycash')" id="pbtn-pettycash" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              4. Petty Cash System
-            </button>
-            <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              5. RevoBank
-            </button>
-            <button onclick="selectProject('creditech')" id="pbtn-creditech" class="project-selector-btn px-3 py-1.5 rounded-md text-slate-400 font-medium border border-transparent hover:text-white transition-all">
-              6. CrediTech
-            </button>
+          <!-- Project Tabs (underline style, swipe sideways on phones) -->
+          <div class="flex overflow-x-auto border-b border-console-border no-scrollbar" role="tablist">
+            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn active-project-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>01</span><span>OCA Segmentation</span></button>
+            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>02</span><span>OCA Dashboard</span></button>
+            <button onclick="selectProject('payroll')" id="pbtn-payroll" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>03</span><span>Payroll System</span></button>
+            <button onclick="selectProject('pettycash')" id="pbtn-pettycash" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>04</span><span>Petty Cash System</span></button>
+            <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>05</span><span>RevoBank</span></button>
+            <button onclick="selectProject('creditech')" id="pbtn-creditech" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>06</span><span>CrediTech</span></button>
           </div>
         </div>
 
@@ -509,7 +509,7 @@
           <p class="text-xs text-slate-400">Work experience and virtual internship, followed by formal education and training.</p>
         </div>
 
-        <div class="space-y-4">
+        <div id="exp-work" class="exp-part space-y-4">
           <h3 class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-400 border-b border-console-border pb-2"><i data-lucide="briefcase" class="w-4 h-4 text-blue-400"></i><span>Work Experience</span></h3>
 
           <!-- Experience Card 1: Site Coordinator -->
@@ -565,7 +565,7 @@
 
         </div>
 
-        <div class="space-y-4">
+        <div id="exp-edu" class="exp-part space-y-4">
           <h3 class="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-400 border-b border-console-border pb-2"><i data-lucide="graduation-cap" class="w-4 h-4 text-blue-400"></i><span>Education & Training</span></h3>
 
           <!-- Education: Formal & Non-Formal -->
@@ -697,7 +697,7 @@
                 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                 <span>Verify on RevoU</span>
               </a>
-              <a href="Sertifikat_Excellence_RevoU.pdf" target="_blank" class="py-2 px-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+              <a href="Sertifikat_Excellence_RevoU.pdf" target="_blank" class="py-2 px-3.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
                 <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
                 <span>View PDF</span>
               </a>
@@ -805,7 +805,7 @@
                 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                 <span>Verify on RevoU</span>
               </a>
-              <a href="Sertifikat_Achievement_RevoU.pdf" target="_blank" class="py-2 px-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+              <a href="Sertifikat_Achievement_RevoU.pdf" target="_blank" class="py-2 px-3.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
                 <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
                 <span>View PDF</span>
               </a>
@@ -831,7 +831,7 @@
           <div class="space-y-3">
             
             <!-- WhatsApp Direct -->
-            <a href="https://wa.me/6283866672738?text=Hello%20Ariq,%20I%20am%20interested%20in%20your%20analytics%20profile." target="_blank" class="p-4 rounded-xl bg-console-card border border-console-border hover:border-slate-700 flex items-center justify-between group transition-colors">
+            <a href="https://wa.me/6283866672738?text=Hello%20Ariq,%20I%20am%20interested%20in%20your%20analytics%20profile." target="_blank" class="p-4 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 flex items-center justify-between group transition-colors">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                   <i data-lucide="message-circle" class="w-5 h-5"></i>
@@ -845,7 +845,7 @@
             </a>
 
             <!-- Email Direct -->
-            <div class="p-4 rounded-xl bg-console-card border border-console-border hover:border-slate-700 flex items-center justify-between group transition-colors">
+            <div class="p-4 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 flex items-center justify-between group transition-colors">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
                   <i data-lucide="mail" class="w-5 h-5"></i>
@@ -855,13 +855,13 @@
                   <span class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">ariqabdillah2424@gmail.com</span>
                 </div>
               </div>
-              <button onclick="copyEmailToClipboard()" class="p-2 rounded-lg bg-console-bg border border-console-border hover:bg-slate-800 text-slate-300" title="Copy Email">
+              <button onclick="copyEmailToClipboard()" class="p-2 rounded-lg bg-console-bg border border-console-border hover:bg-neutral-800 text-slate-300" title="Copy Email">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i>
               </button>
             </div>
 
             <!-- LinkedIn Profile -->
-            <a href="https://www.linkedin.com/in/ariq-abdillah/" target="_blank" class="p-4 rounded-xl bg-console-card border border-console-border hover:border-slate-700 flex items-center justify-between group transition-colors">
+            <a href="https://www.linkedin.com/in/ariq-abdillah/" target="_blank" class="p-4 rounded-xl bg-console-card border border-console-border hover:border-neutral-700 flex items-center justify-between group transition-colors">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-[#0a66c2] flex items-center justify-center">
                   <i data-lucide="linkedin" class="w-5 h-5"></i>
@@ -937,11 +937,11 @@
     <div class="relative max-w-sm sm:max-w-md w-full bg-console-card border border-console-border rounded-2xl p-5 shadow-2xl flex flex-col items-center space-y-4" onclick="event.stopPropagation()">
       <div class="w-full flex items-center justify-between">
         <span class="text-xs font-mono font-semibold text-slate-400">Official Profile Photo</span>
-        <button onclick="closePhotoModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors" title="Close">
+        <button onclick="closePhotoModal()" class="p-1.5 rounded-lg bg-neutral-800 text-slate-400 hover:text-white hover:bg-neutral-700 transition-colors" title="Close">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="w-full aspect-[4/5] rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+      <div class="w-full aspect-[4/5] rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800">
         <img src="profile.jpg" alt="Ariq Abdillah" class="w-full h-full object-cover object-top">
       </div>
       <div class="text-center pb-1">
@@ -954,7 +954,7 @@
 
 
   <!-- ==================== PITCH VIDEO NOTICE MODAL ==================== -->
-  <div id="pitchModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="document.getElementById('pitchModal').classList.add('hidden')">
+  <div id="pitchModal" class="fixed inset-0 z-50 bg-neutral-950/85 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="document.getElementById('pitchModal').classList.add('hidden')">
     <div class="w-full max-w-md bg-console-card border border-console-border rounded-xl p-6 shadow-2xl space-y-4 text-center" onclick="event.stopPropagation()">
       <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto">
         <i data-lucide="video" class="w-6 h-6"></i>
@@ -971,7 +971,7 @@
 
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs font-semibold shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+  <div id="toast" class="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-lg bg-neutral-800 border border-neutral-700 text-white text-xs font-semibold shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
     <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
     <span id="toastText">Email copied to clipboard!</span>
   </div>
@@ -1021,15 +1021,49 @@
 
     // Switch Main Tabs
     // Profile "Education" badge: open Experience and jump to the education card at the bottom
-    function goToEducation() {
-      switchTab('experience');
-      requestAnimationFrame(() => {
-        const card = document.getElementById('education-card');
-        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function goToEducation() { openExpPart('edu'); }
+
+    // Sidebar sub-menus (Case Studies & Experience): only one group open at a time
+    function setNavGroup(tabId) {
+      ['projects', 'experience'].forEach(g => {
+        const open = g === tabId;
+        const box = document.getElementById(`sub-${g}`), btn = document.getElementById(`nav-${g}`);
+        if (box) box.classList.toggle('hidden', !open);
+        if (btn) { btn.classList.toggle('nav-group-open', open); btn.setAttribute('aria-expanded', String(open)); }
       });
+      window.dispatchEvent(new Event('resize')); // let the SQL widget re-check the free space
+    }
+    function markSub(group, key) {
+      document.querySelectorAll(`#sub-${group} .nav-sub-btn`).forEach(b => b.classList.toggle('active-sub', b.dataset.sub === key));
+    }
+    // Parent click opens the section and its sub-menu (the phone drawer stays open so a sub-item can be picked);
+    // clicking the parent of the section already open folds its sub-menu.
+    function toggleNavGroup(tabId) {
+      const btn = document.getElementById(`nav-${tabId}`);
+      const isActive = btn && btn.classList.contains('active-nav-btn');
+      if (isActive && btn.classList.contains('nav-group-open')) { setNavGroup(null); return; }
+      if (!isActive) {
+        if (tabId === 'experience') showExpPart('work');
+        switchTab(tabId, true);
+      }
+      setNavGroup(tabId);
+    }
+    function showExpPart(part) {
+      document.querySelectorAll('.exp-part').forEach(el => el.classList.toggle('hidden', el.id !== `exp-${part}`));
+      markSub('experience', part);
+    }
+    function openExpPart(part) {
+      showExpPart(part);
+      switchTab('experience');
+      setNavGroup('experience');
+    }
+    function openProject(id) {
+      switchTab('projects');
+      selectProject(id); // after the tab is visible, so the tab bar can scroll to it on phones
+      setNavGroup('projects');
     }
 
-    function switchTab(tabId) {
+    function switchTab(tabId, keepDrawer) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active-nav-btn'));
 
@@ -1045,9 +1079,10 @@
       window.scrollTo(0, 0);
 
       // Close mobile drawer on selection
-      if (window.innerWidth < 768 && sidebar) {
+      if (!keepDrawer && window.innerWidth < 768 && sidebar) {
         sidebar.classList.add('-translate-x-full');
       }
+      if (tabId !== 'projects' && tabId !== 'experience') setNavGroup(null);
 
       lucide.createIcons();
     }
@@ -1242,7 +1277,12 @@
     function selectProject(projectId) {
       document.querySelectorAll('.project-selector-btn').forEach(btn => btn.classList.remove('active-project-btn'));
       const activeBtn = document.getElementById(`pbtn-${projectId}`);
-      if (activeBtn) activeBtn.classList.add('active-project-btn');
+      if (activeBtn) {
+        activeBtn.classList.add('active-project-btn');
+        const bar = activeBtn.parentElement;
+        if (bar && bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: activeBtn.offsetLeft - 16, behavior: 'smooth' });
+      }
+      markSub('projects', projectId);
 
       const data = projectCatalog[projectId];
       if (!data) return;
@@ -1292,7 +1332,7 @@
       }
       if (data.links.tableau) {
         linksHtml += `
-          <a href="${data.links.tableau}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+          <a href="${data.links.tableau}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
             <svg class="w-3.5 h-3.5 fill-current text-[#e97627]" viewBox="0 0 24 24">
               <path d="M11.4 1.5h1.2v3.3h-1.2V1.5zm0 17.7h1.2v3.3h-1.2v-3.3zM4.8 11.4h3.3v1.2H4.8v-1.2zm14.4 0h-3.3v1.2h3.3v-1.2zM7.3 5.5l2.3 2.3-.9.9-2.3-2.3.9-.9zm9.4 9.4l2.3 2.3-.9.9-2.3-2.3.9-.9zM5.5 16.7l2.3-2.3.9.9-2.3 2.3-.9-.9zm9.4-9.4l2.3-2.3.9.9-2.3 2.3-.9-.9zM11.4 7.5h1.2v9h-1.2v-9zm-4.5 4.5v-1.2h9v1.2h-9z"/>
             </svg>
@@ -1303,7 +1343,7 @@
       }
       if (data.links.colab) {
         linksHtml += `
-          <a href="${data.links.colab}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+          <a href="${data.links.colab}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
             <i data-lucide="code" class="w-3.5 h-3.5 text-blue-400"></i>
             <span>Google Colab</span>
             <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
@@ -1312,7 +1352,7 @@
       }
       if (data.links.dataset) {
         linksHtml += `
-          <a href="${data.links.dataset}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+          <a href="${data.links.dataset}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
             <i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i>
             <span>Dataset</span>
             <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
@@ -1321,7 +1361,7 @@
       }
       if (data.links.pitchVideo) {
         linksHtml += `
-          <button onclick="document.getElementById('pitchModal').classList.remove('hidden')" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+          <button onclick="document.getElementById('pitchModal').classList.remove('hidden')" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
             <i data-lucide="video" class="w-3.5 h-3.5 text-purple-400"></i>
             <span>Pitch Video</span>
           </button>
@@ -1487,6 +1527,10 @@
 "Download Resume (PDF)": "Unduh CV (PDF)",
 "Resume": "CV",
 "Education": "Pendidikan",
+"Experience": "Pengalaman",
+"OCA Segmentation": "Segmentasi OCA",
+"OCA Dashboard": "Dashboard OCA",
+"Petty Cash System": "Sistem Petty Cash",
 "S1 Management": "S1 Manajemen",
 "Certification": "Sertifikasi",
 "Navigation": "Navigasi",
@@ -1944,15 +1988,15 @@
 
     <section id="chatPanel" role="dialog" aria-label="Chat" class="hidden fixed z-[45] inset-x-2 bottom-20 top-16 md:inset-auto md:bottom-24 md:right-6 md:w-[380px] md:h-[min(600px,calc(100vh-8rem))] rounded-2xl bg-console-sidebar border border-console-border shadow-2xl shadow-black/60 flex-col overflow-hidden">
       <header class="flex items-center gap-3 px-4 py-3 border-b border-console-border bg-console-card/80">
-        <img src="profile.jpg" alt="" class="w-9 h-9 rounded-full object-cover object-top border border-slate-700">
+        <img src="profile.jpg" alt="" class="w-9 h-9 rounded-full object-cover object-top border border-neutral-700">
         <div class="min-w-0 flex-1">
           <p id="chatTitle" class="text-sm font-bold text-white truncate">Ariq's Assistant</p>
           <p class="flex items-center gap-1.5 text-[10px] text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span id="chatSubtitle">AI · answers about Ariq</span></p>
         </div>
-        <button type="button" onclick="chatShowRating(true)" id="chatRateBtn" title="Rate this chat" class="p-2 rounded-lg text-slate-400 hover:text-amber-300 hover:bg-slate-800">
+        <button type="button" onclick="chatShowRating(true)" id="chatRateBtn" title="Rate this chat" class="p-2 rounded-lg text-slate-400 hover:text-amber-300 hover:bg-neutral-800">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" class="w-4 h-4"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
         </button>
-        <button type="button" onclick="chatToggle(false)" title="Close" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+        <button type="button" onclick="chatToggle(false)" title="Close" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-neutral-800">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="w-4 h-4"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </header>
@@ -2150,7 +2194,7 @@
         ['up', 'down'].forEach(v => {
           const b = document.createElement('button');
           b.type = 'button';
-          b.className = 'px-1.5 py-0.5 rounded hover:bg-slate-800 text-sm leading-none';
+          b.className = 'px-1.5 py-0.5 rounded hover:bg-neutral-800 text-sm leading-none';
           b.textContent = v === 'up' ? '👍' : '👎';
           b.onclick = () => { feedback({ type: 'vote', value: v, question, answer, provider }); row.innerHTML = '<span class="text-emerald-400">' + t().thanks + '</span>'; };
           row.appendChild(b);
