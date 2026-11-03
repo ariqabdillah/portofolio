@@ -277,6 +277,7 @@
             <pre id="sqlCode" class="text-[9.5px] leading-[13.5px] font-mono text-slate-300 whitespace-pre overflow-hidden"></pre>
             <div id="sqlResult" class="absolute left-3 right-3 bottom-1 text-[9.5px] leading-[13.5px] font-mono font-bold text-emerald-400 opacity-0 transition-opacity duration-500 truncate">&nbsp;</div>
           </div>
+          <div id="sqlTable" class="border-t border-console-border px-3 py-1 h-[60px] overflow-hidden text-[9.5px] leading-[12.5px] font-mono opacity-0 transition-opacity duration-500"></div>
         </div>
 
       </div>
@@ -1782,20 +1783,26 @@
       if (!code || !result) return;
       const widget = document.getElementById('sqlWidget');
       const area = widget && widget.parentElement;
+      const table = document.getElementById('sqlTable');
+      const over = () => area.scrollHeight > area.clientHeight + 1;
       const fit = () => {
         if (!widget || !area) return;
-        widget.style.display = '';
-        if (area.scrollHeight > area.clientHeight + 1) widget.style.display = 'none';
+        widget.style.display = ''; if (table) table.style.display = '';
+        if (over() && table) table.style.display = 'none';   // short screens: drop the result table first
+        if (over()) widget.style.display = 'none';
       };
       fit(); window.addEventListener('resize', fit);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
       const QUERIES = [
         { sql: ["SELECT client, SUM(revenue) AS rev", "FROM oca_usage GROUP BY client", "ORDER BY rev DESC LIMIT 3;"],
-          en: "✓ Top 3 clients = 59.8% of revenue", id: "✓ 3 klien teratas = 59,8% pendapatan" },
+          en: "✓ Top 3 clients = 59.8% of revenue", id: "✓ 3 klien teratas = 59,8% pendapatan",
+          cols: ['metric', 'value'], rows: [['top3_share', '59.8%'], ['clients', '20'], ['channels', '4']] },
         { sql: ["SELECT COUNT(*) AS clean_rows", "FROM oca_messages", "WHERE status IS NOT NULL;"],
-          en: "✓ 122,749 rows cleaned & merged", id: "✓ 122.749 baris dibersihkan & digabung" },
+          en: "✓ 122,749 rows cleaned & merged", id: "✓ 122.749 baris dibersihkan & digabung",
+          cols: ['clean_rows'], rows: [['122749']] },
         { sql: ["SELECT worker, SUM(pay) AS net", "FROM weekly_payroll", "WHERE week = '27 Sep-3 Oct'", "GROUP BY worker;"],
-          en: "✓ 9 workers · weekly pay ready", id: "✓ 9 pekerja · gaji mingguan siap" }
+          en: "✓ 9 workers · weekly pay ready", id: "✓ 9 pekerja · gaji mingguan siap",
+          cols: ['worker', 'net'], rows: [['Bayu', '180000'], ['Fajar', '100000']], more: 7 }
       ];
       const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const KW = new Set(['SELECT','FROM','WHERE','GROUP','BY','ORDER','LIMIT','AS','AND','IN','IS','NOT','NULL','DESC']);
@@ -1810,26 +1817,34 @@
       const label = q => (typeof currentLang !== 'undefined' && currentLang === 'id') ? q.id : q.en;
       const setStatus = t => { if (statusText) statusText.textContent = t; };
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const showTable = q => {
+        if (!table) return;
+        const n = q.cols.length;
+        const cell = (t, i, head) => '<span class="' + (i ? 'text-right ' : '') + (head ? 'text-slate-500' : (/^[\d.,%]+$/.test(t) ? 'sql-num' : 'text-slate-300')) + '">' + esc(t) + '</span>';
+        const row = (r, head) => '<div class="grid gap-x-3" style="grid-template-columns:repeat(' + n + ',minmax(0,1fr))">' + r.map((t, i) => cell(t, i, head)).join('') + '</div>';
+        table.innerHTML = row(q.cols, true) + q.rows.map(r => row(r)).join('') +
+          (q.more ? '<div class="text-slate-500">… +' + q.more + ' rows</div>' : q.rows.length < 3 ? '<div class="text-slate-500">(' + q.rows.length + (q.rows.length > 1 ? ' rows' : ' row') + ')</div>' : '');
+      };
       const render = (lines, partial) => {
         code.innerHTML = lines.map(highlight).join('\n') + (partial !== undefined ? (lines.length ? '\n' : '') + esc(partial) : '') + '<span class="sql-cursor"></span>';
       };
       if (reduce) {
-        render(QUERIES[0].sql); result.textContent = label(QUERIES[0]); result.style.opacity = 1; setStatus('done');
+        render(QUERIES[0].sql); result.textContent = label(QUERIES[0]); result.style.opacity = 1; showTable(QUERIES[0]); if (table) table.style.opacity = 1; setStatus('done');
         return;
       }
       const wait = ms => new Promise(r => setTimeout(r, ms));
       (async () => {
         for (let i = 0; ; i = (i + 1) % QUERIES.length) {
           const q = QUERIES[i];
-          result.style.opacity = 0; setStatus('typing');
+          result.style.opacity = 0; if (table) table.style.opacity = 0; setStatus('typing');
           const done = [];
           for (const line of q.sql) {
             for (let c = 1; c <= line.length; c++) { render(done, line.slice(0, c)); await wait(line[c - 1] === ' ' ? 20 : 38); }
             done.push(line); render(done); await wait(140);
           }
           setStatus('running'); await wait(700);
-          result.textContent = label(q); result.style.opacity = 1; setStatus('done');
-          await wait(3200);
+          result.textContent = label(q); result.style.opacity = 1; showTable(q); if (table) table.style.opacity = 1; setStatus('done');
+          await wait(4200);
         }
       })();
     })();
