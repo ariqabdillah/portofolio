@@ -860,6 +860,11 @@
       if (targetTab) targetTab.classList.add('active');
       if (targetBtn) targetBtn.classList.add('active-nav-btn');
 
+      // Always open the new section from its top (desktop scrolls <main>, phones may scroll the page)
+      const mainEl = document.querySelector('main');
+      if (mainEl) mainEl.scrollTop = 0;
+      window.scrollTo(0, 0);
+
       // Close mobile drawer on selection
       if (window.innerWidth < 768 && sidebar) {
         sidebar.classList.add('-translate-x-full');
