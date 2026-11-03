@@ -52,10 +52,12 @@ PROJECTS (see "Case Studies & Projects" tab)
    - Google Sheets + Apps Script mobile web app for attendance, overtime, cash advances and weekly pay; replaces an error-prone manual Excel recap.
    - Safeguards: flags unusual dates, carries unpaid balances forward, late entries recorded as corrections, locks a week after payment; role-based PIN access; PDF reports, WhatsApp pay details, email reminders.
    - Results matched an earlier manual payroll report; every change must pass 17 automated pay-rule checks. Next: measure time saved and error reduction.
+   - LIVE DEMO anyone can try (fictional data, no emails sent, resets nightly): https://script.google.com/macros/s/AKfycbxcI778j5B3bCdCCLIU5QHEnBb02Xx7lmfbHvRk8_xokU4IgccgxgZUkR0Qsin6cu5T/exec — PIN 1111 = owner, 2222 = foreman. Also linked on the Projects tab ("Live Demo").
 4) Project Petty Cash System (personal project, live pilot since Nov 2026 with 1 field admin)
    - Mobile web app on Google Sheets + Apps Script to record cash in/out, running balance, monthly PDF + Excel reports.
    - Audit trail for edits/deletes, monthly lock after report, separate PIN per project, daily Drive backups and restore.
    - Core calculations passed 37 automated checks. Next: complete first monthly cycle and measure reporting time.
+   - LIVE DEMO anyone can try (fictional data, no emails sent, resets nightly): https://script.google.com/macros/s/AKfycbyxXbAA-6cdYfueiiE6dwUG2fGqVsgzLKGSIeaCNLhcJzPA48Wlm6qqNsRKO_kDNPku/exec — PIN 1111 = owner, 2222 = admin project A, 3333 = admin project B. Also linked on the Projects tab ("Live Demo").
 5) RevoBank Credit Card Customer Segmentation (K-Means, portfolio case study)
    - 6-month behavior window; net profit IDR 5.83B; fraud losses IDR 1.01B; silhouette 0.467 at k=4.
    - Fraud is ~0.22% of transaction value but ~14.8% of MDR income. Clustering on spend, transaction count, credit limit; DTI used as a post-clustering risk filter.
