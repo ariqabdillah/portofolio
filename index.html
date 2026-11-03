@@ -1244,9 +1244,9 @@
       const container = document.getElementById('projectDetailDisplay');
 
       let metricsHtml = data.metrics.map(m => `
-        <div class="py-3 px-3.5 rounded-xl bg-console-bg border border-console-border text-center">
+        <div class="py-3 px-3.5 rounded-xl bg-console-bg border border-console-border text-center flex flex-col">
           <span class="text-[11px] text-slate-400 block font-mono uppercase tracking-wider">${m.label}</span>
-          <span class="text-sm sm:text-base lg:text-lg font-black text-white font-mono mt-1 block break-words">${m.val}</span>
+          <span class="flex-1 flex items-center justify-center text-sm sm:text-base lg:text-lg font-black text-white font-mono mt-1 break-words leading-snug">${m.val}</span>
         </div>
       `).join('');
 
