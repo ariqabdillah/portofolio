@@ -84,6 +84,8 @@
       display: block;
     }
     .sql-cursor { display:inline-block; width:6px; height:11px; margin-left:1px; vertical-align:-2px; background:#60a5fa; animation: sqlBlink 1s steps(1) infinite; }
+    .chat-dot { animation: chatDot 1.2s infinite; opacity: .2; }
+    @keyframes chatDot { 0%,80%,100% { opacity: .2; } 40% { opacity: 1; } }
     @keyframes sqlBlink { 50% { opacity: 0; } }
     .sql-kw { color:#60a5fa; font-weight:700; }
     .sql-fn { color:#c084fc; }
@@ -1744,6 +1746,7 @@
       currentLang = lang === 'id' ? 'id' : 'en';
       try { localStorage.setItem('portfolioLang', currentLang); } catch (e) {}
       applyLang();
+      if (window.chatOnLang) window.chatOnLang();
     }
 
     document.getElementById('copyrightYear').textContent = new Date().getFullYear();
@@ -1885,6 +1888,324 @@
       const fullText = `Hello Ariq Abdillah,%0A%0AFrom: ${encodeURIComponent(sender)}%0ASubject: ${encodeURIComponent(topic)}%0A%0AMessage:%0A${encodeURIComponent(msg)}`;
       window.open(`https://wa.me/6283866672738?text=${fullText}`, '_blank');
     }
+  </script>
+
+  <!-- ==================== LIVE CHAT ASSISTANT ==================== -->
+  <div id="chatRoot" data-no-i18n>
+    <button id="chatLauncher" type="button" onclick="chatToggle()" aria-label="Open chat" class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-2xl shadow-blue-900/50 flex items-center justify-center transition-transform hover:scale-105">
+      <svg id="chatIconOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
+      <svg id="chatIconClose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="w-6 h-6 hidden"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      <span id="chatBadge" class="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-console-bg animate-pulse"></span>
+    </button>
+
+    <section id="chatPanel" role="dialog" aria-label="Chat" class="hidden fixed z-[45] inset-x-2 bottom-20 top-16 md:inset-auto md:bottom-24 md:right-6 md:w-[380px] md:h-[min(600px,calc(100vh-8rem))] rounded-2xl bg-console-sidebar border border-console-border shadow-2xl shadow-black/60 flex-col overflow-hidden">
+      <header class="flex items-center gap-3 px-4 py-3 border-b border-console-border bg-console-card/80">
+        <img src="profile.jpg" alt="" class="w-9 h-9 rounded-full object-cover object-top border border-slate-700">
+        <div class="min-w-0 flex-1">
+          <p id="chatTitle" class="text-sm font-bold text-white truncate">Ariq's Assistant</p>
+          <p class="flex items-center gap-1.5 text-[10px] text-emerald-400"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span id="chatSubtitle">AI · answers about Ariq</span></p>
+        </div>
+        <button type="button" onclick="chatShowRating(true)" id="chatRateBtn" title="Rate this chat" class="p-2 rounded-lg text-slate-400 hover:text-amber-300 hover:bg-slate-800">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" class="w-4 h-4"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+        </button>
+        <button type="button" onclick="chatToggle(false)" title="Close" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="w-4 h-4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </header>
+
+      <div id="chatLog" class="flex-1 overflow-y-auto custom-scrollbar px-3.5 py-4 space-y-3 text-[13px] leading-relaxed" aria-live="polite"></div>
+
+      <div id="chatChips" class="flex gap-1.5 overflow-x-auto custom-scrollbar px-3 pt-2 pb-1.5 border-t border-console-border"></div>
+
+      <form id="chatForm" class="flex items-end gap-2 px-3 pb-3 pt-1.5" onsubmit="chatSubmit(event)">
+        <textarea id="chatInput" rows="1" maxlength="600" placeholder="Ask about Ariq..." class="flex-1 resize-none max-h-24 px-3 py-2.5 rounded-xl bg-console-bg border border-console-border text-[16px] md:text-[13px] text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"></textarea>
+        <button id="chatSend" type="submit" aria-label="Send" class="shrink-0 w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+        </button>
+      </form>
+      <p id="chatNote" class="px-4 pb-2 -mt-1 text-[9.5px] text-slate-500">AI can make mistakes. Please confirm details with Ariq.</p>
+    </section>
+  </div>
+
+  <script>
+    // ---------- Live chat assistant ----------
+    (function () {
+      const WA = 'https://wa.me/6283866672738?text=' + encodeURIComponent('Hello Ariq, I found your portfolio and would like to talk.');
+      const EMAIL = 'mailto:ariqabdillah2424@gmail.com';
+      const L = () => (typeof currentLang !== 'undefined' && currentLang === 'id') ? 'id' : 'en';
+      const T = {
+        en: {
+          title: "Ariq's Assistant", subtitle: 'AI · answers about Ariq', placeholder: 'Ask about Ariq...',
+          note: 'AI can make mistakes. Please confirm details with Ariq.', open: 'Open chat', rate: 'Rate this chat',
+          hello: "Hi! 👋 I'm Ariq's assistant. Ask me anything about his skills, projects or experience, or tap a quick question below.",
+          chips: { skills: 'Skills & Tools', projects: 'Featured Projects', status: 'Work Status', cv: 'Download CV', quiz: '🎮 Guess the Insight', contact: 'Contact Ariq' },
+          thinking: 'Thinking', fallback: "My AI brain is taking a short break 😅 Here are the quick answers instead, or reach Ariq directly:",
+          tooLong: 'Please keep it under 600 characters.',
+          helpful: 'Helpful?', thanks: 'Thanks for the feedback!',
+          rateQ: 'How helpful was this chat?', ratePh: 'Optional comment (e.g. what was missing)', rateSend: 'Send rating', rateThanks: 'Thank you! Your rating helps Ariq improve this site. ⭐',
+          wa: 'WhatsApp Ariq', email: 'Email Ariq', cvBtn: 'Download CV', openProjects: 'Open Case Studies', openCreds: 'Open Certificates', linkedin: 'LinkedIn',
+          answers: {
+            skills: "**Ariq's toolkit:**\n• **SQL** in Google BigQuery (cleaned & unified 122,749 records)\n• **Python**: pandas, NumPy, matplotlib, scikit-learn, K-Means clustering\n• **Tableau Public** KPI dashboards\n• **Excel / Google Sheets + Apps Script** (built 2 live mobile web apps)\n• **Finance**: petty cash, payroll, billing checks, cost reporting",
+            projects: "**6 case studies:**\n• **OCA Segmentation**: top 3 of 20 clients = **59.8%** of revenue; presented to Telkom's Head of Analytics\n• **OCA Dashboard**: 122,749 records, SQL + Tableau\n• **Payroll System**: live pilot web app, 17 automated pay-rule checks\n• **Petty Cash System**: live pilot, 37 automated checks\n• **RevoBank**: K-Means segmentation (k = 4)\n• **CrediTech**: credit default risk, high-risk group defaults **3.5x** more",
+            status: "• Based in **Medan, Indonesia**\n• Open to **relocation, on-site or remote** roles\n• Looking for a **Junior Data Analyst** position\n• Latest role: Project Admin & Site Coordinator (Jul–Oct 2026)\n\nFor start date or interview scheduling, please contact Ariq directly.",
+            cv: "Here's Ariq's CV (PDF). It's a one-page summary of his experience, skills and certificates.",
+            contact: "You can reach Ariq here:\n• WhatsApp: **+62 838-6667-2738**\n• Email: **ariqabdillah2424@gmail.com**\n• LinkedIn: Ariq Abdillah"
+          },
+          quiz: {
+            intro: "🎮 **Guess the Insight**: 3 quick questions from Ariq's real projects. Ready?",
+            q: [
+              { q: 'OCA had 20 corporate clients. What share of revenue came from just the top 3?', o: ['25.4%', '59.8%', '81.2%'], a: 1,
+                e: "Ariq's Python Pareto analysis found 3 power accounts (15%) drove **59.8%** of revenue (IDR 16.5M of 27.6M). That concentration risk shaped his 90-day Protect → Grow → Expand plan." },
+              { q: 'SMS messages had 99.7% delivery success. What was their recorded engagement?', o: ['0.0%', '38.4%', '51.1%'], a: 0,
+                e: "**0.0%.** Delivered doesn't mean engaged. WhatsApp led engagement at 51.1%, so Ariq recommended tracking churn risk by engagement, not delivery alone." },
+              { q: 'Credit card clients 1 month late: the default rate jumps from 13.8% to...?', o: ['18.2%', '33.9%', '69.1%'], a: 1,
+                e: "**33.9%**, and 69.1% at 2 months late. Ariq recommended using the latest payment status (PAY_0) as a monthly risk screening trigger." }
+            ],
+            right: '✅ Correct!', wrong: '❌ Not quite. The answer is', next: 'Next question', score: 'Your score',
+            badges: ['🔍 Curious Analyst', '🔍 Curious Analyst', '📊 Insight Hunter', '🕵️ Data Detective'],
+            outro: 'Want to see how Ariq found these insights?'
+          }
+        },
+        id: {
+          title: 'Asisten Ariq', subtitle: 'AI · menjawab seputar Ariq', placeholder: 'Tanya tentang Ariq...',
+          note: 'AI bisa keliru. Mohon konfirmasi detail ke Ariq.', open: 'Buka chat', rate: 'Beri nilai chat ini',
+          hello: 'Halo! 👋 Saya asisten Ariq. Tanyakan apa saja tentang skill, proyek, atau pengalamannya, atau pilih pertanyaan cepat di bawah.',
+          chips: { skills: 'Skill & Tools', projects: 'Proyek Unggulan', status: 'Status Kerja', cv: 'Download CV', quiz: '🎮 Tebak Insight', contact: 'Hubungi Ariq' },
+          thinking: 'Sedang berpikir', fallback: 'AI saya sedang istirahat sebentar 😅 Silakan pakai jawaban cepat ini, atau hubungi Ariq langsung:',
+          tooLong: 'Maksimal 600 karakter ya.',
+          helpful: 'Membantu?', thanks: 'Terima kasih atas masukannya!',
+          rateQ: 'Seberapa membantu chat ini?', ratePh: 'Komentar opsional (misal: apa yang kurang)', rateSend: 'Kirim nilai', rateThanks: 'Terima kasih! Penilaian Anda membantu Ariq memperbaiki situs ini. ⭐',
+          wa: 'WhatsApp Ariq', email: 'Email Ariq', cvBtn: 'Download CV', openProjects: 'Buka Studi Kasus', openCreds: 'Buka Sertifikat', linkedin: 'LinkedIn',
+          answers: {
+            skills: '**Keahlian Ariq:**\n• **SQL** di Google BigQuery (membersihkan & menggabungkan 122.749 data)\n• **Python**: pandas, NumPy, matplotlib, scikit-learn, K-Means clustering\n• Dashboard KPI **Tableau Public**\n• **Excel / Google Sheets + Apps Script** (membangun 2 web app HP yang sedang dipakai)\n• **Keuangan**: petty cash, penggajian, cek tagihan mandor, laporan biaya',
+            projects: '**6 studi kasus:**\n• **Segmentasi OCA**: 3 dari 20 klien = **59,8%** pendapatan; dipresentasikan ke Head of Analytics Telkom\n• **Dashboard OCA**: 122.749 data, SQL + Tableau\n• **Sistem Gaji**: web app uji coba, 17 cek aturan gaji otomatis\n• **Sistem Petty Cash**: uji coba, 37 cek otomatis\n• **RevoBank**: segmentasi K-Means (k = 4)\n• **CrediTech**: risiko gagal bayar, kelompok berisiko tinggi **3,5x** lebih sering gagal bayar',
+            status: '• Berdomisili di **Medan, Indonesia**\n• Bersedia **relokasi, on-site, atau remote**\n• Mencari posisi **Junior Data Analyst**\n• Peran terakhir: Admin Proyek & Koordinator Lapangan (Jul–Okt 2026)\n\nUntuk tanggal mulai kerja atau jadwal interview, silakan hubungi Ariq langsung.',
+            cv: 'Ini CV Ariq (PDF), ringkasan satu halaman tentang pengalaman, skill, dan sertifikatnya.',
+            contact: 'Ariq bisa dihubungi di:\n• WhatsApp: **+62 838-6667-2738**\n• Email: **ariqabdillah2424@gmail.com**\n• LinkedIn: Ariq Abdillah'
+          },
+          quiz: {
+            intro: '🎮 **Tebak Insight**: 3 soal singkat dari proyek asli Ariq. Siap?',
+            q: [
+              { q: 'OCA punya 20 klien korporat. Berapa porsi pendapatan yang datang dari 3 klien teratas saja?', o: ['25,4%', '59,8%', '81,2%'], a: 1,
+                e: 'Analisis Pareto Ariq dengan Python menemukan 3 akun utama (15%) menyumbang **59,8%** pendapatan (Rp16,5 jt dari Rp27,6 jt). Risiko konsentrasi ini jadi dasar rencana 90 hari Protect → Grow → Expand.' },
+              { q: 'Pesan SMS sukses terkirim 99,7%. Berapa engagement yang tercatat?', o: ['0,0%', '38,4%', '51,1%'], a: 0,
+                e: '**0,0%.** Terkirim belum tentu direspons. WhatsApp memimpin engagement dengan 51,1%, jadi Ariq menyarankan memantau risiko churn dari engagement, bukan dari tingkat terkirim saja.' },
+              { q: 'Nasabah kartu kredit telat bayar 1 bulan: tingkat gagal bayar naik dari 13,8% menjadi...?', o: ['18,2%', '33,9%', '69,1%'], a: 1,
+                e: '**33,9%**, dan 69,1% jika telat 2 bulan. Ariq menyarankan status pembayaran terakhir (PAY_0) dipakai sebagai pemicu screening risiko bulanan.' }
+            ],
+            right: '✅ Benar!', wrong: '❌ Belum tepat. Jawabannya', next: 'Soal berikutnya', score: 'Skor Anda',
+            badges: ['🔍 Curious Analyst', '🔍 Curious Analyst', '📊 Insight Hunter', '🕵️ Data Detective'],
+            outro: 'Mau lihat bagaimana Ariq menemukan insight ini?'
+          }
+        }
+      };
+      const t = () => T[L()];
+
+      const panel = document.getElementById('chatPanel');
+      const log = document.getElementById('chatLog');
+      const chips = document.getElementById('chatChips');
+      const input = document.getElementById('chatInput');
+      const send = document.getElementById('chatSend');
+      const history = [];      // {role, content} sent to the AI
+      let busy = false, started = false, aiDown = false, aiAnswers = 0, ratingShown = false, ratingSent = false, quiz = null;
+
+      const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>').replace(/\n/g, '<br>');
+      const scroll = () => { log.scrollTop = log.scrollHeight; };
+      const post = (path, data) => fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const feedback = data => { post('/api/feedback', Object.assign({ lang: L() }, data)).catch(() => {}); };
+
+      function bubble(role, html) {
+        const row = document.createElement('div');
+        row.className = role === 'user' ? 'flex justify-end' : 'flex justify-start';
+        const b = document.createElement('div');
+        b.className = role === 'user'
+          ? 'max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-br-md bg-blue-600 text-white'
+          : 'max-w-[90%] px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-console-card border border-console-border text-slate-300';
+        b.innerHTML = html;
+        row.appendChild(b); log.appendChild(row); scroll();
+        return b;
+      }
+      function actions(list) {
+        const wrap = document.createElement('div');
+        wrap.className = 'flex flex-wrap gap-1.5 pl-1';
+        list.forEach(a => {
+          const el = document.createElement(a.href ? 'a' : 'button');
+          el.className = 'px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-colors ' + (a.primary ? 'bg-emerald-700 border-emerald-600 text-white hover:bg-emerald-600' : 'bg-console-bg border-console-border text-blue-300 hover:border-blue-500');
+          el.textContent = a.label;
+          if (a.href) { el.href = a.href; if (a.download) el.setAttribute('download', a.download); else { el.target = '_blank'; el.rel = 'noopener'; } }
+          else { el.type = 'button'; el.onclick = a.onClick; }
+          wrap.appendChild(el);
+        });
+        log.appendChild(wrap); scroll();
+        return wrap;
+      }
+      const contactActions = () => actions([
+        { label: t().wa, href: WA, primary: true }, { label: t().email, href: EMAIL }, { label: t().cvBtn, href: 'CV_Ariq_Abdillah.pdf', download: 'CV_Ariq_Abdillah.pdf' }
+      ]);
+      const goTab = tab => () => { if (typeof switchTab === 'function') switchTab(tab); if (window.innerWidth < 768) chatToggle(false); };
+
+      function renderChips() {
+        const c = t().chips;
+        chips.innerHTML = '';
+        [['skills', c.skills], ['projects', c.projects], ['status', c.status], ['quiz', c.quiz], ['cv', c.cv], ['contact', c.contact]].forEach(([k, label]) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border ' + (k === 'quiz' ? 'bg-amber-500/10 border-amber-500/40 text-amber-300 hover:bg-amber-500/20' : 'bg-console-bg border-console-border text-slate-300 hover:border-blue-500 hover:text-white');
+          b.textContent = label;
+          b.onclick = () => faq(k, label);
+          chips.appendChild(b);
+        });
+      }
+
+      function faq(key, label) {
+        if (busy) return;
+        if (key === 'quiz') return startQuiz(label);
+        bubble('user', esc(label));
+        bubble('bot', fmt(t().answers[key]));
+        if (key === 'projects') actions([{ label: t().openProjects, onClick: goTab('projects') }]);
+        else if (key === 'skills') actions([{ label: t().openCreds, onClick: goTab('credentials') }, { label: t().cvBtn, href: 'CV_Ariq_Abdillah.pdf', download: 'CV_Ariq_Abdillah.pdf' }]);
+        else if (key === 'cv') actions([{ label: t().cvBtn, href: 'CV_Ariq_Abdillah.pdf', download: 'CV_Ariq_Abdillah.pdf', primary: true }]);
+        else if (key === 'status' || key === 'contact') contactActions();
+      }
+
+      // ----- Quiz -----
+      function startQuiz(label) {
+        bubble('user', esc(label));
+        quiz = { i: 0, score: 0 };
+        bubble('bot', fmt(t().quiz.intro));
+        askQuiz();
+      }
+      function askQuiz() {
+        const Q = t().quiz.q[quiz.i];
+        bubble('bot', '<span class="text-[10px] font-mono text-amber-300">' + (quiz.i + 1) + '/3</span><br>' + fmt(Q.q));
+        const wrap = actions(Q.o.map((o, idx) => ({ label: String.fromCharCode(65 + idx) + '. ' + o, onClick: () => answerQuiz(idx, wrap) })));
+      }
+      function answerQuiz(idx, wrap) {
+        if (!quiz) return;
+        wrap.querySelectorAll('button').forEach(b => { b.disabled = true; b.classList.add('opacity-50'); });
+        const Q = t().quiz.q[quiz.i];
+        bubble('user', esc(Q.o[idx]));
+        const ok = idx === Q.a;
+        if (ok) quiz.score++;
+        bubble('bot', (ok ? t().quiz.right : t().quiz.wrong + ' <strong class="text-white">' + esc(Q.o[Q.a]) + '</strong>.') + '<br>' + fmt(Q.e));
+        quiz.i++;
+        if (quiz.i < 3) { const n = actions([{ label: t().quiz.next + ' →', onClick: () => { n.remove(); askQuiz(); } }]); return; }
+        const s = quiz.score; quiz = null;
+        bubble('bot', '<div class="text-center py-1"><div class="text-[11px] text-slate-400">' + t().quiz.score + '</div><div class="text-2xl font-black text-white">' + s + '/3</div><div class="mt-1 inline-block px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold">' + t().quiz.badges[s] + '</div></div>' + fmt(t().quiz.outro));
+        actions([{ label: t().openProjects, onClick: goTab('projects') }, { label: t().wa, href: WA, primary: true }, { label: t().cvBtn, href: 'CV_Ariq_Abdillah.pdf', download: 'CV_Ariq_Abdillah.pdf' }]);
+        feedback({ type: 'quiz', value: s + '/3' });
+        setTimeout(() => chatShowRating(false), 1200);
+      }
+
+      // ----- AI chat -----
+      function voteRow(question, answer, provider) {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-1 pl-1 text-[10px] text-slate-500';
+        row.innerHTML = '<span>' + t().helpful + '</span>';
+        ['up', 'down'].forEach(v => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'px-1.5 py-0.5 rounded hover:bg-slate-800 text-sm leading-none';
+          b.textContent = v === 'up' ? '👍' : '👎';
+          b.onclick = () => { feedback({ type: 'vote', value: v, question, answer, provider }); row.innerHTML = '<span class="text-emerald-400">' + t().thanks + '</span>'; };
+          row.appendChild(b);
+        });
+        log.appendChild(row); scroll();
+      }
+      function typing() {
+        return bubble('bot', '<span class="inline-flex items-center gap-1 text-slate-400">' + t().thinking + '<span class="chat-dot">.</span><span class="chat-dot" style="animation-delay:.2s">.</span><span class="chat-dot" style="animation-delay:.4s">.</span></span>').parentElement;
+      }
+      function showFallback() {
+        bubble('bot', fmt(t().fallback));
+        contactActions();
+      }
+      async function ask(text) {
+        busy = true; send.disabled = true;
+        bubble('user', esc(text));
+        history.push({ role: 'user', content: text });
+        const dots = typing();
+        try {
+          if (aiDown) throw new Error('down');
+          const r = await post('/api/chat', { messages: history.slice(-12), lang: L() });
+          const data = await r.json().catch(() => ({}));
+          if (!r.ok || !data.reply) throw new Error('fallback');
+          dots.remove();
+          history.push({ role: 'assistant', content: data.reply });
+          bubble('bot', fmt(data.reply));
+          voteRow(text, data.reply, data.provider || '');
+          aiAnswers++;
+          if (aiAnswers === 3) setTimeout(() => chatShowRating(false), 800);
+        } catch (e) {
+          dots.remove();
+          history.pop();
+          if (e.message !== 'down') aiDown = true;
+          showFallback();
+          setTimeout(() => { aiDown = false; }, 60000);
+        } finally {
+          busy = false; send.disabled = false; input.focus();
+        }
+      }
+      window.chatSubmit = function (ev) {
+        ev.preventDefault();
+        const text = input.value.trim();
+        if (!text || busy) return;
+        if (text.length > 600) { bubble('bot', esc(t().tooLong)); return; }
+        input.value = ''; input.style.height = '';
+        ask(text);
+      };
+      input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('chatForm').requestSubmit(); } });
+      input.addEventListener('input', () => { input.style.height = ''; input.style.height = Math.min(input.scrollHeight, 96) + 'px'; });
+
+      // ----- Rating -----
+      window.chatShowRating = function (force) {
+        if (ratingSent || (ratingShown && !force)) { if (force && ratingSent) bubble('bot', esc(t().rateThanks)); return; }
+        ratingShown = true;
+        const card = bubble('bot', '<div class="space-y-2"><p class="font-semibold text-white">' + esc(t().rateQ) + '</p><div class="flex gap-1" data-stars></div><textarea rows="2" maxlength="500" placeholder="' + esc(t().ratePh) + '" class="w-full resize-none px-2.5 py-2 rounded-lg bg-console-bg border border-console-border text-[16px] md:text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"></textarea><button type="button" disabled class="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white text-xs font-bold">' + esc(t().rateSend) + '</button></div>');
+        let stars = 0;
+        const box = card.querySelector('[data-stars]');
+        const btn = card.querySelector('button');
+        for (let i = 1; i <= 5; i++) {
+          const s = document.createElement('button');
+          s.type = 'button'; s.className = 'text-2xl leading-none text-slate-600 hover:scale-110 transition-transform'; s.textContent = '★'; s.setAttribute('aria-label', i + ' stars');
+          s.onclick = () => { stars = i; btn.disabled = false; [...box.children].forEach((c, j) => { c.className = 'text-2xl leading-none hover:scale-110 transition-transform ' + (j < i ? 'text-amber-400' : 'text-slate-600'); }); };
+          box.appendChild(s);
+        }
+        btn.onclick = () => {
+          feedback({ type: 'rating', value: String(stars), comment: card.querySelector('textarea').value.trim() });
+          ratingSent = true;
+          card.innerHTML = fmt(t().rateThanks);
+        };
+      };
+
+      // ----- Open / close / language -----
+      function applyTexts() {
+        document.getElementById('chatTitle').textContent = t().title;
+        document.getElementById('chatSubtitle').textContent = t().subtitle;
+        document.getElementById('chatNote').textContent = t().note;
+        document.getElementById('chatRateBtn').title = t().rate;
+        document.getElementById('chatLauncher').setAttribute('aria-label', t().open);
+        input.placeholder = t().placeholder;
+        renderChips();
+        if (started && log.children.length === 1) log.firstChild.firstChild.innerHTML = fmt(t().hello);
+      }
+      window.chatOnLang = applyTexts;
+      window.chatToggle = function (force) {
+        const open = typeof force === 'boolean' ? force : panel.classList.contains('hidden');
+        panel.classList.toggle('hidden', !open);
+        panel.classList.toggle('flex', open);
+        document.getElementById('chatIconOpen').classList.toggle('hidden', open);
+        document.getElementById('chatIconClose').classList.toggle('hidden', !open);
+        document.getElementById('chatBadge').classList.add('hidden');
+        if (open) {
+          applyTexts();
+          if (!started) { started = true; bubble('bot', fmt(t().hello)); }
+          if (window.innerWidth >= 768) setTimeout(() => input.focus(), 50);
+        }
+      };
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.classList.contains('hidden')) chatToggle(false); });
+      applyTexts();
+    })();
   </script>
 
 </body>
