@@ -819,9 +819,12 @@
 
   <!-- ==================== JAVASCRIPT CONSOLE CONTROLLER ==================== -->
   <!-- Project Image Viewer -->
-  <div id="galleryModal" class="hidden fixed inset-0 z-50 bg-black/90 p-4 flex flex-col items-center justify-center" onclick="closeGallery()">
-    <img id="galleryImage" src="" alt="" class="max-w-full max-h-[85vh] object-contain rounded-lg">
-    <p id="galleryCaption" class="text-xs text-slate-200 mt-3 text-center"></p>
+  <div id="galleryModal" class="hidden fixed inset-0 z-50 bg-black/90" role="dialog" aria-modal="true">
+    <div id="galleryTrack" class="h-full w-full flex overflow-x-auto" style="scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain"></div>
+    <div class="absolute top-3 left-1/2 -translate-x-1/2 text-xs font-mono text-slate-200 bg-black/50 px-2.5 py-1 rounded-full" id="galleryCounter" style="z-index:10"></div>
+    <button type="button" onclick="closeGallery()" aria-label="Close" style="z-index:10" class="absolute top-2 right-2 w-10 h-10 rounded-full bg-black/60 text-white text-2xl leading-none flex items-center justify-center">&times;</button>
+    <button type="button" id="galleryPrev" onclick="stepGallery(-1)" aria-label="Previous" style="z-index:10" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 text-white text-2xl leading-none flex items-center justify-center">&#8249;</button>
+    <button type="button" id="galleryNext" onclick="stepGallery(1)" aria-label="Next" style="z-index:10" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 text-white text-2xl leading-none flex items-center justify-center">&#8250;</button>
   </div>
 
   <script>
@@ -1144,13 +1147,13 @@
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${data.summary}</p>
 
           ${data.cover ? `<figure>
-            <button type="button" class="block w-full" data-src="${data.cover}" data-cap="${data.coverCaption}" onclick="openGallery(this.dataset.src, this.dataset.cap)">
+            <button type="button" class="block w-full" data-src="${data.cover}" data-cap="${data.coverCaption}" onclick="openGallery(this)">
               <img src="${data.cover}" alt="${data.title}" class="w-full rounded-xl border border-console-border">
             </button>
             <figcaption class="text-[11px] text-slate-400 mt-1.5">${data.coverCaption}</figcaption>
           </figure>
           <div class="flex items-start gap-3 overflow-x-auto pb-2">
-            ${data.gallery.map(g => `<button type="button" class="shrink-0 w-32 sm:w-36 text-left" data-src="${g.src}" data-cap="${g.cap}" onclick="openGallery(this.dataset.src, this.dataset.cap)">
+            ${data.gallery.map(g => `<button type="button" class="shrink-0 w-32 sm:w-36 text-left" data-src="${g.src}" data-cap="${g.cap}" onclick="openGallery(this)">
               <img src="${g.src}" alt="${g.cap}" loading="lazy" class="w-full rounded-lg border border-console-border">
               <span class="text-[11px] text-slate-300 block mt-1.5 leading-snug">${g.cap}</span>
             </button>`).join('')}
@@ -1561,14 +1564,43 @@
     })();
 
     // Project image viewer
-    function openGallery(src, cap) {
-      document.getElementById('galleryImage').src = src;
-      document.getElementById('galleryImage').alt = t(cap);
-      document.getElementById('galleryCaption').textContent = t(cap);
+    // Swipeable image viewer: all images of the open project, scroll-snap per image
+    function openGallery(btn) {
+      const items = [...document.querySelectorAll('button[data-src]')].filter(b => b.offsetParent !== null);
+      const start = Math.max(0, items.indexOf(btn));
+      const track = document.getElementById('galleryTrack');
+      track.innerHTML = items.map(b => `<figure class="shrink-0 w-full h-full flex flex-col items-center justify-center p-4 pt-12" style="scroll-snap-align:center" onclick="if(event.target===this)closeGallery()">
+          <img src="${b.dataset.src}" alt="${t(b.dataset.cap)}" class="max-w-full max-h-[80vh] object-contain rounded-lg" draggable="false">
+          <figcaption class="text-xs text-slate-200 mt-3 text-center">${t(b.dataset.cap)}</figcaption>
+        </figure>`).join('');
       document.getElementById('galleryModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      track.scrollLeft = start * track.clientWidth;
+      updateGalleryNav();
     }
-    function closeGallery() { document.getElementById('galleryModal').classList.add('hidden'); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGallery(); });
+    function galleryIndex() { const tr = document.getElementById('galleryTrack'); return Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth)); }
+    function stepGallery(d) {
+      const tr = document.getElementById('galleryTrack');
+      const n = tr.children.length, i = Math.min(n - 1, Math.max(0, galleryIndex() + d));
+      tr.scrollTo({ left: i * tr.clientWidth, behavior: 'smooth' });
+    }
+    function updateGalleryNav() {
+      const tr = document.getElementById('galleryTrack'), n = tr.children.length, i = galleryIndex();
+      document.getElementById('galleryCounter').textContent = n > 1 ? `${i + 1} / ${n}` : '';
+      document.getElementById('galleryPrev').style.visibility = i > 0 ? 'visible' : 'hidden';
+      document.getElementById('galleryNext').style.visibility = i < n - 1 ? 'visible' : 'hidden';
+    }
+    document.getElementById('galleryTrack').addEventListener('scroll', updateGalleryNav, { passive: true });
+    function closeGallery() {
+      document.getElementById('galleryModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (document.getElementById('galleryModal').classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeGallery();
+      if (e.key === 'ArrowRight') stepGallery(1);
+      if (e.key === 'ArrowLeft') stepGallery(-1);
+    });
 
     // Clipboard Copy Helper
     function copyEmailToClipboard() {
