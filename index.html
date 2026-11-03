@@ -1258,15 +1258,6 @@
       `).join('');
 
       let linksHtml = '';
-      if (data.links.demo) {
-        linksHtml += `
-          <a href="${data.links.demo}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs inline-flex items-center gap-1.5 transition-colors shadow-sm">
-            <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
-            <span>Live Demo</span>
-            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-80"></i>
-          </a>
-        `;
-      }
       const demoHtml = data.links.demo ? `
           <div class="p-3.5 sm:p-4 rounded-xl border border-emerald-700/50 bg-emerald-900/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div class="min-w-0">
@@ -1434,7 +1425,6 @@
 "Financial Control • Live Pilot": "Pengendalian Keuangan • Uji Coba Berjalan",
 "Built a mobile web app for project admins to record cash in and out from a phone, track running balances, and prepare monthly reports. It replaces manual Excel records and runs on Google services without a separate server.": "Membangun web app HP agar admin proyek bisa mencatat uang masuk dan keluar dari HP, memantau saldo berjalan, dan menyiapkan laporan bulanan. Sistem ini menggantikan catatan Excel manual dan berjalan di layanan Google tanpa server terpisah.",
 "Simulated data": "Data simulasi",
-"Live Demo": "Demo Langsung",
 "Try the live demo": "Coba demo langsung",
 "Fictional data, no emails sent, and it resets every night. On the login screen, tap a role or enter its PIN:": "Data fiktif, tidak ada email yang dikirim, dan direset setiap malam. Di layar masuk, ketuk peran atau masukkan PIN-nya:",
 "Open Demo": "Buka Demo",
