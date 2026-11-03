@@ -196,10 +196,10 @@
 
           <!-- Quick badges: Formal Education & Professional Certification -->
           <div class="grid grid-cols-2 gap-2 pt-1 text-xs">
-            <div class="p-2 rounded-lg bg-console-bg border border-console-border text-center">
+            <button type="button" onclick="goToEducation()" title="View Education" class="p-2 rounded-lg bg-console-bg border border-console-border text-center hover:border-blue-500 hover:bg-blue-500/10 transition-colors cursor-pointer">
               <span class="text-slate-400 block text-[9px] uppercase font-mono font-medium tracking-wider">Education</span>
               <span class="font-bold text-white text-[11px] block mt-0.5 leading-snug">S1 Management</span>
-            </div>
+            </button>
             <button type="button" onclick="switchTab('credentials')" title="View Official Credentials" class="p-2 rounded-lg bg-console-bg border border-console-border text-center hover:border-blue-500 hover:bg-blue-500/10 transition-colors cursor-pointer">
               <span class="text-slate-400 block text-[9px] uppercase font-mono font-medium tracking-wider">Certification</span>
               <span class="font-bold text-blue-400 text-[11px] block mt-0.5 leading-snug">RevoU FSDA</span>
@@ -546,7 +546,7 @@
               </p>
             </div>
 
-            <div class="p-5 rounded-xl bg-console-card border border-console-border space-y-2">
+            <div id="education-card" class="scroll-mt-20 p-5 rounded-xl bg-console-card border border-console-border space-y-2">
               <span class="text-[10px] font-mono font-bold text-blue-400 uppercase">Formal Higher Education</span>
               <h4 class="text-base font-bold text-white">Bachelor of Management (Finance Concentration)</h4>
               <p class="text-xs text-slate-400">Universitas Harapan Medan • Graduated Aug 2025 • GPA: 3.39 / 4.00</p>
@@ -868,6 +868,15 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && window.innerWidth < 768) closeSidebar(); });
 
     // Switch Main Tabs
+    // Profile "Education" badge: open Experience and jump to the education card at the bottom
+    function goToEducation() {
+      switchTab('experience');
+      requestAnimationFrame(() => {
+        const card = document.getElementById('education-card');
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active-nav-btn'));
