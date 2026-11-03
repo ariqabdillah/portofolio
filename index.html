@@ -770,6 +770,11 @@
 
       </section>
 
+      <!-- Copyright footer (shown under every section) -->
+      <footer class="max-w-5xl mx-auto mt-10 pt-5 pb-2 border-t border-console-border text-center text-[11px] text-slate-500">
+        <span>&copy; <span id="copyrightYear">2026</span> Ariq Abdillah.</span> <span>All rights reserved.</span>
+      </footer>
+
     </main>
 
   </div>
@@ -1531,6 +1536,7 @@
 "OCA Messaging Performance Dashboard": "Dashboard Performa Layanan Pesan OCA",
 "Project Admin & Site Coordinator": "Admin Proyek & Koordinator Lapangan",
 "Default Rate": "Tingkat Gagal Bayar",
+"All rights reserved.": "Hak cipta dilindungi.",
 "Persona 2 (High-Capacity Growers):": "Persona 2 (High-Capacity Growers):"
 };
     let currentLang = 'en';
@@ -1573,6 +1579,8 @@
       try { localStorage.setItem('portfolioLang', currentLang); } catch (e) {}
       applyLang();
     }
+
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
     // Default project on load
     selectProject('ocasegmentation');
