@@ -5,7 +5,7 @@ PROFILE
 - Name: Ariq Abdillah. Role sought: Junior Data Analyst.
 - Based in Medan, North Sumatra, Indonesia. Open to relocation, on-site, or remote roles.
 - Background: Management graduate (finance concentration) with hands-on finance and field operations experience; trained in data analytics at RevoU.
-- Tools: SQL (Google BigQuery), Python (pandas, NumPy, matplotlib, scikit-learn, K-Means clustering with Elbow & Silhouette), Tableau Public dashboards, Excel and Google Sheets, Google Apps Script, Google Drive.
+- Tools: SQL (Google BigQuery, SQLite), Python (pandas, NumPy, matplotlib, scikit-learn, K-Means clustering with Elbow & Silhouette), Tableau Public dashboards, Excel and Google Sheets, Google Apps Script, Google Drive, AI agents (CrewAI, LLM APIs).
 - Finance skills: petty cash control, weekly payroll for daily workers, foreman billing/invoice verification, cost reporting; coursework in cost accounting, management accounting, financial statement analysis.
 
 CONTACT
@@ -38,6 +38,14 @@ CERTIFICATES (RevoU, issuer PT Revolusi Cita Edukasi, verifiable on certificates
 - Certificate of Achievements, Full-Stack Data Analytics, 14 weeks, March 6, 2026, No. FSDA-2026-03-38664224539. Modules (all PASS): Understanding Business Problems; Statistics & Spreadsheet (incl. A/B testing); SQL; Python for Data Analyst; Data Visualization (Tableau).
 
 PROJECTS (see "Case Studies & Projects" tab)
+0) Nas-AI Data Analytics Center: AI Data Analyst Team for SMEs (personal startup project, pre-release, Nov 2026 – present, no clients yet; shown first on the Projects tab)
+   - Problem: many Indonesian SMEs (UMKM) have sales data but no analyst to read it. Ariq designed a team of AI agents (CrewAI) that works like a data analyst division: 10 stages/sub-divisions from business questions to recommendations.
+   - Ariq's role: Head of Analysis. He designed the workflow and quality standards; the code was written with AI assistance.
+   - Tools: Python (pandas, matplotlib), SQL (SQLite), CrewAI, LLM APIs (Gemini, Claude Haiku via OpenRouter), data cleaning & validation, data quality testing, report and deck design, HTML/GitHub Pages.
+   - Rules: doubtful values are flagged to a "needs confirmation" list, never guessed, and every change is logged. AI agents plan, but all numbers are calculated by Python/SQL and a separate checker recomputes report numbers against the database.
+   - Results so far: data-cleaning precision 90.3%–100% on 6 practice datasets with answer keys (100% on HR, hospital, beer, retail, financial-statement datasets; 90.3% on a hard multi-source flight dataset). Report numbers verified: 15 of 16. A full end-to-end rehearsal produced a report and deck for about USD 0.21 in AI cost, meeting 4 of 5 pass criteria with no cells damaged during cleaning.
+   - Next: pass the official blind v1.0 exam on a new sales dataset, then offer a free "Profit Check" report to 5 online sellers (Shopee/Tokopedia) for feedback. Weakest area so far: avoiding causal claims the data cannot prove.
+   - Links: website https://nasdac.my.id ; sample report (fictional data) https://nasdac.my.id/contoh-laporan.html ; website code https://github.com/ariqabdillah/nas-ai-website
 1) OCA User Behavior & Client Segmentation (RevoU x Telkom virtual internship; data adjusted for education)
    - 20 corporate clients, 122,749 transactions over 3 months, 3 rule-based segments: Power Users (>20K tx, avg revenue IDR 5.5M), Active Users (6K–20K tx), Regular Users (<6K tx).
    - Top 3 clients = 59.8% of revenue (IDR 16.5M) and 60% of transactions -> concentration risk. Top channel WhatsApp (40.7%). Peak hours 08:00–17:00. Top industries: Travel (IDR 5.90M), Finance (IDR 5.87M), Real Estate (IDR 5.83M).

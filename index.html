@@ -237,6 +237,7 @@
             <i data-lucide="chevron-right" class="nav-chevron w-3.5 h-3.5 text-slate-500 transition-all"></i>
           </button>
           <div id="sub-projects" class="nav-sub hidden ml-[1.35rem] pl-2 border-l border-console-border space-y-0.5 py-1">
+            <button type="button" onclick="openProject('nasai')" data-sub="nasai" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>Nas-AI</span></button>
             <button type="button" onclick="openProject('ocasegmentation')" data-sub="ocasegmentation" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>OCA Segmentation</span></button>
             <button type="button" onclick="openProject('ocaperformance')" data-sub="ocaperformance" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>OCA Dashboard</span></button>
             <button type="button" onclick="openProject('payroll')" data-sub="payroll" class="nav-sub-btn w-full text-left pl-3 pr-2 py-1.5 rounded-md text-[11.5px] text-slate-400 hover:text-white hover:bg-console-cardHover transition-colors flex items-center gap-2"><span class="nav-sub-dot w-1.5 h-1.5 rounded-full bg-neutral-600 shrink-0"></span><span>Payroll System</span></button>
@@ -434,6 +435,7 @@
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Python Pandas</span>
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">Tableau Public</span>
               <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">K-Means ML</span>
+              <span class="px-2 py-0.5 rounded bg-console-bg text-[10px] text-slate-300 border border-console-border">AI Agents (CrewAI)</span>
             </div>
           </div>
 
@@ -484,12 +486,13 @@
 
           <!-- Project Tabs (underline style, swipe sideways on phones) -->
           <div class="flex overflow-x-auto border-b border-console-border no-scrollbar" role="tablist">
-            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn active-project-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>01</span><span>OCA Segmentation</span></button>
-            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>02</span><span>OCA Dashboard</span></button>
-            <button onclick="selectProject('payroll')" id="pbtn-payroll" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>03</span><span>Payroll System</span></button>
-            <button onclick="selectProject('pettycash')" id="pbtn-pettycash" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>04</span><span>Petty Cash System</span></button>
-            <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>05</span><span>RevoBank</span></button>
-            <button onclick="selectProject('creditech')" id="pbtn-creditech" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>06</span><span>CrediTech</span></button>
+            <button onclick="selectProject('nasai')" id="pbtn-nasai" class="project-selector-btn active-project-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>01</span><span>Nas-AI</span></button>
+            <button onclick="selectProject('ocasegmentation')" id="pbtn-ocasegmentation" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>02</span><span>OCA Segmentation</span></button>
+            <button onclick="selectProject('ocaperformance')" id="pbtn-ocaperformance" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>03</span><span>OCA Dashboard</span></button>
+            <button onclick="selectProject('payroll')" id="pbtn-payroll" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>04</span><span>Payroll System</span></button>
+            <button onclick="selectProject('pettycash')" id="pbtn-pettycash" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>05</span><span>Petty Cash System</span></button>
+            <button onclick="selectProject('revobank')" id="pbtn-revobank" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>06</span><span>RevoBank</span></button>
+            <button onclick="selectProject('creditech')" id="pbtn-creditech" class="project-selector-btn shrink-0 px-3 sm:px-3.5 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent hover:text-white transition-colors whitespace-nowrap flex items-center gap-1.5"><span class="pbtn-num font-mono text-[10px] text-slate-600" data-no-i18n>07</span><span>CrediTech</span></button>
           </div>
         </div>
 
@@ -1099,6 +1102,47 @@
 
     // Comprehensive Projects Data Store (100% International English)
     const projectCatalog = {
+      nasai: {
+        title: "Nas-AI Data Analytics Center: AI Data Analyst Team for SMEs",
+        subtitle: "Personal startup project (pre-release) • Python, SQL, CrewAI • Head of Analysis: designed the workflow and quality standards; code written with AI assistance",
+        badge: "AI Agents • Data Quality",
+        logo: "logo-nasai.png",
+        summary: "Many Indonesian SMEs (UMKM) have sales data but no analyst to read it. I designed a team of AI agents that works like a data analyst division, taking raw data through 10 stages from business questions to recommendations, with rule-based checks so uncertain values are flagged, not guessed. In testing, the data-cleaning stage reached 90.3–100% precision on 6 practice datasets, and a full end-to-end rehearsal produced a report and deck for about USD 0.21 in AI cost.",
+        cover: "nasai-cover.jpg",
+        coverCaption: "Company website homepage with a preview of a sample sales report.",
+        gallery: [
+          { src: "nasai-1.jpg", cap: "The 10-stage workflow the AI team follows, from understanding the business to recommendations." },
+          { src: "nasai-2.jpg", thumb: "nasai-2-thumb.jpg", cap: "Sample one-page report for an online hijab store (fictional data): key findings, profit per order by product, and actions for the week." },
+          { src: "nasai-3.jpg", cap: "Executive summary slide generated by the AI team in a rehearsal exam using a public sample sales database (1996–1998)." },
+          { src: "nasai-4.jpg", cap: "Chart slide from the same rehearsal deck: the top 3 product categories bring in 53% of net revenue." }
+        ],
+        insightsTitle: "Key Features & Safeguards",
+        actionsTitle: "Result & Next Steps",
+        metrics: [
+          { label: "Analyst Stages Built", val: "10 sub-divisions" },
+          { label: "Cleaning Precision (6 tests)", val: "90.3% – 100%" },
+          { label: "Report Numbers Verified", val: "15 of 16" },
+          { label: "AI Cost per Full Run", val: "USD 0.21" }
+        ],
+        insights: [
+          "<strong>Flag, Don’t Guess:</strong> Doubtful values are never filled by guesswork; they go to a “needs confirmation” list for the client, and every change is logged.",
+          "<strong>AI Decides, Code Executes:</strong> AI agents plan the work, but all numbers are calculated by Python/SQL, and a separate checker recomputes the numbers in each report against the database.",
+          "<strong>Measured With Answer Keys:</strong> Cleaning scored 100% on HR, hospital, beer, retail, and financial-statement practice datasets and 90.3% on a hard multi-source flight dataset; several rules were added after the first failed attempts, so blind exams on unseen data are used to keep the scores honest.",
+          "<strong>Plain-Language Reports:</strong> Each finding states what happened, its impact in rupiah, and one action for this week, written for small business owners rather than analysts.",
+          "<strong>Learning From Mistakes:</strong> Errors found in each exam become written work standards that I review and approve before the team uses them."
+        ],
+        actions: [
+          "<strong>Current Result:</strong> Full pipeline (raw data to report and deck) completed a rehearsal exam, meeting 4 of 5 pass criteria with no cells damaged during cleaning.",
+          "<strong>Next:</strong> Pass the official blind v1.0 exam on a new sales dataset before taking real clients.",
+          "<strong>Then:</strong> Offer a “Profit Check” report to 5 online sellers (Shopee/Tokopedia) for free in exchange for feedback.",
+          "<strong>Ongoing:</strong> Improve the weakest area found so far, which is avoiding causal claims the data cannot prove."
+        ],
+        links: {
+          website: "https://nasdac.my.id",
+          report: "https://nasdac.my.id/contoh-laporan.html",
+          github: "https://github.com/ariqabdillah/nas-ai-website"
+        }
+      },
       creditech: {
         title: "Credit Card Default Risk Analysis",
         subtitle: "RevoU portfolio project • Public UCI dataset (Taiwan, 2005)",
@@ -1340,6 +1384,33 @@
           </a>
         `;
       }
+      if (data.links.website) {
+        linksHtml += `
+          <a href="${data.links.website}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs inline-flex items-center gap-1.5 transition-colors shadow-sm">
+            <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+            <span>Website</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-80"></i>
+          </a>
+        `;
+      }
+      if (data.links.report) {
+        linksHtml += `
+          <a href="${data.links.report}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Sample Report</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+          </a>
+        `;
+      }
+      if (data.links.github) {
+        linksHtml += `
+          <a href="${data.links.github}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
+            <i data-lucide="github" class="w-3.5 h-3.5 text-slate-300"></i>
+            <span>GitHub</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+          </a>
+        `;
+      }
       if (data.links.tableau) {
         linksHtml += `
           <a href="${data.links.tableau}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-slate-200 border border-neutral-700 font-semibold text-xs inline-flex items-center gap-1.5 transition-colors">
@@ -1383,12 +1454,15 @@
           
           <!-- Top Row: Badge, Title & Action Links -->
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-console-border pb-4">
-            <div>
-              <span class="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-blue-900/30 text-blue-300 uppercase tracking-wide border border-blue-800/40">
-                ${data.badge}
-              </span>
-              <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-white mt-1.5 leading-snug">${data.title}</h3>
-              <p class="text-xs sm:text-sm text-blue-400 font-medium mt-0.5">${data.subtitle}</p>
+            <div class="flex items-start gap-3 sm:gap-4">
+              ${data.logo ? `<img src="${data.logo}" alt="" width="56" height="56" class="w-11 h-11 sm:w-14 sm:h-14 shrink-0 rounded-xl ring-1 ring-blue-500/40 shadow-lg shadow-blue-500/10 mt-0.5">` : ''}
+              <div class="min-w-0">
+                <span class="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-blue-900/30 text-blue-300 uppercase tracking-wide border border-blue-800/40">
+                  ${data.badge}
+                </span>
+                <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-white mt-1.5 leading-snug">${data.title}</h3>
+                <p class="text-xs sm:text-sm text-blue-400 font-medium mt-0.5">${data.subtitle}</p>
+              </div>
             </div>
             <div class="flex flex-wrap items-center gap-2 shrink-0">${linksHtml}</div>
           </div>
@@ -1404,9 +1478,9 @@
             </button>
             <figcaption class="text-[11px] text-slate-400 mt-1.5">${data.coverCaption}</figcaption>
           </figure>
-          <div class="flex items-start gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-5 sm:overflow-visible">
-            ${data.gallery.map(g => `<button type="button" class="shrink-0 w-32 sm:w-auto text-left" data-src="${g.src}" data-cap="${g.cap}" onclick="openGallery(this)">
-              <img src="${g.src}" alt="${g.cap}" loading="lazy" class="w-full rounded-lg border border-console-border">
+          <div class="flex items-start gap-3 overflow-x-auto pb-2 sm:grid ${data.gallery.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-5'} sm:overflow-visible">
+            ${data.gallery.map(g => `<button type="button" class="shrink-0 ${data.gallery.length === 4 ? 'w-44' : 'w-32'} sm:w-auto text-left" data-src="${g.src}" data-cap="${g.cap}" onclick="openGallery(this)">
+              <img src="${g.thumb || g.src}" alt="${g.cap}" loading="lazy" class="w-full rounded-lg border border-console-border">
               <span class="text-[11px] text-slate-300 block mt-1.5 leading-snug">${g.cap}</span>
             </button>`).join('')}
           </div>` : ''}
@@ -1454,6 +1528,43 @@
 
     // Language Switcher (English / Bahasa Indonesia)
     const I18N_ID = {
+"Nas-AI Data Analytics Center: AI Data Analyst Team for SMEs": "Nas-AI Data Analytics Center: Tim Analis Data AI untuk UMKM",
+"Personal startup project (pre-release) • Python, SQL, CrewAI • Head of Analysis: designed the workflow and quality standards; code written with AI assistance": "Proyek startup pribadi (pra-rilis) • Python, SQL, CrewAI • Head of Analysis: merancang alur kerja dan standar mutu; kode ditulis dengan bantuan AI",
+"AI Agents • Data Quality": "Agen AI • Kualitas Data",
+"Many Indonesian SMEs (UMKM) have sales data but no analyst to read it. I designed a team of AI agents that works like a data analyst division, taking raw data through 10 stages from business questions to recommendations, with rule-based checks so uncertain values are flagged, not guessed. In testing, the data-cleaning stage reached 90.3–100% precision on 6 practice datasets, and a full end-to-end rehearsal produced a report and deck for about USD 0.21 in AI cost.": "Banyak UMKM di Indonesia punya data penjualan tetapi tidak punya analis untuk membacanya. Saya merancang tim agen AI yang bekerja seperti divisi analis data, membawa data mentah melalui 10 tahap dari pertanyaan bisnis hingga rekomendasi, dengan pengecekan berbasis aturan sehingga nilai yang meragukan ditandai, bukan ditebak. Dalam pengujian, tahap pembersihan data mencapai presisi 90,3–100% pada 6 dataset latihan, dan satu gladi lengkap dari awal sampai akhir menghasilkan laporan dan slide dengan biaya AI sekitar USD 0,21.",
+"Company website homepage with a preview of a sample sales report.": "Beranda website perusahaan dengan pratinjau contoh laporan penjualan.",
+"The 10-stage workflow the AI team follows, from understanding the business to recommendations.": "10 tahap kerja tim AI, dari memahami usaha hingga memberi rekomendasi.",
+"Sample one-page report for an online hijab store (fictional data): key findings, profit per order by product, and actions for the week.": "Contoh laporan satu halaman untuk toko hijab online (data karangan): temuan utama, untung per pesanan per produk, dan tindakan minggu ini.",
+"Executive summary slide generated by the AI team in a rehearsal exam using a public sample sales database (1996–1998).": "Slide ringkasan eksekutif buatan tim AI dalam ujian gladi, memakai database contoh penjualan publik (1996–1998).",
+"Chart slide from the same rehearsal deck: the top 3 product categories bring in 53% of net revenue.": "Slide grafik dari deck gladi yang sama: 3 kategori produk teratas menyumbang 53% pendapatan bersih.",
+"Analyst Stages Built": "Tahap Analis Dibangun",
+"10 sub-divisions": "10 sub-divisi",
+"Cleaning Precision (6 tests)": "Presisi Pembersihan (6 uji)",
+"90.3% – 100%": "90,3% – 100%",
+"Report Numbers Verified": "Angka Laporan Terverifikasi",
+"15 of 16": "15 dari 16",
+"AI Cost per Full Run": "Biaya AI per Proses Penuh",
+"USD 0.21": "USD 0,21",
+"Flag, Don’t Guess:": "Tandai, Jangan Tebak:",
+"Doubtful values are never filled by guesswork; they go to a “needs confirmation” list for the client, and every change is logged.": "Nilai yang meragukan tidak pernah diisi dengan tebakan; nilai itu masuk ke daftar “perlu konfirmasi” untuk klien, dan setiap perubahan dicatat.",
+"AI Decides, Code Executes:": "AI Memutuskan, Kode Mengeksekusi:",
+"AI agents plan the work, but all numbers are calculated by Python/SQL, and a separate checker recomputes the numbers in each report against the database.": "Agen AI merencanakan pekerjaan, tetapi semua angka dihitung oleh Python/SQL, dan pemeriksa terpisah menghitung ulang angka di setiap laporan terhadap database.",
+"Measured With Answer Keys:": "Diukur dengan Kunci Jawaban:",
+"Cleaning scored 100% on HR, hospital, beer, retail, and financial-statement practice datasets and 90.3% on a hard multi-source flight dataset; several rules were added after the first failed attempts, so blind exams on unseen data are used to keep the scores honest.": "Pembersihan data meraih 100% pada dataset latihan HR, rumah sakit, bir, ritel, dan laporan keuangan, serta 90,3% pada dataset penerbangan multi-sumber yang sulit; beberapa aturan ditambahkan setelah percobaan pertama gagal, jadi ujian buta pada data baru dipakai agar skornya tetap jujur.",
+"Plain-Language Reports:": "Laporan Bahasa Sederhana:",
+"Each finding states what happened, its impact in rupiah, and one action for this week, written for small business owners rather than analysts.": "Setiap temuan menjelaskan apa yang terjadi, dampaknya dalam rupiah, dan satu tindakan untuk minggu ini, ditulis untuk pemilik usaha kecil, bukan untuk analis.",
+"Learning From Mistakes:": "Belajar dari Kesalahan:",
+"Errors found in each exam become written work standards that I review and approve before the team uses them.": "Kesalahan yang ditemukan di setiap ujian dijadikan standar kerja tertulis yang saya tinjau dan setujui sebelum dipakai tim.",
+"Current Result:": "Hasil Saat Ini:",
+"Full pipeline (raw data to report and deck) completed a rehearsal exam, meeting 4 of 5 pass criteria with no cells damaged during cleaning.": "Alur lengkap (dari data mentah hingga laporan dan slide) menyelesaikan ujian gladi, memenuhi 4 dari 5 kriteria lulus tanpa ada sel yang rusak saat pembersihan.",
+"Next:": "Berikutnya:",
+"Pass the official blind v1.0 exam on a new sales dataset before taking real clients.": "Lulus ujian buta resmi v1.0 pada dataset penjualan baru sebelum menerima klien sungguhan.",
+"Then:": "Setelah itu:",
+"Offer a “Profit Check” report to 5 online sellers (Shopee/Tokopedia) for free in exchange for feedback.": "Menawarkan laporan “Cek Untung” gratis kepada 5 penjual online (Shopee/Tokopedia) sebagai ganti masukan.",
+"Ongoing:": "Terus Berjalan:",
+"Improve the weakest area found so far, which is avoiding causal claims the data cannot prove.": "Memperbaiki kelemahan terbesar sejauh ini, yaitu menghindari klaim sebab-akibat yang tidak bisa dibuktikan oleh data.",
+"Sample Report": "Contoh Laporan",
+"AI Agents (CrewAI)": "Agen AI (CrewAI)",
 "Admin & Foreman": "Admin & Mandor",
 "Personal project • Google Sheets, Apps Script, mobile web app • Pilot with a project admin and foreman": "Proyek pribadi • Google Sheets, Apps Script, web app HP • Uji coba oleh admin proyek dan mandor",
 "3. Payroll System": "3. Sistem Gaji",
@@ -1910,7 +2021,7 @@
     })();
 
     // Default project on load
-    selectProject('ocasegmentation');
+    selectProject('nasai');
 
     // Initial language: ?lang=id link, then saved choice, then English
     (function () {
@@ -2044,7 +2155,7 @@
           wa: 'WhatsApp Ariq', email: 'Email Ariq', cvBtn: 'Download CV', openProjects: 'Open Case Studies', openCreds: 'Open Certificates', linkedin: 'LinkedIn',
           answers: {
             skills: "**Ariq's toolkit:**\n• **SQL** in Google BigQuery (cleaned & unified 122,749 records)\n• **Python**: pandas, NumPy, matplotlib, scikit-learn, K-Means clustering\n• **Tableau Public** KPI dashboards\n• **Excel / Google Sheets + Apps Script** (built 2 live mobile web apps)\n• **Finance**: petty cash, payroll, billing checks, cost reporting",
-            projects: "**6 case studies:**\n• **OCA Segmentation**: top 3 of 20 clients = **59.8%** of revenue; presented to Telkom's Head of Analytics\n• **OCA Dashboard**: 122,749 records, SQL + Tableau\n• **Payroll System**: live pilot web app, 17 automated pay-rule checks\n• **Petty Cash System**: live pilot, 37 automated checks\n• **RevoBank**: K-Means segmentation (k = 4)\n• **CrediTech**: credit default risk, high-risk group defaults **3.5x** more",
+            projects: "**7 case studies:**\n• **Nas-AI Data Analytics Center**: AI data analyst team for SMEs (pre-release); cleaning precision **90.3–100%** on 6 practice datasets\n• **OCA Segmentation**: top 3 of 20 clients = **59.8%** of revenue; presented to Telkom's Head of Analytics\n• **OCA Dashboard**: 122,749 records, SQL + Tableau\n• **Payroll System**: live pilot web app, 17 automated pay-rule checks\n• **Petty Cash System**: live pilot, 37 automated checks\n• **RevoBank**: K-Means segmentation (k = 4)\n• **CrediTech**: credit default risk, high-risk group defaults **3.5x** more",
             status: "• Based in **Medan, Indonesia**\n• Open to **relocation, on-site or remote** roles\n• Looking for a **Junior Data Analyst** position\n• Latest role: Project Admin & Site Coordinator (Jul–Oct 2026)\n\nFor start date or interview scheduling, please contact Ariq directly.",
             cv: "Here's Ariq's CV (PDF). It's a one-page summary of his experience, skills and certificates.",
             contact: "You can reach Ariq here:\n• WhatsApp: **+62 838-6667-2738**\n• Email: **ariqabdillah2424@gmail.com**\n• LinkedIn: Ariq Abdillah"
@@ -2076,7 +2187,7 @@
           wa: 'WhatsApp Ariq', email: 'Email Ariq', cvBtn: 'Download CV', openProjects: 'Buka Studi Kasus', openCreds: 'Buka Sertifikat', linkedin: 'LinkedIn',
           answers: {
             skills: '**Keahlian Ariq:**\n• **SQL** di Google BigQuery (membersihkan & menggabungkan 122.749 data)\n• **Python**: pandas, NumPy, matplotlib, scikit-learn, K-Means clustering\n• Dashboard KPI **Tableau Public**\n• **Excel / Google Sheets + Apps Script** (membangun 2 web app HP yang sedang dipakai)\n• **Keuangan**: petty cash, penggajian, cek tagihan mandor, laporan biaya',
-            projects: '**6 studi kasus:**\n• **Segmentasi OCA**: 3 dari 20 klien = **59,8%** pendapatan; dipresentasikan ke Head of Analytics Telkom\n• **Dashboard OCA**: 122.749 data, SQL + Tableau\n• **Sistem Gaji**: web app uji coba, 17 cek aturan gaji otomatis\n• **Sistem Petty Cash**: uji coba, 37 cek otomatis\n• **RevoBank**: segmentasi K-Means (k = 4)\n• **CrediTech**: risiko gagal bayar, kelompok berisiko tinggi **3,5x** lebih sering gagal bayar',
+            projects: '**7 studi kasus:**\n• **Nas-AI Data Analytics Center**: tim analis data AI untuk UMKM (pra-rilis); presisi pembersihan **90,3–100%** di 6 dataset latihan\n• **Segmentasi OCA**: 3 dari 20 klien = **59,8%** pendapatan; dipresentasikan ke Head of Analytics Telkom\n• **Dashboard OCA**: 122.749 data, SQL + Tableau\n• **Sistem Gaji**: web app uji coba, 17 cek aturan gaji otomatis\n• **Sistem Petty Cash**: uji coba, 37 cek otomatis\n• **RevoBank**: segmentasi K-Means (k = 4)\n• **CrediTech**: risiko gagal bayar, kelompok berisiko tinggi **3,5x** lebih sering gagal bayar',
             status: '• Berdomisili di **Medan, Indonesia**\n• Bersedia **relokasi, on-site, atau remote**\n• Mencari posisi **Junior Data Analyst**\n• Peran terakhir: Admin Proyek & Koordinator Lapangan (Jul–Okt 2026)\n\nUntuk tanggal mulai kerja atau jadwal interview, silakan hubungi Ariq langsung.',
             cv: 'Ini CV Ariq (PDF), ringkasan satu halaman tentang pengalaman, skill, dan sertifikatnya.',
             contact: 'Ariq bisa dihubungi di:\n• WhatsApp: **+62 838-6667-2738**\n• Email: **ariqabdillah2424@gmail.com**\n• LinkedIn: Ariq Abdillah'
