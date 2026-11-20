@@ -343,20 +343,23 @@
         <!-- Header Banner -->
         <div class="p-6 rounded-2xl bg-console-card border border-console-border space-y-3">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="px-2.5 py-1 rounded bg-neutral-800 text-slate-300 font-mono text-[11px] font-semibold border border-console-border">
-              Professional Profile
-            </span>
-            <span class="px-2.5 py-1 rounded bg-blue-900/30 text-blue-300 font-mono text-[11px] font-semibold border border-blue-800/40">
-              Medan • Ready to Relocate • Shift Work OK
+            <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span><span>Available now • Ready to relocate anywhere in Indonesia</span>
             </span>
           </div>
 
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Admin, Finance & Data Analyst with Field Operations Experience
-          </h1>
+          <div class="space-y-1.5">
+            <p class="text-sm text-blue-300 font-semibold">Hi, I’m Ariq 👋 Admin • Finance • Data Analyst</p>
+            <h1 class="text-2xl sm:text-[2rem] sm:leading-tight font-extrabold text-white tracking-tight">
+              I turn messy field records into clear, accurate numbers.
+            </h1>
+          </div>
 
           <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-4xl">
-            Management graduate (finance concentration) from <strong class="text-white">Universitas Harapan Medan (GPA 3.39/4.00)</strong> who handled petty cash, weekly payroll for up to 23 daily workers, and daily reports on an infrastructure project, then built his own payroll and petty cash apps that are still used every day. Trained in data analytics at <strong class="text-white">RevoU (Certificate of Excellence)</strong>. Open to administration, finance, and data roles, including placements outside Sumatra.
+            On an infrastructure project in Medan, I ran the site office: paying up to 23 daily workers every week, controlling project cash, and reporting progress to the main contractor. When manual Excel recaps kept going wrong, I built payroll and petty cash apps that the project admin still uses every day.
+          </p>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-4xl">
+            Now I want to bring that hands-on discipline, plus data skills certified by RevoU, to an admin, finance, or data team.
           </p>
 
           <div class="flex flex-wrap gap-2 pt-1">
@@ -369,6 +372,12 @@
             <a href="https://wa.me/628132132124?text=Hello%20Ariq,%20I%20found%20your%20portfolio." target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs inline-flex items-center gap-2 transition-colors">
               <i data-lucide="message-circle" class="w-3.5 h-3.5"></i><span>Chat on WhatsApp</span>
             </a>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-console-bg border border-console-border text-[11px] text-slate-300"><i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i><span>RevoU Certificate of Excellence</span></span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-console-bg border border-console-border text-[11px] text-slate-300"><i data-lucide="presentation" class="w-3.5 h-3.5 text-blue-300"></i><span>Presented to Telkom’s Head of Analytics</span></span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-console-bg border border-console-border text-[11px] text-slate-300"><i data-lucide="smartphone" class="w-3.5 h-3.5 text-emerald-300"></i><span>2 self-built apps in daily use</span></span>
           </div>
         </div>
 
@@ -420,10 +429,10 @@
             <span>About Me</span>
           </div>
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            I studied management with a finance concentration, then learned the work hands-on. As project admin on the BRT underground utility relocation project in Medan, I handled petty cash, weekly pay for up to 23 daily workers, and daily progress reports, and ran the site when my supervisor was away, including night shifts.
+            I studied management with a finance concentration at Universitas Harapan Medan and wrote my thesis on what drives bank stock returns, using panel data regression in EViews. After graduating, I learned the work hands-on on the BRT utility relocation project, often running the site on my own, including night shifts and a 2 a.m. emergency repair.
           </p>
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Manual Excel recaps kept causing errors, so I built my own payroll and petty cash apps. The project admin still uses them every day without complaints. Alongside that, I trained in data analytics at RevoU and founded Nas-AI, an AI data analyst concept for small businesses. I am looking for an admin, finance, or data role where accurate numbers and follow-through matter.
+            Alongside that, I earned RevoU’s Certificate of Excellence in data analytics and founded Nas-AI, an AI data analyst concept for small businesses. What I enjoy most is the same in every role: finding where the numbers do not add up and fixing the process behind them.
           </p>
         </div>
 
@@ -1552,6 +1561,16 @@
 
     // Language Switcher (English / Bahasa Indonesia)
     const I18N_ID = {
+"Available now • Ready to relocate anywhere in Indonesia": "Siap mulai segera • Siap ditempatkan di seluruh Indonesia",
+"Hi, I’m Ariq 👋 Admin • Finance • Data Analyst": "Halo, saya Ariq 👋 Admin • Keuangan • Data Analyst",
+"I turn messy field records into clear, accurate numbers.": "Saya mengubah catatan lapangan yang berantakan menjadi angka yang rapi dan akurat.",
+"On an infrastructure project in Medan, I ran the site office: paying up to 23 daily workers every week, controlling project cash, and reporting progress to the main contractor. When manual Excel recaps kept going wrong, I built payroll and petty cash apps that the project admin still uses every day.": "Di proyek infrastruktur di Medan, saya menjalankan administrasi lapangan: membayar gaji mingguan hingga 23 pekerja harian, mengontrol kas proyek, dan melaporkan progres ke kontraktor utama. Saat rekap Excel manual terus salah, saya membangun aplikasi gaji dan kas kecil yang masih dipakai admin proyek setiap hari.",
+"Now I want to bring that hands-on discipline, plus data skills certified by RevoU, to an admin, finance, or data team.": "Kini saya ingin membawa kedisiplinan lapangan itu, ditambah keahlian data bersertifikat RevoU, ke tim admin, keuangan, atau data.",
+"RevoU Certificate of Excellence": "Certificate of Excellence RevoU",
+"Presented to Telkom’s Head of Analytics": "Presentasi di depan Head of Analytics Telkom",
+"2 self-built apps in daily use": "2 aplikasi buatan sendiri dipakai setiap hari",
+"I studied management with a finance concentration at Universitas Harapan Medan and wrote my thesis on what drives bank stock returns, using panel data regression in EViews. After graduating, I learned the work hands-on on the BRT utility relocation project, often running the site on my own, including night shifts and a 2 a.m. emergency repair.": "Saya lulusan S1 Manajemen konsentrasi keuangan dari Universitas Harapan Medan, dengan skripsi tentang faktor yang memengaruhi return saham perbankan menggunakan regresi data panel di EViews. Setelah lulus, saya belajar langsung di proyek relokasi utilitas BRT, sering memimpin lapangan sendiri, termasuk shift malam dan perbaikan darurat pukul 02.00 dini hari.",
+"Alongside that, I earned RevoU’s Certificate of Excellence in data analytics and founded Nas-AI, an AI data analyst concept for small businesses. What I enjoy most is the same in every role: finding where the numbers do not add up and fixing the process behind them.": "Selain itu, saya meraih Certificate of Excellence RevoU di bidang analisis data dan mendirikan Nas-AI, konsep analis data berbasis AI untuk UMKM. Yang paling saya sukai di setiap peran sama: menemukan angka yang tidak cocok dan memperbaiki proses di baliknya.",
 "Nas-AI Data Analytics Center: AI Data Analyst Team for SMEs": "Nas-AI Data Analytics Center: Tim Analis Data AI untuk UMKM",
 "Personal startup project (pre-release) • Python, SQL, CrewAI • Head of Analysis: designed the workflow and quality standards; code written with AI assistance": "Proyek startup pribadi (pra-rilis) • Python, SQL, CrewAI • Head of Analysis: merancang alur kerja dan standar mutu; kode ditulis dengan bantuan AI",
 "AI Agents • Data Quality": "Agen AI • Kualitas Data",
