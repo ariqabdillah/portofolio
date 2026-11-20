@@ -2245,6 +2245,10 @@
       <div id="chatChips" class="flex gap-1.5 overflow-x-auto custom-scrollbar px-3 pt-2 pb-1.5 border-t border-console-border"></div>
 
       <form id="chatForm" class="flex items-end gap-2 px-3 pb-3 pt-1.5" onsubmit="chatSubmit(event)">
+        <input id="chatFile" type="file" accept="image/*" class="hidden">
+        <button id="chatAttach" type="button" aria-label="Upload a job ad image" title="Upload a job ad image" class="shrink-0 w-10 h-10 rounded-xl bg-console-bg border border-console-border text-slate-300 hover:text-white hover:border-blue-500 disabled:opacity-40 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px]"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+        </button>
         <textarea id="chatInput" rows="1" maxlength="3000" placeholder="Ask, or paste a job ad..." class="flex-1 resize-none max-h-24 px-3 py-2.5 rounded-xl bg-console-bg border border-console-border text-[16px] md:text-[13px] text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"></textarea>
         <button id="chatSend" type="submit" aria-label="Send" class="shrink-0 w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
@@ -2266,7 +2270,8 @@
           note: 'AI can make mistakes. Please confirm details with Ariq.', open: 'Open chat', rate: 'Rate this chat',
           hello: "Hi! 👋 I'm Ariq's assistant. Ask me anything about his experience, skills or projects. Recruiters: paste a job ad and I'll check how Ariq fits, point by point.",
           chips: { match: '🎯 Match a Job Ad', why: 'Why Hire Ariq?', skills: 'Skills & Tools', projects: 'Featured Projects', status: 'Work Status', quiz: '🎮 Guess the Insight', cv: 'Download CV', contact: 'Contact Ariq' },
-          matchIntro: "Paste the job ad (title + requirements) in the box below and send it. I'll go through each requirement and show Ariq's real evidence, and be honest about any gaps.",
+          matchIntro: "Upload a photo or screenshot of the job ad with the 📷 button, or paste its text below. I'll go through each requirement and show Ariq's real evidence, and be honest about any gaps.",
+          uploadBtn: '📷 Upload Job Ad Image', imageSent: 'Job ad image', imageAsk: 'Please check how Ariq fits this job ad.', imageBad: "Sorry, I couldn't read that file. Please try a JPG or PNG image.", reading: 'Reading the image',
           suggestLabel: 'You could also ask:',
           act: { cv: 'Download CV', wa: 'WhatsApp Ariq', email: 'Email Ariq', projects: 'Open Projects', experience: 'Open Experience', certificates: 'Open Certificates', 'demo:payroll': 'Try Payroll App', 'demo:pettycash': 'Try Petty Cash App', nasai: 'Visit nasdac.my.id' },
           thinking: 'Thinking', fallback: "My AI brain is taking a short break 😅 Here are the quick answers instead, or reach Ariq directly:",
@@ -2301,7 +2306,8 @@
           note: 'AI bisa keliru. Mohon konfirmasi detail ke Ariq.', open: 'Buka chat', rate: 'Beri nilai chat ini',
           hello: 'Halo! 👋 Saya asisten Ariq. Tanyakan apa saja tentang pengalaman, skill, atau proyeknya. Untuk HR: tempel iklan lowongan, nanti saya cek kecocokan Ariq poin per poin.',
           chips: { match: '🎯 Cocokkan Lowongan', why: 'Kenapa Rekrut Ariq?', skills: 'Skill & Tools', projects: 'Proyek Unggulan', status: 'Status Kerja', quiz: '🎮 Tebak Insight', cv: 'Download CV', contact: 'Hubungi Ariq' },
-          matchIntro: 'Tempel iklan lowongannya (posisi + kualifikasi) di kotak bawah lalu kirim. Saya cek setiap kualifikasi dengan bukti nyata dari pengalaman Ariq, dan jujur jika ada yang belum dimiliki.',
+          matchIntro: 'Unggah foto atau screenshot iklan lowongan lewat tombol 📷, atau tempel teksnya di bawah. Saya cek setiap kualifikasi dengan bukti nyata dari pengalaman Ariq, dan jujur jika ada yang belum dimiliki.',
+          uploadBtn: '📷 Unggah Gambar Lowongan', imageSent: 'Gambar lowongan', imageAsk: 'Tolong cek kecocokan Ariq dengan lowongan ini.', imageBad: 'Maaf, file itu tidak bisa dibaca. Coba gambar JPG atau PNG.', reading: 'Membaca gambar',
           suggestLabel: 'Bisa juga tanya:',
           act: { cv: 'Download CV', wa: 'WhatsApp Ariq', email: 'Email Ariq', projects: 'Buka Proyek', experience: 'Buka Pengalaman', certificates: 'Buka Sertifikat', 'demo:payroll': 'Coba Aplikasi Gaji', 'demo:pettycash': 'Coba Aplikasi Kas Kecil', nasai: 'Kunjungi nasdac.my.id' },
           thinking: 'Sedang berpikir', fallback: 'AI saya sedang istirahat sebentar 😅 Silakan pakai jawaban cepat ini, atau hubungi Ariq langsung:',
@@ -2435,7 +2441,7 @@
         if (busy) return;
         if (key === 'quiz') return startQuiz(label);
         bubble('user', esc(label));
-        if (key === 'match') { bubble('bot', fmt(t().matchIntro)); input.focus(); return; }
+        if (key === 'match') { bubble('bot', fmt(t().matchIntro)); actions([{ label: t().uploadBtn, onClick: () => fileIn.click(), primary: true }]); return; }
         bubble('bot', fmt(t().answers[key]));
         if (key === 'projects') actions([{ label: t().openProjects, onClick: goTab('projects') }, aiAction('demo:payroll'), aiAction('demo:pettycash')]);
         else if (key === 'skills') actions([{ label: t().openCreds, onClick: goTab('credentials') }, cvAction()]);
@@ -2475,21 +2481,27 @@
       }
 
       // ----- AI chat -----
-      function typing() {
-        return bubble('bot', '<span class="inline-flex items-center gap-1 text-slate-400">' + t().thinking + '<span class="chat-dot">.</span><span class="chat-dot" style="animation-delay:.2s">.</span><span class="chat-dot" style="animation-delay:.4s">.</span></span>').parentElement;
+      function typing(label) {
+        return bubble('bot', '<span class="inline-flex items-center gap-1 text-slate-400">' + (label || t().thinking) + '<span class="chat-dot">.</span><span class="chat-dot" style="animation-delay:.2s">.</span><span class="chat-dot" style="animation-delay:.4s">.</span></span>').parentElement;
       }
       function showFallback() {
         bubble('bot', fmt(t().fallback));
         contactActions();
       }
-      async function ask(text) {
-        busy = true; send.disabled = true;
-        bubble('user', esc(text));
-        history.push({ role: 'user', content: text });
-        const dots = typing();
+      async function ask(text, image) {
+        busy = true; send.disabled = true; attach.disabled = true;
+        if (image) {
+          const b = bubble('user', '<img src="data:' + image.mime + ';base64,' + image.data + '" alt="" class="max-h-48 rounded-lg mb-1">' + (text ? esc(text) : '<span class="text-blue-100 text-[11px]">' + esc(t().imageSent) + '</span>'));
+          b.querySelector('img').onload = scroll;
+        } else bubble('user', esc(text));
+        // History keeps text only; the image goes with this one request
+        history.push({ role: 'user', content: image ? '[' + t().imageSent + '] ' + (text || t().imageAsk) : text });
+        const dots = typing(image ? t().reading : null);
         try {
           if (aiDown) throw new Error('down');
-          const r = await post('/api/chat', { messages: history.slice(-16), lang: L() });
+          const payload = { messages: history.slice(-16), lang: L() };
+          if (image) payload.image = image;
+          const r = await post('/api/chat', payload);
           const data = await r.json().catch(() => ({}));
           if (!r.ok || !data.reply) throw new Error('fallback');
           dots.remove();
@@ -2497,7 +2509,7 @@
           bubble('bot', fmt(data.reply));
           const acts = (Array.isArray(data.actions) ? data.actions : []).map(aiAction).filter(Boolean);
           if (acts.length) actions(acts);
-          suggestions(Array.isArray(data.suggestions) ? data.suggestions.slice(0, 3) : [], text);
+          suggestions(Array.isArray(data.suggestions) ? data.suggestions.slice(0, 3) : [], text || undefined);
           aiAnswers++;
         } catch (e) {
           dots.remove();
@@ -2506,7 +2518,7 @@
           showFallback();
           setTimeout(() => { aiDown = false; }, 60000);
         } finally {
-          busy = false; send.disabled = false; input.focus();
+          busy = false; send.disabled = false; attach.disabled = false; if (window.innerWidth >= 768) input.focus();
         }
       }
       window.chatSubmit = function (ev) {
@@ -2517,6 +2529,44 @@
         input.value = ''; input.style.height = '';
         ask(text);
       };
+      // ----- Image upload (job ad photo or screenshot) -----
+      // Shrinks the photo in the browser so it uploads fast on mobile data
+      function shrinkImage(file) {
+        return new Promise((resolve, reject) => {
+          const url = URL.createObjectURL(file);
+          const img = new Image();
+          img.onload = () => {
+            URL.revokeObjectURL(url);
+            let max = 1600, q = 0.85, out = '';
+            for (let i = 0; i < 5; i++) {
+              const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+              const c = document.createElement('canvas');
+              c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+              const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+              out = c.toDataURL('image/jpeg', q).split(',')[1] || '';
+              if (out.length < 1400000) break;
+              max = Math.round(max * 0.8); q = Math.max(0.6, q - 0.08);
+            }
+            out ? resolve({ mime: 'image/jpeg', data: out }) : reject(new Error('empty'));
+          };
+          img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode')); };
+          img.src = url;
+        });
+      }
+      const attach = document.getElementById('chatAttach');
+      const fileIn = document.getElementById('chatFile');
+      attach.onclick = () => { if (!busy) fileIn.click(); };
+      fileIn.onchange = async () => {
+        const f = fileIn.files && fileIn.files[0];
+        fileIn.value = '';
+        if (!f || busy) return;
+        let image;
+        try { image = await shrinkImage(f); } catch (e) { bubble('bot', esc(t().imageBad)); return; }
+        const text = input.value.trim().slice(0, 3000);
+        input.value = ''; input.style.height = '';
+        ask(text, image);
+      };
+
       input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('chatForm').requestSubmit(); } });
       input.addEventListener('input', () => { input.style.height = ''; input.style.height = Math.min(input.scrollHeight, 96) + 'px'; });
 
@@ -2548,6 +2598,7 @@
         document.getElementById('chatNote').textContent = t().note;
         document.getElementById('chatRateBtn').title = t().rate;
         document.getElementById('chatLauncher').setAttribute('aria-label', t().open);
+        attach.title = attach.ariaLabel = t().uploadBtn.replace('📷 ', '');
         input.placeholder = t().placeholder;
         renderChips();
         if (started && log.children.length === 1) log.firstChild.firstChild.innerHTML = fmt(t().hello);
