@@ -2397,11 +2397,14 @@
         if (m && PROJECT_NAMES[m[1]]) { const n = PROJECT_NAMES[m[1]]; return { label: '📂 ' + (typeof n === 'string' ? n : n[L()]), onClick: goProject(m[1]) }; }
         return null;
       }
-      function suggestions(list) {
+      // The label follows the language the visitor wrote in, not only the site language
+      const looksIndonesian = s => /\b(apa|apakah|bagaimana|kenapa|mengapa|siapa|yang|dan|dengan|untuk|bisa|saya|tidak|kapan|berapa|lowongan)\b/i.test(s || '');
+      function suggestions(list, userText) {
         if (!list || !list.length) return;
         const wrap = document.createElement('div');
         wrap.className = 'pl-1 space-y-1';
-        wrap.innerHTML = '<p class="text-[10px] text-slate-500">' + esc(t().suggestLabel) + '</p>';
+        const label = userText === undefined ? t().suggestLabel : (looksIndonesian(userText) ? T.id.suggestLabel : T.en.suggestLabel);
+        wrap.innerHTML = '<p class="text-[10px] text-slate-500">' + esc(label) + '</p>';
         const row = document.createElement('div');
         row.className = 'flex flex-wrap gap-1.5';
         list.forEach(q => {
@@ -2494,7 +2497,7 @@
           bubble('bot', fmt(data.reply));
           const acts = (Array.isArray(data.actions) ? data.actions : []).map(aiAction).filter(Boolean);
           if (acts.length) actions(acts);
-          suggestions(Array.isArray(data.suggestions) ? data.suggestions.slice(0, 3) : []);
+          suggestions(Array.isArray(data.suggestions) ? data.suggestions.slice(0, 3) : [], text);
           aiAnswers++;
         } catch (e) {
           dots.remove();
