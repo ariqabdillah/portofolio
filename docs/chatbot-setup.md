@@ -33,3 +33,14 @@ Optional: `GEMINI_MODEL` / `GROQ_MODEL` change the model if the default model is
 - `api/chat.js`: Gemini first. If it errors or the quota runs out, it switches to Groq. If both fail, the chat shows the FAQ buttons and WhatsApp.
 - `api/_knowledge.js`: the facts the bot is allowed to use. **Update this file whenever the portfolio changes.**
 - `api/feedback.js`: forwards feedback to Apps Script. The keys never appear in the browser.
+
+## Update November 2026: smarter assistant
+
+- `api/_knowledge.js` holds every fact the assistant may use (BRT details, skill levels, thesis, Nas-AI, availability). Update it whenever the site or CV changes.
+- The model ends each reply with two hidden lines, `ACTIONS:` and `SUGGEST:`. `api/chat.js` (`splitReply`) strips them and returns `{ reply, actions, suggestions }`; the widget turns them into buttons (CV, WhatsApp, project, live demo) and follow-up questions. Unknown action keys are ignored.
+- Job matching: a visitor can paste a job ad (up to 3,000 characters). The assistant answers with a fit score and one ✅/🟡/⚠️ line per requirement.
+- Personal questions (religion, age, marital status, etc.) are declined politely.
+
+## Visitor statistics (Vercel Web Analytics)
+
+The page loads `/_vercel/insights/script.js`. To see visitors, open the project in Vercel → **Analytics** → **Enable** (free on the Hobby plan). Data appears after the next deploy.
