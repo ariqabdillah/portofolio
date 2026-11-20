@@ -15,6 +15,12 @@ const TIMEOUT_MS = 15000;
 const MAX_MESSAGES = 16;
 const MAX_USER_CHARS = 3000;      // long enough to paste a job ad
 const MAX_ASSISTANT_CHARS = 1500;
+const IMAGE_TIMEOUT_MS = 28000;
+const MAX_IMAGE_B64 = 3500000;     // ~2.6 MB; the browser compresses photos well below this
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+// Groq model that can read images (fallback when Gemini is unavailable)
+const GROQ_VISION_MODEL = process.env.GROQ_VISION_MODEL || 'meta-llama/llama-4-scout-17b-16e-instruct';
+const IMAGE_NOTE = '[The visitor attached an image, most likely a photo or screenshot of a job advertisement. Read it carefully.]';
 
 const ACTION_KEYS = ['cv', 'wa', 'email', 'projects', 'experience', 'certificates', 'demo:payroll', 'demo:pettycash', 'nasai',
   'project:nasai', 'project:payroll', 'project:pettycash', 'project:ocasegmentation', 'project:ocaperformance', 'project:revobank', 'project:creditech'];
@@ -41,13 +47,19 @@ HOW TO ANSWER
 - Lists use "• " at the start of each line (never "-" or numbers). No section titles such as "Key evidence:" or "Bukti utama" on their own line.
 - Do not add claims the facts do not state, such as "improved efficiency" or "strong analytics skills"; let the evidence speak.
 
+IMAGES
+- The visitor may attach an image. If it is a job advertisement (poster, screenshot, flyer), read the position names and requirements from it and use JOB MATCHING MODE.
+- If the ad lists several positions, start with one line per position ("Finance: 4/5", max 4 positions), then give the detailed bullets only for the best-fit position, and say the visitor can ask about another one.
+- If the image is not a job ad, or is unreadable, say briefly what you can see and that you can only check job ads against Ariq's profile. Never describe people in images.
+- Do not repeat the ad's email address, phone number or company contact details.
+
 JOB MATCHING MODE
-If the user pastes a job advertisement or a list of requirements:
+If the user pastes or attaches a job advertisement or a list of requirements:
 1. First line: "**Fit: X/5**" plus the role name and a one-line verdict.
 2. Then one bullet per key requirement (max 7): "✅" when the facts show it, with the specific proof; "🟡" when partly met or transferable, with the closest proof; "⚠️" when not met, stated honestly with "ready to learn" where reasonable.
 3. Mention relocation/shift willingness only if the ad needs it. If the ad needs something the facts flag to confirm (car licence, own laptop, salary), tell them to confirm with Ariq.
 4. End with one sentence on the strongest reason to interview him.
-Up to about 220 words in this mode. Score honestly: 5 = nearly all requirements proven, 3 = about half, 1 = mostly unmet.
+Up to about 220 words in this mode (about 250 when the ad has several positions). Score honestly: 5 = nearly all requirements proven, 3 = about half, 1 = mostly unmet.
 
 LANGUAGE AND FORMAT
 - Reply in the language of the user's last message. If unclear, use ${language}.
@@ -96,9 +108,9 @@ function rateLimited(ip) {
   return list.length > 15;
 }
 
-async function withTimeout(promiseFn) {
+async function withTimeout(promiseFn, ms) {
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => ctrl.abort(), ms || TIMEOUT_MS);
   try { return await promiseFn(ctrl.signal); } finally { clearTimeout(timer); }
 }
 
@@ -166,11 +178,14 @@ async function geminiCall(key, modelId, messages, lang) {
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemPrompt(lang) }] },
-        contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
+        contents: messages.map(m => ({
+          role: m.role === 'assistant' ? 'model' : 'user',
+          parts: m.image ? [{ inlineData: { mimeType: m.image.mime, data: m.image.data } }, { text: IMAGE_NOTE + '\n' + m.content }] : [{ text: m.content }]
+        })),
         generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
       })
     }
-  ));
+  ), hasImage(messages) ? IMAGE_TIMEOUT_MS : TIMEOUT_MS);
   if (!res.ok) throw httpError('gemini ' + modelId, res);
   const data = await res.json();
   const parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
@@ -182,8 +197,11 @@ async function geminiCall(key, modelId, messages, lang) {
 async function askGroq(messages, lang) {
   const key = process.env.GROQ_API_KEY;
   if (!key) throw new Error('groq: no key');
+  if (hasImage(messages)) return groqCall(key, GROQ_VISION_MODEL, messages, lang);
   return withModel('groq', key, m => groqCall(key, m, messages, lang), pickGroqModel);
 }
+
+const hasImage = messages => messages.some(m => m.image);
 
 async function groqCall(key, modelId, messages, lang) {
   const res = await withTimeout(signal => fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -194,9 +212,11 @@ async function groqCall(key, modelId, messages, lang) {
       model: modelId,
       temperature: 0.3,
       max_tokens: 900,
-      messages: [{ role: 'system', content: systemPrompt(lang) }, ...messages]
+      messages: [{ role: 'system', content: systemPrompt(lang) }, ...messages.map(m => m.image
+        ? { role: 'user', content: [{ type: 'text', text: IMAGE_NOTE + '\n' + m.content }, { type: 'image_url', image_url: { url: 'data:' + m.image.mime + ';base64,' + m.image.data } }] }
+        : { role: m.role, content: m.content })]
     })
-  }));
+  }), hasImage(messages) ? IMAGE_TIMEOUT_MS : TIMEOUT_MS);
   if (!res.ok) throw httpError('groq ' + modelId, res);
   const data = await res.json();
   const text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content || '').trim();
@@ -219,6 +239,14 @@ module.exports = async (req, res) => {
     .map(m => ({ role: m.role, content: m.content.slice(0, m.role === 'user' ? MAX_USER_CHARS : MAX_ASSISTANT_CHARS) }));
   while (messages.length && messages[0].role !== 'user') messages.shift();
   if (!messages.length || messages[messages.length - 1].role !== 'user') return res.status(400).json({ error: 'input' });
+
+  // Optional image (job ad photo) attached to the latest message
+  const img = body && body.image;
+  if (img) {
+    const ok = typeof img.data === 'string' && IMAGE_TYPES.includes(img.mime) && img.data.length <= MAX_IMAGE_B64 && /^[A-Za-z0-9+/=]+$/.test(img.data.slice(0, 200));
+    if (!ok) return res.status(413).json({ error: 'image' });
+    messages[messages.length - 1].image = { mime: img.mime, data: img.data };
+  }
 
   const errors = [];
   for (const [name, fn] of [['gemini', askGemini], ['groq', askGroq]]) {

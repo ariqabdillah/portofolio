@@ -44,3 +44,10 @@ Optional: `GEMINI_MODEL` / `GROQ_MODEL` change the model if the default model is
 ## Visitor statistics (Vercel Web Analytics)
 
 The page loads `/_vercel/insights/script.js`. To see visitors, open the project in Vercel → **Analytics** → **Enable** (free on the Hobby plan). Data appears after the next deploy.
+
+## Reading job ad images (November 2026)
+
+- The 📷 button in the chat lets a visitor upload a photo or screenshot of a job ad. The browser shrinks it to a JPEG (max ~1600 px, usually 150–400 KB) and sends it as `image: { mime, data }` with the latest message.
+- `api/chat.js` passes it to Gemini as `inlineData`. If Gemini fails, Groq uses a vision model (`GROQ_VISION_MODEL`, default `meta-llama/llama-4-scout-17b-16e-instruct`; set the env var if Groq renames it).
+- Only the text goes into the chat history; the image is sent once.
+- `vercel.json` raises the chat function limit to 60 s because reading an image takes longer.
